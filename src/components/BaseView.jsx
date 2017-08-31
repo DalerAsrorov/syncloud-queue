@@ -24,12 +24,12 @@ const SearchListWrapper = styled.section`
 	background: #fff;
 `;
 
-export default class Base extends PureComponent {
+export default class BaseView extends PureComponent {
 	render() {
 		return (
 			<BaseWrapper>
-				<PlaylistWrapper>Playlists will be here</PlaylistWrapper>
-				<SearchListWrapper>Search and lists will be here.</SearchListWrapper>
+				<PlaylistWrapper>Playlists here</PlaylistWrapper>
+				<SearchListWrapper />
 			</BaseWrapper>
 		);
 	}

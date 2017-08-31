@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
-import Base from './Base';
+import Base from '../containers/Base';
 
 const MainViewWrapper = styled.div`
 	height: 100vh;
