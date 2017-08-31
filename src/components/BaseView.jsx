@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import SearchControl from '../containers/SearchControl';
 
 const BaseWrapper = styled.div`
 	height: 100%;
@@ -17,7 +18,7 @@ const PlaylistWrapper = styled.section`
 	background: #fff;
 `;
 
-const SearchListWrapper = styled.section`
+const SearchControlWrapper = styled.section`
 	padding: 10px;
 	flex: 1;
 	margin-left: 10px;
@@ -29,7 +30,9 @@ export default class BaseView extends PureComponent {
 		return (
 			<BaseWrapper>
 				<PlaylistWrapper>Playlists here</PlaylistWrapper>
-				<SearchListWrapper />
+				<SearchControlWrapper>
+					<SearchControl />
+				</SearchControlWrapper>
 			</BaseWrapper>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
-import Base from '../containers/Base';
+import BaseView from './BaseView';
 
 const MainViewWrapper = styled.div`
 	height: 100vh;
@@ -23,7 +23,7 @@ export default class ManView extends PureComponent {
 		return (
 			<MainViewWrapper>
 				<Nav />
-				<Base />
+				<BaseView />
 			</MainViewWrapper>
 		);
 	}
