@@ -4,12 +4,12 @@ import FaGithub from 'react-icons/lib/fa/github';
 
 const NavTitle = styled.h2`
 	display: inline-block;
-	width: 90%;
+	width: 85%;
 `;
 
 const IconLinkWrapper = styled.a`
 	text-decoration: none;
-	font-size: 2em;
+	font-size: 2.5em;
 	display: inline-block;
 	color: #000;
 	transition: color 0.3s ease-in;
