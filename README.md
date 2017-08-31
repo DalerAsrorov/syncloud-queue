@@ -9,17 +9,21 @@ Create your own tracklist by searching sounds that you like and adding them to y
 - https://developers.soundcloud.com/docs/api/reference#tracks
 
 ## Global state 
-```javascript 
+```javascript
 {
-    // if true, the songs are played sequentially 
-    // in the order they were placed by the user 
+    // if true, the songs are played sequentially
+    // in the order they were placed by the user
+    // otherwise, play in repeat
+    // DEFAULT: true
     autoplay: boolean,
 
     // an ID of the current song that is currently 
     // playing in the tracklist
+    // DEFAULT: -1
     currentSongPlaying: number,
     
     // a global queue of tracks added by the user
+    // Default: []
     tracklist: array
 }
 ```
