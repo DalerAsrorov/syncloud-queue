@@ -6,7 +6,7 @@ import './App.css';
 
 class App extends Component {
 	render() {
-		return <Main />;
+		return <Main className="main" />;
 	}
 }
 
