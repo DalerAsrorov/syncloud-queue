@@ -12,6 +12,11 @@ const IconLinkWrapper = styled.a`
 	font-size: 2em;
 	display: inline-block;
 	color: #000;
+	transition: color 0.3s ease-in;
+
+	&:hover {
+		color: #e49a53;
+	}
 `;
 
 const NavWrapper = styled.nav`
