@@ -13,7 +13,7 @@ const MainViewWrapper = styled.div`
 	flex-wrap: nowrap;
 	white-space: pre;
 
-	& > * {
+	& * {
 		border-radius: 10px;
 	}
 `;
