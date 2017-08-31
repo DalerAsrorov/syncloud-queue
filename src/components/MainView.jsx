@@ -12,7 +12,9 @@ export default class ManView extends PureComponent {
 	render() {
 		return (
 			<MainViewWrapper>
-				<h3>Hello there </h3>
+				<nav className="navbar">
+					<h2>Syncloud Queue</h2>
+				</nav>
 			</MainViewWrapper>
 		);
 	}
