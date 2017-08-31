@@ -1,11 +1,5 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export default class SearchResults extends PureComponent {
-	render() {
-		const { results } = this.props;
-		console.log(results);
-
-		return <h3> Search results will be shown here </h3>;
-	}
-}
+const SearchResults = ({ results }) => <h3> Search results will be shown here {JSON.stringify(results)} </h3>;
+export default SearchResults;

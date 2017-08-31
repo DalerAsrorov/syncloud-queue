@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+// @flow
+
+import React from 'react';
 import styled from 'styled-components';
 
-export default class Search extends PureComponent {
-	render() {
-		const { onSearchStart } = this.props;
-		console.log(onSearchStart);
-		return <h3> Search form input will be shown here </h3>;
-	}
-}
+const Search = ({ onSearchStart }) => {
+	console.log(onSearchStart);
+	return <h3> Search form input will be shown here </h3>;
+};
+
+export default Search;

@@ -1,12 +1,18 @@
+// @flow
+
 import React, { Component } from 'react';
 import SearchView from '../components/SearchView';
 
-export default class SearchControl extends Component {
+type State = {
+	foundTracks: Array<Object>
+};
+
+export default class SearchControl extends Component<State> {
 	state = {
 		foundTracks: []
 	};
 
-	_handleSearchStart = searchTerm => {
+	_handleSearchStart = (searchTerm: String) => {
 		if (searchTerm.length !== 0) {
 			console.log('Make a get request here please');
 		}

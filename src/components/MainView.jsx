@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react';
+// @flow
+
+import React from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
 import BaseView from './BaseView';
@@ -18,13 +20,13 @@ const MainViewWrapper = styled.div`
 	}
 `;
 
-export default class ManView extends PureComponent {
-	render() {
-		return (
-			<MainViewWrapper>
-				<Nav />
-				<BaseView />
-			</MainViewWrapper>
-		);
-	}
-}
+const MainView = () => {
+	return (
+		<MainViewWrapper>
+			<Nav />
+			<BaseView />
+		</MainViewWrapper>
+	);
+};
+
+export default MainView;

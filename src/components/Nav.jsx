@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react';
+// @flow
+
+import React from 'react';
 import styled from 'styled-components';
 import FaGithub from 'react-icons/lib/fa/github';
 
@@ -26,15 +28,15 @@ const NavWrapper = styled.nav`
 
 const REPO_LINK = 'https://github.com/DalerAsrorov/syncloud-queue';
 
-export default class Nav extends PureComponent {
-	render() {
-		return (
-			<NavWrapper>
-				<NavTitle> Syncloud Queue</NavTitle>
-				<IconLinkWrapper target="__blank" href={REPO_LINK}>
-					<FaGithub />
-				</IconLinkWrapper>
-			</NavWrapper>
-		);
-	}
-}
+const Nav = () => {
+	return (
+		<NavWrapper>
+			<NavTitle> Syncloud Queue</NavTitle>
+			<IconLinkWrapper target="__blank" href={REPO_LINK}>
+				<FaGithub />
+			</IconLinkWrapper>
+		</NavWrapper>
+	);
+};
+
+export default Nav;

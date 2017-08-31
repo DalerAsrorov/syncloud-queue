@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react';
+// @flow
+
+import React from 'react';
 import styled from 'styled-components';
 import SearchControl from '../containers/SearchControl';
 
@@ -17,6 +19,7 @@ const PlaylistWrapper = styled.section`
 	flex: 400px 0;
 	background: #fff;
 `;
+// @flow
 
 const SearchControlWrapper = styled.section`
 	padding: 10px;
@@ -25,15 +28,15 @@ const SearchControlWrapper = styled.section`
 	background: #fff;
 `;
 
-export default class BaseView extends PureComponent {
-	render() {
-		return (
-			<BaseWrapper>
-				<PlaylistWrapper>Playlists here</PlaylistWrapper>
-				<SearchControlWrapper>
-					<SearchControl />
-				</SearchControlWrapper>
-			</BaseWrapper>
-		);
-	}
-}
+const BaseView = () => {
+	return (
+		<BaseWrapper>
+			<PlaylistWrapper>Playlists here</PlaylistWrapper>
+			<SearchControlWrapper>
+				<SearchControl />
+			</SearchControlWrapper>
+		</BaseWrapper>
+	);
+};
+
+export default BaseView;

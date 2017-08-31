@@ -1,3 +1,5 @@
+// @flow
+
 import React, { PureComponent } from 'react';
 import Search from './Search';
 import SearchResults from './SearchResults';
