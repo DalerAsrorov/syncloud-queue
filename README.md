@@ -7,3 +7,19 @@ Create your own tracklist by searching sounds that you like and adding them to y
 - https://github.com/troybetz/react-soundcloud-widget - React widget component
 - https://developers.soundcloud.com/docs/api/guide#search
 - https://developers.soundcloud.com/docs/api/reference#tracks
+
+## Global state 
+```javascript 
+{
+    // if true, the songs are played sequentially 
+    // in the order they were placed by the user 
+    autoplay: boolean,
+
+    // an ID of the current song that is currently 
+    // playing in the tracklist
+    currentSongPlaying: number,
+    
+    // a global queue of tracks added by the user
+    tracklist: array
+}
+```
