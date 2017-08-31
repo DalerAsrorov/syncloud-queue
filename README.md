@@ -23,7 +23,7 @@ Create your own tracklist by searching sounds that you like and adding them to y
     currentSongPlaying: number,
     
     // a global queue of tracks added by the user
-    // Default: []
+    // DEFAULT: []
     tracklist: array
 }
 ```
