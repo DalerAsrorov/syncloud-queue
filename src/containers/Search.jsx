@@ -17,6 +17,7 @@ const SearchInput = styled.input`
 	font-size: 28px;
 	border-radius: 0;
 	width: -webkit-fill-available;
+	border-radius: 0 !important;
 `;
 
 const SearchForm = styled.form``;
@@ -29,8 +30,11 @@ export default class Search extends Component<Props, State> {
 	_handleSubmit = (event: SyntheticInputEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		const { searchTerm } = this.state;
+		const { onSearchStart } = this.props;
 
-		console.log(`Search term: ${searchTerm}`);
+		if (onSearchStart) {
+			onSearchStart(searchTerm);
+		}
 	};
 
 	_updateSearchFieldState = (event: SyntheticInputEvent<HTMLInputElement>) => {
@@ -45,7 +49,7 @@ export default class Search extends Component<Props, State> {
 				<SearchForm onSubmit={this._handleSubmit}>
 					<SearchInput
 						onChange={this._updateSearchFieldState}
-						placeholder="Search artists, playlists, tracks, and more"
+						placeholder="Search artists, playlists, tracks..."
 						name="search"
 					/>
 				</SearchForm>

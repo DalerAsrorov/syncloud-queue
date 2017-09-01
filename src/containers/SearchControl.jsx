@@ -14,7 +14,7 @@ export default class SearchControl extends Component<{}, State> {
 
 	_handleSearchStart = (searchTerm: String) => {
 		if (searchTerm.length !== 0) {
-			console.log('Make a get request here please');
+			console.log(searchTerm);
 		}
 	};
 
