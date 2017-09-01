@@ -7,7 +7,6 @@ import Playlist from './Playlist';
 const SearchResultsWrapper = styled.div`
 	display: block;
 	height: 100%;
-	margin-top: 10px;
 	border-radius: 0 !important;
 `;
 

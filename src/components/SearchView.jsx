@@ -15,7 +15,6 @@ const SearchWrapper = styled.div`flex: 50px 0;`;
 const SearchResultsWrapper = styled.div`
 	flex: 1;
 	height: 100%;
-	min-height: 500px;
 	border-radius: 0 !important;
 	border: 1px solid #ddd;
 	margin-top: 5px;
