@@ -1,5 +1,7 @@
 <div>
-    <img height="100" width="140" style="margin: 0 auto;" src="src/images/syncloud.png"  />
+    <a href="https://github.com/DalerAsrorov/syncloud-queue" target="__blank">
+        <img height="200" width="300" src="src/images/syncloud.png"  />
+    </a>
     <h1>SynCloud</h1>
 </div>
 
