@@ -34,10 +34,6 @@ export default class Search extends Component<Props, State> {
 	};
 
 	render() {
-		return (
-			<div>
-				<SearchForm onSubmit={this._handleSubmit} onChange={this._updateSearchFieldState} />
-			</div>
-		);
+		return <SearchForm onSubmit={this._handleSubmit} onChange={this._updateSearchFieldState} />;
 	}
 }
