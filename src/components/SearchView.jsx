@@ -18,6 +18,7 @@ const SearchResultsWrapper = styled.div`
 	min-height: 500px;
 	border-radius: 0 !important;
 	border: 1px solid #ddd;
+	margin-top: 5px;
 `;
 
 const SearchView = (props: { onSearchStart: Function, results: Array<Object> }) => (
