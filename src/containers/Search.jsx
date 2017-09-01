@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import SearchForm from '../components/SearchForm';
 
 type State = {
 	searchTerm: string
@@ -10,17 +11,6 @@ type State = {
 type Props = {
 	onSearchStart: Function
 };
-
-const SearchInput = styled.input`
-	width: 100%;
-	padding: 5px;
-	font-size: 28px;
-	border-radius: 0;
-	width: -webkit-fill-available;
-	border-radius: 0 !important;
-`;
-
-const SearchForm = styled.form``;
 
 export default class Search extends Component<Props, State> {
 	state = {
@@ -46,13 +36,7 @@ export default class Search extends Component<Props, State> {
 	render() {
 		return (
 			<div>
-				<SearchForm onSubmit={this._handleSubmit}>
-					<SearchInput
-						onChange={this._updateSearchFieldState}
-						placeholder="Search artists, playlists, tracks..."
-						name="search"
-					/>
-				</SearchForm>
+				<SearchForm onSubmit={this._handleSubmit} onChange={this._updateSearchFieldState} />
 			</div>
 		);
 	}
