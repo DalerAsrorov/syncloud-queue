@@ -10,10 +10,18 @@ const SearchInput = styled.input`
 	border-radius: 0;
 	width: -webkit-fill-available;
 	border-radius: 0 !important;
-	transition: box-shadow 0.15s linear;
+	border-width: 1px;
+	border-style: groove;
+	transition: box-shadow 0.15s ease;
 
 	&:hover {
 		box-shadow: 0 0 13px #e49a53;
+		border-style: groove;
+		border-color: #ffe4c9;
+	}
+
+	&:focus {
+		outline: 1px solid #e49a53;
 	}
 `;
 
