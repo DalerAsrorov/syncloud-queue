@@ -2,11 +2,12 @@ const initSC = params => {
 	window.SC.initialize(params);
 };
 
-export async function searchQuery(searchTerm = '', limit = 100) {
+export async function searchQuery(searchTerm = '', limit = 100, options = {}) {
 	try {
 		const tracks = await window.SC.get('/tracks', {
 			q: searchTerm,
-			limit
+			limit,
+			...options
 		});
 
 		return tracks;
