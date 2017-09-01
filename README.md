@@ -1,4 +1,4 @@
-# syncloud-queue
+# <div style="display: flex; align-items: center;"><img src="src/images/syncloud.png" style="width: 70px; height: 50px;" /><span style>syncloud-queue</span></div>
 
 Create your own tracklist by searching sounds that you like and adding them to your tracklist queue. You can set the playlist on `autoplay` mode and the tracks will play sequentially.
 
