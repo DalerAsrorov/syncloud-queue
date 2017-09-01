@@ -20,7 +20,7 @@ const MainViewWrapper = styled.div`
 	}
 `;
 
-const MainView = () => (
+const MainView = (props: {}) => (
 	<MainViewWrapper>
 		<Nav />
 		<BaseView />

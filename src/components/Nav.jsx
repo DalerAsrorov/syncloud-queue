@@ -28,7 +28,7 @@ const NavWrapper = styled.nav`
 
 const REPO_LINK = 'https://github.com/DalerAsrorov/syncloud-queue';
 
-const Nav = () => (
+const Nav = (props: {}) => (
 	<NavWrapper>
 		<NavTitle> Syncloud Queue</NavTitle>
 		<IconLinkWrapper target="__blank" href={REPO_LINK}>

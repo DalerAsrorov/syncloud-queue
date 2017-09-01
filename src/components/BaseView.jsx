@@ -28,7 +28,7 @@ const SearchControlWrapper = styled.section`
 	background: #fff;
 `;
 
-const BaseView = () => (
+const BaseView = (props: {}) => (
 	<BaseWrapper>
 		<PlaylistWrapper>Playlists here</PlaylistWrapper>
 		<SearchControlWrapper>
