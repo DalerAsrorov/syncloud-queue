@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Search from './Search';
+import Search from '../containers/Search';
 import SearchResults from './SearchResults';
 
 const SearchView = (props: { onSearchStart: Function, results: Array<Object> }) => (
