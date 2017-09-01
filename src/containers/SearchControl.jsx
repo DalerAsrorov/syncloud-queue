@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import SearchView from '../components/SearchView';
+import { searchQuery } from '../api';
 
 type State = {
 	foundTracks: Array<Object>
@@ -14,8 +15,9 @@ export default class SearchControl extends Component<{}, State> {
 
 	_handleSearchStart = (searchTerm: String) => {
 		if (searchTerm.length !== 0) {
-			console.log(searchTerm);
-			// make request here
+			searchQuery(searchTerm)
+				.then(data => console.log(data))
+				.catch(error => console.error(error));
 		}
 	};
 
