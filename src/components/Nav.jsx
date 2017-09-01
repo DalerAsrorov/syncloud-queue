@@ -28,15 +28,13 @@ const NavWrapper = styled.nav`
 
 const REPO_LINK = 'https://github.com/DalerAsrorov/syncloud-queue';
 
-const Nav = () => {
-	return (
-		<NavWrapper>
-			<NavTitle> Syncloud Queue</NavTitle>
-			<IconLinkWrapper target="__blank" href={REPO_LINK}>
-				<FaGithub />
-			</IconLinkWrapper>
-		</NavWrapper>
-	);
-};
+const Nav = () => (
+	<NavWrapper>
+		<NavTitle> Syncloud Queue</NavTitle>
+		<IconLinkWrapper target="__blank" href={REPO_LINK}>
+			<FaGithub />
+		</IconLinkWrapper>
+	</NavWrapper>
+);
 
 export default Nav;

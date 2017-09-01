@@ -7,7 +7,7 @@ type State = {
 	foundTracks: Array<Object>
 };
 
-export default class SearchControl extends Component<State> {
+export default class SearchControl extends Component<{}, State> {
 	state = {
 		foundTracks: []
 	};

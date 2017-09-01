@@ -20,13 +20,11 @@ const MainViewWrapper = styled.div`
 	}
 `;
 
-const MainView = () => {
-	return (
-		<MainViewWrapper>
-			<Nav />
-			<BaseView />
-		</MainViewWrapper>
-	);
-};
+const MainView = () => (
+	<MainViewWrapper>
+		<Nav />
+		<BaseView />
+	</MainViewWrapper>
+);
 
 export default MainView;

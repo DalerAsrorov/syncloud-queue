@@ -28,15 +28,13 @@ const SearchControlWrapper = styled.section`
 	background: #fff;
 `;
 
-const BaseView = () => {
-	return (
-		<BaseWrapper>
-			<PlaylistWrapper>Playlists here</PlaylistWrapper>
-			<SearchControlWrapper>
-				<SearchControl />
-			</SearchControlWrapper>
-		</BaseWrapper>
-	);
-};
+const BaseView = () => (
+	<BaseWrapper>
+		<PlaylistWrapper>Playlists here</PlaylistWrapper>
+		<SearchControlWrapper>
+			<SearchControl />
+		</SearchControlWrapper>
+	</BaseWrapper>
+);
 
 export default BaseView;

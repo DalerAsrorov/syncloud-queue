@@ -1,10 +1,11 @@
 [ignore]
-<PROJECT_ROOT>/node_modules/styled-components/*
+.*/node_modules/styled-components/.*
 
 [include]
 
 [libs]
 styled-components
+flow-typed/.libdefs.js
 
 [lints]
 

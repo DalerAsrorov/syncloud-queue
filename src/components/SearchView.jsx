@@ -4,15 +4,11 @@ import React, { PureComponent } from 'react';
 import Search from './Search';
 import SearchResults from './SearchResults';
 
-export default class SearchView extends PureComponent {
-	render() {
-		const { onSearchStart, results } = this.props;
+const SearchView = (props: { onSearchStart: Function, results: Array<Object> }) => (
+	<div>
+		<Search onSearchStart={onSearchStart} />
+		<SearchResults results={results} />
+	</div>
+);
 
-		return (
-			<div>
-				<Search onSearchStart={onSearchStart} />
-				<SearchResults results={results} />
-			</div>
-		);
-	}
-}
+export default SearchView;
