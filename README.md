@@ -1,6 +1,6 @@
-<div style="display: flex; flex-flow: column;">
-    <img height="60" width="70" style="display: inline-block;" src="src/images/syncloud.png"  />
-    <h1 style="float: right">SynCloud</h1>
+<div>
+    <img height="100" width="140" style="margin: 0 auto;" src="src/images/syncloud.png"  />
+    <h1>SynCloud</h1>
 </div>
 
 Create your own tracklist by searching sounds that you like and adding them to your tracklist queue. You can set the playlist on `autoplay` mode and the tracks will play sequentially.
