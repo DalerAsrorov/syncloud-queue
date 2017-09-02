@@ -12,7 +12,8 @@ const progressClassName = styled`
     
     & > div {
         background: ${props => props.color};
-        height: 100%;  
+        height: 100%;
+        transition: width .2s ease-in;  
     }
 `;
 
