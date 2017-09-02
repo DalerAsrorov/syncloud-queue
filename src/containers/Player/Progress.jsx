@@ -8,7 +8,7 @@ const progressClassName = styled`
     cursor: pointer;
     width: 100%;
     height: 10px;
-    background: #ddd; 
+    background: ${props => props.background}; 
     
     & > div {
         background: ${props => props.color};
@@ -18,7 +18,8 @@ const progressClassName = styled`
 `;
 
 type Props = {
-    color: string
+    color: string,
+    background: string
 };
 
 export default class Progress extends Component<Props, {}> {
