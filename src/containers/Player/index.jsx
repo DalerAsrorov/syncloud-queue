@@ -7,7 +7,8 @@ import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import PlayPause from './PlayPause';
 
 const PlayerWrapper = styled.article``;
-
+const BASE_COLOR = '#e49a53';
+const COLOR = '#fff';
 const RESOLVE_URL_TEST = 'https://soundcloud.com/daler-asrorov/daler-asrorov-not-a-lullaby-preview-demo';
 
 export default class Player extends Component<{}, {}> {
@@ -19,7 +20,7 @@ export default class Player extends Component<{}, {}> {
         return (
             <PlayerWrapper>
                 <SoundPlayerContainer clientId={getClientID()} resolveUrl={RESOLVE_URL_TEST} onReady={this._trackReady}>
-                    <PlayPause />
+                    <PlayPause background={BASE_COLOR} color={COLOR} />
                 </SoundPlayerContainer>
             </PlayerWrapper>
         );

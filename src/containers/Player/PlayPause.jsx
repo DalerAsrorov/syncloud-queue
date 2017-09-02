@@ -1,26 +1,35 @@
 // @flow
 
 import React, { Component } from 'react';
-import { PlayButton } from 'react-soundplayer/components';
+import styled from 'styled-classnames';
+import { PlayButton, Icons } from 'react-soundplayer/components';
+import FaClockO from 'react-icons/lib/fa/clock-o';
 
-export default class PlayPause extends Component<SCProps, {}> {
-    _handlePlaying = event => {
-        const { playing, soundCloudAudio } = this.props;
+const { NextIconSVG } = Icons;
 
-        console.log('Event _handlePlaying', event);
+const playPauseClassName = styled`
+    width: 60px; 
+    height: 60px; 
+    padding: 3px; 
+    cursor: pointer;
+    background-color: ${props => props.background};
+    color: ${props => props.color}; 
+    border: none;
+    border-radius: 50% !important;
+    
+    & > svg {
+        width: 40%; 
+        height: 70%; 
+    }
+`;
 
-        if (playing) {
-            soundCloudAudio.pause();
-        } else {
-            soundCloudAudio.play();
-        }
-    };
+type Props = {
+    color: string,
+    background: string
+};
 
-    _handleSeeking = event => {
-        console.log('Event seeking:', event);
-    };
-
+export default class PlayPause extends Component<Props, {}> {
     render() {
-        return <PlayButton {...this.props} />;
+        return <PlayButton className={playPauseClassName(this.props)} {...this.props} seekingIcon={<FaClockO />} />;
     }
 }

@@ -9,6 +9,7 @@
 		"react-icons": "^2.2.5",
 		"react-scripts": "1.0.12",
 		"react-soundplayer": "^0.3.6",
+		"styled-classnames": "^2.2.1",
 		"styled-components": "^2.1.2"
 	},
 	"scripts": {
