@@ -5,25 +5,26 @@ import SearchView from '../components/SearchView';
 import { searchQuery } from '../api';
 
 type State = {
-	tracks: Array<Object>
+    tracks: Array<Object>
 };
 
 export default class SearchControl extends Component<{}, State> {
-	state = {
-		tracks: []
-	};
+    state = {
+        tracks: []
+    };
 
-	_handleSearchStart = (searchTerm: String) => {
-		if (searchTerm.length !== 0) {
-			searchQuery(searchTerm)
-				.then(tracks => this.setState({ tracks }))
-				.catch(error => console.error(error));
-		}
-	};
+    _handleSearchStart = (searchTerm: String) => {
+        if (searchTerm.length !== 0) {
+            searchQuery(searchTerm)
+                .then(tracks => this.setState({ tracks }))
+                .catch(error => console.error(error));
+        }
+    };
 
-	render() {
-		const { tracks } = this.state;
+    render() {
+        const { tracks } = this.state;
+        console.log(tracks);
 
-		return <SearchView onSearchStart={this._handleSearchStart} results={tracks} />;
-	}
+        return <SearchView onSearchStart={this._handleSearchStart} results={tracks} />;
+    }
 }
