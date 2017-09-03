@@ -5,7 +5,7 @@ import Timer from './Timer';
 
 const MiddleSectionWrapper = styled.section`flex: 1;`;
 
-const MiddleSection = (props: { baseColor: string, altColor: string, coverColor: string }) => (
+const MiddleSection = (props: { track: string, baseColor: string, altColor: string, coverColor: string }) => (
     <MiddleSectionWrapper>
         <Progress {...props} background={props.altColor} color={props.baseColor} />
         <Timer {...props} color={props.baseColor} />

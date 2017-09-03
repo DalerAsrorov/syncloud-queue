@@ -26,7 +26,7 @@ const playPauseClassName = styledClass`
 `;
 
 const PlayPauseWrapper = styled.section`
-    flex: 120px;
+    flex: 0 100px;
     height: 100%;
 `;
 
