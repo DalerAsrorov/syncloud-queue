@@ -29,7 +29,7 @@ const Player = (props: { resolveUrl: string }) => (
     <PlayerWrapper>
         <SoundPlayerContainer clientId={getClientID()} resolveUrl={props.resolveUrl}>
             <PlayPause background={BASE_COLOR} color={COLOR} />
-            <MiddleSection baseColor={BASE_COLOR} altColor={COLOR} coverColor={COVER_COLOR} />
+            <MiddleSection baseColor={BASE_COLOR} coverColor={COVER_COLOR} />
         </SoundPlayerContainer>
     </PlayerWrapper>
 );
