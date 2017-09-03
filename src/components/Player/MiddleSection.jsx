@@ -7,6 +7,8 @@ const MiddleSectionWrapper = styled.section`flex: 1;`;
 
 const MiddleSection = (props: { baseColor: string, altColor: string, coverColor: string }) => (
     <MiddleSectionWrapper>
+        <div>{props.track ? props.track.title : ''}</div>
+        <div>{props.track ? props.track.user.username : ''}</div>
         <Progress {...props} background={props.coverColor} color={props.baseColor} />
         <Timer {...props} color={props.baseColor} />
     </MiddleSectionWrapper>
