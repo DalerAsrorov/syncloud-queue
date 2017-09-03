@@ -13,8 +13,6 @@ type Props = {
     color: string
 };
 
-export default class Progress extends Component<Props, {}> {
-    render() {
-        return <TimerBar className={timerClassName(this.props)} {...this.props} />;
-    }
-}
+const Timer = (props: Props) => <TimerBar className={timerClassName(props)} {...props} />;
+
+export default Timer;

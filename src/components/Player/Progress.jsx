@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-classnames';
 import { Progress as ProgressBar, Icons } from 'react-soundplayer/components';
 
@@ -22,8 +22,6 @@ type Props = {
     background: string
 };
 
-export default class Progress extends Component<Props, {}> {
-    render() {
-        return <ProgressBar className={progressClassName(this.props)} {...this.props} />;
-    }
-}
+const Progress = (props: Props) => <ProgressBar className={progressClassName(props)} {...props} />;
+
+export default Progress;

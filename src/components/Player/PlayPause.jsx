@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-classnames';
 import { PlayButton, Icons } from 'react-soundplayer/components';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -23,13 +23,8 @@ const playPauseClassName = styled`
     }
 `;
 
-type Props = {
-    color: string,
-    background: string
-};
+const PlayPause = (props: { color: string, background: string }) => (
+    <PlayButton className={playPauseClassName(props)} {...props} seekingIcon={<FaClockO />} />
+);
 
-export default class PlayPause extends Component<Props, {}> {
-    render() {
-        return <PlayButton className={playPauseClassName(this.props)} {...this.props} seekingIcon={<FaClockO />} />;
-    }
-}
+export default PlayPause;
