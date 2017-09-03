@@ -21,7 +21,7 @@ const TrackTitle = styled.a`font-weight: 600;`;
 
 const UserName = styled.div`font-size: 12px;`;
 
-const MiddleSection = (props: { baseColor: string, altColor: string, coverColor: string }) => (
+const MiddleSection = (props: { baseColor: string, coverColor: string }) => (
     <MiddleSectionWrapper>
         <TrackTitle target="__blank" href={checkProp(props, 'track', 'permalink_url')}>
             {checkProp(props, 'track', 'title')}
