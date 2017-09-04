@@ -25,6 +25,7 @@ const searchResultsWrapperClass = styledClassNames`
 
 const SearchResultsWrapper = styled.div`
     display: flex;
+    align-items: center;
     flex: 1;
     height: 100%;
     border-radius: 0 !important;
