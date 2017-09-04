@@ -12,10 +12,12 @@ import MiddleSection from './MiddleSection';
 const PLAYER_CLASS_NAME = 'sq-player';
 
 const PlayerWrapper = styled.article`
-    margin: 3px;
     padding: 3px;
     border: 1px solid ${COVER_COLOR};
     height: 80px;
+    display: block;
+    width: 98%;
+    margin: 3px auto;
 
     & > span {
         display: flex;
@@ -23,15 +25,35 @@ const PlayerWrapper = styled.article`
     }
 `;
 
-const Player = (props: { resolveUrl: string }) => (
-    // should also have components for
-    // title, poster's username, likes_count, playback_count
-    <PlayerWrapper>
-        <SoundPlayerContainer clientId={getClientID()} resolveUrl={props.resolveUrl}>
-            <PlayPause background={BASE_COLOR} color={COLOR} />
-            <MiddleSection baseColor={BASE_COLOR} coverColor={COVER_COLOR} />
-        </SoundPlayerContainer>
-    </PlayerWrapper>
-);
+// const Player = (props: { resolveUrl: string }) => (
+//     // should also have components for
+//     // title, poster's username, likes_count, playback_count
+
+// );
+
+class Player extends React.Component<{ resolveUrl: string }, {}> {
+    state = {
+        isReady: false
+    };
+
+    _trackReady = event => {
+        console.log('Track is ready', event);
+    };
+
+    render() {
+        return (
+            <PlayerWrapper>
+                <SoundPlayerContainer
+                    clientId={getClientID()}
+                    resolveUrl={this.props.resolveUrl}
+                    onReady={this._trackReady}
+                >
+                    <PlayPause background={BASE_COLOR} color={COLOR} />
+                    <MiddleSection baseColor={BASE_COLOR} coverColor={COVER_COLOR} />
+                </SoundPlayerContainer>
+            </PlayerWrapper>
+        );
+    }
+}
 
 export default Player;

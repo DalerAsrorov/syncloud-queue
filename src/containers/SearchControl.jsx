@@ -23,7 +23,6 @@ export default class SearchControl extends Component<{}, State> {
 
     render() {
         const { tracks } = this.state;
-        console.log(tracks);
 
         return <SearchView onSearchStart={this._handleSearchStart} results={tracks} />;
     }

@@ -6,6 +6,8 @@ import styledClass from 'styled-classnames';
 import { PlayButton, Icons } from 'react-soundplayer/components';
 import FaClockO from 'react-icons/lib/fa/clock-o';
 
+import { BASE_COLOR } from '../../theme';
+
 const { NextIconSVG } = Icons;
 
 const playPauseClassName = styledClass`
@@ -15,7 +17,7 @@ const playPauseClassName = styledClass`
     min-height: 20px;  
     padding: 3px; 
     cursor: pointer;
-    background-color: ${props => props.background};
+    background: ${props => (props.track ? `url(${props.track.artwork_url})` : BASE_COLOR)};
     color: ${props => props.color}; 
     border: none;
     
