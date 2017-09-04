@@ -19,7 +19,7 @@ const playPauseClassName = styledClass`
     cursor: pointer;
     background-size: cover;
     background-repeat: round;
-    background: ${props => (props.artwork ? `url(${props.artwork})` : BASE_COLOR)};
+    background: ${props => (props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`)};
     color: ${props => props.color}; 
     border: none;
     
@@ -34,7 +34,7 @@ const PlayPauseWrapper = styled.section`
     height: 100%;
 `;
 
-const PlayPause = (props: { color: string, background: string, artwork: string }) => (
+const PlayPause = (props: { color: string, background: string, artwork: string, avatar: string }) => (
     <PlayPauseWrapper>
         <PlayButton className={playPauseClassName(props)} {...props} seekingIcon={<FaClockO />} />
     </PlayPauseWrapper>

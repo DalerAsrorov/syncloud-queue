@@ -31,7 +31,10 @@ const PlayerWrapper = styled.article`
 
 // );
 
-class Player extends React.Component<{ resolveUrl: string, artwork: string, title: string, username: string }, {}> {
+class Player extends React.Component<
+    { resolveUrl: string, artwork: string, title: string, username: string, avatar: string },
+    {}
+> {
     state = {
         isReady: false
     };
@@ -41,7 +44,7 @@ class Player extends React.Component<{ resolveUrl: string, artwork: string, titl
     };
 
     render() {
-        const { artwork, title, username } = this.props;
+        const { artwork, title, username, avatar } = this.props;
 
         return (
             <PlayerWrapper>
@@ -50,7 +53,7 @@ class Player extends React.Component<{ resolveUrl: string, artwork: string, titl
                     resolveUrl={this.props.resolveUrl}
                     onReady={this._trackReady}
                 >
-                    <PlayPause background={BASE_COLOR} color={COLOR} artwork={artwork} />
+                    <PlayPause background={BASE_COLOR} color={COLOR} artwork={artwork} avatar={avatar} />
                     <MiddleSection baseColor={BASE_COLOR} coverColor={COVER_COLOR} title={title} username={username} />
                 </SoundPlayerContainer>
             </PlayerWrapper>
