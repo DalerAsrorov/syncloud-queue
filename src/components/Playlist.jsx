@@ -14,8 +14,8 @@ const RESOLVE_URL_TEST = 'https://soundcloud.com/zion22be/joji-medicine-beat-ext
 
 const Playlist = (props: { tracks: Array<Object> }) => (
     <PlaylistWrapper>
-        {props.tracks.map(({ permalink_url, artwork_url, id }) => (
-            <Player key={id} artwork_url={artwork_url} resolveUrl={permalink_url} />
+        {props.tracks.map(({ permalink_url, artwork_url, id, title, user: { username } }) => (
+            <Player key={id} artwork={artwork_url} resolveUrl={permalink_url} title={title} username={username} />
         ))}
     </PlaylistWrapper>
 );

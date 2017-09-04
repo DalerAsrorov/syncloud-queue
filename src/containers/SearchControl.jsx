@@ -14,8 +14,8 @@ export default class SearchControl extends Component<{}, State> {
     };
 
     _handleSearchStart = (searchTerm: String) => {
-        if (searchTerm.length !== 0) {
-            searchQuery(searchTerm)
+        if (searchTerm.trim().length !== 0) {
+            searchQuery(searchTerm, 150)
                 .then(tracks => this.setState({ tracks }))
                 .catch(error => console.error(error));
         }
