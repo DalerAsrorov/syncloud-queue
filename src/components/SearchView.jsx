@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import styledClassNames from 'styled-classnames';
 import Search from '../containers/Search';
-import SearchResults from './SearchResultsView';
+import SearchResults from '../containers/SearchResults';
 
 const SearchViewWrapper = styled.div`
     display: flex;
@@ -32,13 +32,18 @@ const SearchResultsWrapper = styled.div`
     margin-top: 5px;
 `;
 
-const SearchView = (props: { onSearchStart: Function, results: Array<Object> }) => (
+const SearchView = (props: {
+    onSearchStart: Function,
+    results: Array<Object>,
+    onLoaderShow: Function,
+    isLoading: boolean
+}) => (
     <SearchViewWrapper>
         <SearchWrapper>
-            <Search onSearchStart={props.onSearchStart} />
+            <Search onSearchStart={props.onSearchStart} onLoaderShow={props.onLoaderShow} />
         </SearchWrapper>
         <SearchResultsWrapper>
-            <SearchResults results={props.results} />
+            <SearchResults results={props.results} isLoading={props.isLoading} />
         </SearchResultsWrapper>
     </SearchViewWrapper>
 );

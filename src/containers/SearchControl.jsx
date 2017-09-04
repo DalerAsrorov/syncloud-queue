@@ -5,25 +5,40 @@ import SearchView from '../components/SearchView';
 import { searchQuery } from '../api';
 
 type State = {
-    tracks: Array<Object>
+    tracks: Array<Object>,
+    isLoading: boolean
 };
 
 export default class SearchControl extends Component<{}, State> {
     state = {
-        tracks: []
+        tracks: [],
+        isLoading: false
     };
 
     _handleSearchStart = (searchTerm: String) => {
         if (searchTerm.trim().length !== 0) {
             searchQuery(searchTerm, 150)
-                .then(tracks => this.setState({ tracks }))
+                .then(tracks => this.setState({ isLoading: false, tracks }))
                 .catch(error => console.error(error));
         }
     };
 
-    render() {
-        const { tracks } = this.state;
+    _handleLoaderShow = () => {
+        this.setState({
+            isLoading: true
+        });
+    };
 
-        return <SearchView onSearchStart={this._handleSearchStart} results={tracks} />;
+    render() {
+        const { tracks, isLoading } = this.state;
+
+        return (
+            <SearchView
+                isLoading={isLoading}
+                onLoaderShow={this._handleLoaderShow}
+                onSearchStart={this._handleSearchStart}
+                results={tracks}
+            />
+        );
     }
 }

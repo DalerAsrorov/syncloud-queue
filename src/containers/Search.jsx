@@ -5,35 +5,37 @@ import styled from 'styled-components';
 import SearchForm from '../components/SearchForm';
 
 type State = {
-	searchTerm: string
+    searchTerm: string
 };
 
 type Props = {
-	onSearchStart: Function
+    onSearchStart: Function,
+    onLoaderShow: Function
 };
 
 export default class Search extends Component<Props, State> {
-	state = {
-		searchTerm: ''
-	};
+    state = {
+        searchTerm: ''
+    };
 
-	_handleSubmit = (event: SyntheticInputEvent<HTMLInputElement>) => {
-		event.preventDefault();
-		const { searchTerm } = this.state;
-		const { onSearchStart } = this.props;
+    _handleSubmit = (event: SyntheticInputEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        const { searchTerm } = this.state;
+        const { onSearchStart, onLoaderShow } = this.props;
 
-		if (onSearchStart) {
-			onSearchStart(searchTerm);
-		}
-	};
+        if (onSearchStart) {
+            onLoaderShow();
+            onSearchStart(searchTerm);
+        }
+    };
 
-	_updateSearchFieldState = (event: SyntheticInputEvent<HTMLInputElement>) => {
-		this.setState({
-			searchTerm: event.target.value
-		});
-	};
+    _updateSearchFieldState = (event: SyntheticInputEvent<HTMLInputElement>) => {
+        this.setState({
+            searchTerm: event.target.value
+        });
+    };
 
-	render() {
-		return <SearchForm onSubmit={this._handleSubmit} onChange={this._updateSearchFieldState} />;
-	}
+    render() {
+        return <SearchForm onSubmit={this._handleSubmit} onChange={this._updateSearchFieldState} />;
+    }
 }
