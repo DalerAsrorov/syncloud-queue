@@ -18,18 +18,27 @@ const MiddleSectionWrapper = styled.section`
 `;
 
 const TrackTitle = styled.a`font-weight: 600;`;
-
 const UserName = styled.div`font-size: 12px;`;
 
-const MiddleSection = (props: { baseColor: string, coverColor: string }) => (
-    <MiddleSectionWrapper>
-        <TrackTitle target="__blank" href={checkProp(props, 'track', 'permalink_url')}>
-            {checkProp(props, 'track', 'title')}
-        </TrackTitle>
-        <UserName>{checkProp(props, 'track', 'user', 'username')}</UserName>
-        <Progress {...props} background={props.coverColor} color={props.baseColor} />
-        <Timer {...props} color={props.baseColor} />
-    </MiddleSectionWrapper>
-);
+const TEXT_LIMIT = 100;
+
+const MiddleSection = (props: { baseColor: string, coverColor: string }) => {
+    let trackTitle = checkProp(props, 'track', 'title');
+
+    if (trackTitle.length > TEXT_LIMIT) {
+        trackTitle = `${trackTitle.substring(0, TEXT_LIMIT)}...`;
+    }
+
+    return (
+        <MiddleSectionWrapper>
+            <TrackTitle target="__blank" href={checkProp(props, 'track', 'permalink_url')}>
+                {trackTitle}
+            </TrackTitle>
+            <UserName>{checkProp(props, 'track', 'user', 'username')}</UserName>
+            <Progress {...props} background={props.coverColor} color={props.baseColor} />
+            <Timer {...props} color={props.baseColor} />
+        </MiddleSectionWrapper>
+    );
+};
 
 export default MiddleSection;
