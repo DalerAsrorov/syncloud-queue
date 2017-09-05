@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 // imports to remove
-import { addTrack, deleteTrack } from './actionCreators';
+import { addTrack, deleteTrack, incrementRepeatTimes, decrementRepeatTimes } from './actionCreators';
 
 let [tempTrack1, tempTrack2, tempTrack3] = [
     {
@@ -46,6 +46,10 @@ store.dispatch(deleteTrack(tempTrack3.id));
 store.dispatch(addTrack(tempTrack3));
 store.dispatch(addTrack(tempTrack2));
 store.dispatch(deleteTrack(tempTrack1.id));
+store.dispatch(incrementRepeatTimes(tempTrack3.id));
+store.dispatch(incrementRepeatTimes(tempTrack3.id));
+store.dispatch(decrementRepeatTimes(tempTrack3.id));
+store.dispatch(incrementRepeatTimes(tempTrack3.id));
 
 // Stop listening to state updates
 unsubscribe();
