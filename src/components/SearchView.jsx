@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import styledClassNames from 'styled-classnames';
 import Search from '../containers/Search';
-import SearchResults from './SearchResults';
+import SearchResults from '../containers/SearchResults';
 
 const SearchViewWrapper = styled.div`
     display: flex;
@@ -37,25 +37,14 @@ const SearchView = (props: {
     onSearchStart: Function,
     results: Array<Object>,
     onLoaderShow: Function,
-    isLoading: boolean,
-    firstAction: string,
-    onFirstAction: Function,
-    secondAction?: string,
-    onSecondAction?: Function
+    isLoading: boolean
 }) => (
     <SearchViewWrapper>
         <SearchWrapper>
             <Search onSearchStart={props.onSearchStart} onLoaderShow={props.onLoaderShow} />
         </SearchWrapper>
         <SearchResultsWrapper>
-            <SearchResults
-                results={props.results}
-                isLoading={props.isLoading}
-                firstAction={props.firstAction}
-                onFirstAction={props.onFirstAction}
-                secondAction={props.secondAction}
-                onSecondAction={props.onSecondAction}
-            />
+            <SearchResults results={props.results} isLoading={props.isLoading} />
         </SearchResultsWrapper>
     </SearchViewWrapper>
 );

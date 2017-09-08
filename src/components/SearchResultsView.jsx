@@ -12,7 +12,7 @@ const SearchResultsWrapper = styled.div`
     border-radius: 0 !important;
 `;
 
-const SearchResults = (props: {
+const SearchResultsView = (props: {
     results: Array<Object>,
     isLoading: boolean,
     firstAction: string,
@@ -39,4 +39,4 @@ const SearchResults = (props: {
     );
 };
 
-export default SearchResults;
+export default SearchResultsView;

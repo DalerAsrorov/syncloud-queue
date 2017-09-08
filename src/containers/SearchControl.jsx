@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import SearchView from '../components/SearchView';
 import { searchQuery } from '../api';
+import { connect } from 'react-redux';
 
 type State = {
     tracks: Array<Object>,
@@ -46,10 +47,6 @@ export default class SearchControl extends Component<{}, State> {
                 onLoaderShow={this._handleLoaderShow}
                 onSearchStart={this._handleSearchStart}
                 results={tracks}
-                firstAction={'Add'}
-                onFirstAction={this._handleFirstAction}
-                secondAction={'Delete'}
-                onSecondAction={this._handleSecondAction}
             />
         );
     }
