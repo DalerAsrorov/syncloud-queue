@@ -26,6 +26,7 @@ const CustomButtonWrapper = styled.div`float: right;`;
 const Header = styled.header``;
 
 const MiddleSection = (props: {
+    track?: Object,
     baseColor: string,
     coverColor: string,
     title: string,
@@ -35,19 +36,20 @@ const MiddleSection = (props: {
     secondAction?: string,
     onSecondAction?: Function
 }) => {
-    let { title, username } = props;
+    const { username, secondAction, onSecondAction, track } = props;
+    let { title } = props;
     let secondButton;
 
     if (title.length > TEXT_LIMIT) {
         title = `${title.substring(0, TEXT_LIMIT)}...`;
     }
 
-    if (props.secondAction && props.onSecondAction) {
+    if (secondAction && onSecondAction) {
         secondButton = (
             <button
                 onClick={ev => {
                     ev.preventDefault();
-                    console.log(props.track);
+                    onSecondAction(track);
                 }}
             >
                 {props.secondAction}
@@ -65,7 +67,7 @@ const MiddleSection = (props: {
                     <button
                         onClick={ev => {
                             ev.preventDefault();
-                            console.log(props.track);
+                            props.onFirstAction(track);
                         }}
                     >
                         {props.firstAction}
