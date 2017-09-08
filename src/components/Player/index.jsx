@@ -25,40 +25,34 @@ const PlayerWrapper = styled.article`
     }
 `;
 
-// const Player = (props: { resolveUrl: string }) => (
-//     // should also have components for
-//     // title, poster's username, likes_count, playback_count
+type Props = {
+    resolveUrl: string,
+    artwork: string,
+    title: string,
+    username: string,
+    avatar: string,
+    firstAction: string,
+    onFirstAction: Function,
+    secondAction?: string,
+    onSecondAction?: Function
+};
 
-// );
-
-class Player extends React.Component<
-    { resolveUrl: string, artwork: string, title: string, username: string, avatar: string },
-    {}
-> {
-    state = {
-        isReady: false
-    };
-
-    _trackReady = event => {
-        console.log('Track is ready', event);
-    };
-
-    render() {
-        const { artwork, title, username, avatar } = this.props;
-
-        return (
-            <PlayerWrapper>
-                <SoundPlayerContainer
-                    clientId={getClientID()}
-                    resolveUrl={this.props.resolveUrl}
-                    onReady={this._trackReady}
-                >
-                    <PlayPause background={BASE_COLOR} color={COLOR} artwork={artwork} avatar={avatar} />
-                    <MiddleSection baseColor={BASE_COLOR} coverColor={COVER_COLOR} title={title} username={username} />
-                </SoundPlayerContainer>
-            </PlayerWrapper>
-        );
-    }
-}
+const Player = (props: Props) => (
+    <PlayerWrapper>
+        <SoundPlayerContainer clientId={getClientID()} resolveUrl={props.resolveUrl}>
+            <PlayPause background={BASE_COLOR} color={COLOR} artwork={props.artwork} avatar={props.avatar} />
+            <MiddleSection
+                baseColor={BASE_COLOR}
+                coverColor={COVER_COLOR}
+                title={props.title}
+                username={props.username}
+                firstAction={props.firstAction}
+                onFirstAction={props.onFirstAction}
+                secondAction={props.secondAction}
+                onSecondAction={props.onSecondAction}
+            />
+        </SoundPlayerContainer>
+    </PlayerWrapper>
+);
 
 export default Player;

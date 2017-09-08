@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import styledClassNames from 'styled-classnames';
 import Search from '../containers/Search';
-import SearchResults from '../containers/SearchResults';
+import SearchResults from './SearchResults';
 
 const SearchViewWrapper = styled.div`
     display: flex;
