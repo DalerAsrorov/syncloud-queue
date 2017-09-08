@@ -53,7 +53,7 @@ const SearchView = (props: {
                 isLoading={props.isLoading}
                 firstAction={props.firstAction}
                 onFirstAction={props.onFirstAction}
-                secondAction={props.firstAction}
+                secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
             />
         </SearchResultsWrapper>

@@ -32,7 +32,7 @@ const SearchResults = (props: {
                 tracks={results}
                 firstAction={props.firstAction}
                 onFirstAction={props.onFirstAction}
-                secondAction={props.firstAction}
+                secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
             />
         </SearchResultsWrapper>
