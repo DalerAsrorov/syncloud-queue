@@ -12,7 +12,14 @@ const SearchResultsWrapper = styled.div`
     border-radius: 0 !important;
 `;
 
-const SearchResults = (props: { results: Array<Object>, isLoading: boolean }) => {
+const SearchResults = (props: {
+    results: Array<Object>,
+    isLoading: boolean,
+    firstAction: string,
+    onFirstAction: Function,
+    secondAction?: string,
+    onSecondAction?: Function
+}) => {
     const { results, isLoading } = props;
 
     if (isLoading) {
@@ -21,7 +28,13 @@ const SearchResults = (props: { results: Array<Object>, isLoading: boolean }) =>
 
     return (
         <SearchResultsWrapper>
-            <Playlist tracks={results} />
+            <Playlist
+                tracks={results}
+                firstAction={props.firstAction}
+                onFirstAction={props.onFirstAction}
+                secondAction={props.firstAction}
+                onSecondAction={props.onSecondAction}
+            />
         </SearchResultsWrapper>
     );
 };

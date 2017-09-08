@@ -37,14 +37,25 @@ const SearchView = (props: {
     onSearchStart: Function,
     results: Array<Object>,
     onLoaderShow: Function,
-    isLoading: boolean
+    isLoading: boolean,
+    firstAction: string,
+    onFirstAction: Function,
+    secondAction?: string,
+    onSecondAction?: Function
 }) => (
     <SearchViewWrapper>
         <SearchWrapper>
             <Search onSearchStart={props.onSearchStart} onLoaderShow={props.onLoaderShow} />
         </SearchWrapper>
         <SearchResultsWrapper>
-            <SearchResults results={props.results} isLoading={props.isLoading} />
+            <SearchResults
+                results={props.results}
+                isLoading={props.isLoading}
+                firstAction={props.firstAction}
+                onFirstAction={props.onFirstAction}
+                secondAction={props.firstAction}
+                onSecondAction={props.onSecondAction}
+            />
         </SearchResultsWrapper>
     </SearchViewWrapper>
 );

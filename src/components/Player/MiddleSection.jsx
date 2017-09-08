@@ -22,7 +22,16 @@ const UserName = styled.div`font-size: 12px;`;
 
 const TEXT_LIMIT = 100;
 
-const MiddleSection = (props: { baseColor: string, coverColor: string, title: string, username: string }) => {
+const MiddleSection = (props: {
+    baseColor: string,
+    coverColor: string,
+    title: string,
+    username: string,
+    firstAction: string,
+    onFirstAction: Function,
+    secondAction?: string,
+    onSecondAction?: Function
+}) => {
     let { title, username } = props;
 
     if (title.length > TEXT_LIMIT) {

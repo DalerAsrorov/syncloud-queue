@@ -29,6 +29,14 @@ export default class SearchControl extends Component<{}, State> {
         });
     };
 
+    _handleFirstAction = (track: Object) => {
+        console.log('track', track);
+    };
+
+    _handleSecondAction = (track: Object) => {
+        console.log('track', track);
+    };
+
     render() {
         const { tracks, isLoading } = this.state;
 
@@ -38,6 +46,10 @@ export default class SearchControl extends Component<{}, State> {
                 onLoaderShow={this._handleLoaderShow}
                 onSearchStart={this._handleSearchStart}
                 results={tracks}
+                firstAction={'Add'}
+                onFirstAction={this._handleFirstAction}
+                secondAction={'Delete'}
+                onSecondAction={this._handleSecondAction}
             />
         );
     }
