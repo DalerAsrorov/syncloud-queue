@@ -20,7 +20,7 @@ const MiddleSectionWrapper = styled.section`
 const TrackTitle = styled.a`font-weight: 600;`;
 const UserName = styled.div`font-size: 12px;`;
 
-const TEXT_LIMIT = 100;
+const TEXT_LIMIT = 80;
 
 const CustomButtonWrapper = styled.div`float: right;`;
 const Header = styled.header``;
