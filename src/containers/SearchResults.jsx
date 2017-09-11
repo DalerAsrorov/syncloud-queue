@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addTrack, deleteTrack } from '../actionCreators.js';
+import { addTrack } from '../actionCreators.js';
 import { isInArray } from '../utils';
 import SearchResultsView from '../components/SearchResultsView';
 import { POSITIVE } from '../theme';
