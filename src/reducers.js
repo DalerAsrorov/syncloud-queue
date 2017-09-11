@@ -10,8 +10,7 @@ const tracks = (state = [], action: Object) => {
                 ...state,
                 {
                     repeatTimes: action.repeatTimes,
-                    id: action.id,
-                    track: action.track
+                    ...action.track
                 }
             ];
         case DELETE_TRACK_FROM_QUEUE:

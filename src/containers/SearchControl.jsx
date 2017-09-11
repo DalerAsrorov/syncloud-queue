@@ -30,14 +30,6 @@ export default class SearchControl extends Component<{}, State> {
         });
     };
 
-    _handleFirstAction = (track: Object) => {
-        console.log('track', track.id);
-    };
-
-    _handleSecondAction = (track: Object) => {
-        console.log('track', track.id);
-    };
-
     render() {
         const { tracks, isLoading } = this.state;
 

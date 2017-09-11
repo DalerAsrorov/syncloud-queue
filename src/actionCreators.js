@@ -6,7 +6,6 @@ export const addTrack = (track: Object) => {
     return {
         type: ADD_TRACK_TO_QUEUE,
         repeatTimes: 0,
-        id: track.id,
         track
     };
 };

@@ -1,6 +1,8 @@
+// @flow
+
 import { connect } from 'react-redux';
 import { addTrack } from '../actionCreators.js';
-import { isInArray } from '../utils';
+import { isInArray, formatTrack } from '../utils';
 import SearchResultsView from '../components/SearchResultsView';
 import { POSITIVE } from '../theme';
 
@@ -17,7 +19,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         onFirstAction: (track: Object) => {
-            dispatch(addTrack(track));
+            const formattedTrack = formatTrack(track);
+            console.log('formattedTrack', formattedTrack);
+            dispatch(addTrack(formattedTrack));
         }
     };
 };
