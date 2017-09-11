@@ -13,6 +13,10 @@ export const ButtonWrapper = styled.div`
         outline: none;
         font-size: 1em;
         padding: 0;
+
+        & > svg {
+            vertical-align: baseline !important;
+        }
     }
 `;
 
