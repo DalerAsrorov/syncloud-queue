@@ -17,8 +17,8 @@ export function isInArray(item, array, property) {
 }
 
 export function formatTrack(track) {
-    debugger;
     const { id, permalink_url, artwork_url, title, user } = track;
+
     return {
         id,
         permalink_url,
