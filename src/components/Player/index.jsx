@@ -33,6 +33,7 @@ type Props = {
     avatar: string,
     firstAction: string,
     onFirstAction: Function,
+    firstActionColor: string,
     secondAction?: string,
     onSecondAction?: Function
 };
@@ -48,6 +49,7 @@ const Player = (props: Props) => (
                 username={props.username}
                 firstAction={props.firstAction}
                 onFirstAction={props.onFirstAction}
+                firstActionColor={props.firstActionColor}
                 secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
             />

@@ -14,16 +14,14 @@ const SearchResultsWrapper = styled.div`
 
 const SearchResultsView = (props: {
     results: Array<Object>,
-    filteredResults: Array<Object>,
     isLoading: boolean,
     firstAction: string,
+    firstActionColor: string,
     onFirstAction: Function,
     secondAction?: string,
     onSecondAction?: Function
 }) => {
     const { results, isLoading } = props;
-
-    console.log(props.filteredResults);
 
     if (isLoading) {
         return <Loader loadDescription="Loading tracks..." />;
@@ -35,6 +33,7 @@ const SearchResultsView = (props: {
                 tracks={results}
                 firstAction={props.firstAction}
                 onFirstAction={props.onFirstAction}
+                firstActionColor={props.firstActionColor}
                 secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
             />

@@ -2,7 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import * as FontAwesome from 'react-icons/lib/fa';
 import { checkProp } from '../../utils';
+import ButtonWrapper from '../ButtonWrapper';
 import Progress from './Progress';
 import Timer from './Timer';
 
@@ -22,7 +24,17 @@ const UserName = styled.div`font-size: 12px;`;
 
 const TEXT_LIMIT = 80;
 
-const CustomButtonWrapper = styled.div`float: right;`;
+// const CustomButtonWrapper = styled.div`
+//     float: right;
+
+//     & > button {
+//         background: transparent;
+//         color: ${POSITIVE};
+//         border: none;
+//         outline: none;
+//         font-size: 1em;
+//     }
+// `;
 const Header = styled.header``;
 
 const MiddleSection = (props: {
@@ -33,6 +45,7 @@ const MiddleSection = (props: {
     username: string,
     firstAction: string,
     onFirstAction: Function,
+    firstActionColor: string,
     secondAction?: string,
     onSecondAction?: Function
 }) => {
@@ -57,23 +70,25 @@ const MiddleSection = (props: {
         );
     }
 
+    const FirstActionIcon = FontAwesome[`${props.firstAction}`];
+
     return (
         <MiddleSectionWrapper>
             <Header>
                 <TrackTitle target="__blank" href={checkProp(props, 'track', 'permalink_url')}>
                     {title}
                 </TrackTitle>
-                <CustomButtonWrapper>
+                <ButtonWrapper color={props.firstActionColor}>
                     <button
                         onClick={ev => {
                             ev.preventDefault();
                             props.onFirstAction(track);
                         }}
                     >
-                        {props.firstAction}
+                        <FirstActionIcon />
                     </button>
                     {secondButton}
-                </CustomButtonWrapper>
+                </ButtonWrapper>
             </Header>
             <UserName>{username}</UserName>
             <Progress {...props} background={props.coverColor} color={props.baseColor} />

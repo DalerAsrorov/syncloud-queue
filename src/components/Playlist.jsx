@@ -16,6 +16,7 @@ const Playlist = (props: {
     tracks: Array<Object>,
     firstAction: string,
     onFirstAction: Function,
+    firstActionColor: string,
     secondAction?: string,
     onSecondAction?: Function
 }) => (
@@ -30,6 +31,7 @@ const Playlist = (props: {
                 avatar={avatar_url}
                 firstAction={props.firstAction}
                 onFirstAction={props.onFirstAction}
+                firstActionColor={props.firstActionColor}
                 secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
             />
