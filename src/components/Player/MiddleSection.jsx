@@ -41,7 +41,7 @@ const MiddleSection = (props: {
     let secondButton;
 
     if (title.length > TEXT_LIMIT) {
-        title = `${title.substring(0, TEXT_LIMIT)}...`;
+        title = `${title.trim().substring(0, TEXT_LIMIT)}...`;
     }
 
     if (secondAction && onSecondAction) {
