@@ -1,3 +1,5 @@
+import { find } from 'lodash';
+
 export function checkProp(prop = {}, parentKey, ...otherKeys) {
     let result = '';
 
@@ -8,4 +10,8 @@ export function checkProp(prop = {}, parentKey, ...otherKeys) {
     }
 
     return result;
+}
+
+export function isInArray(item, array, property) {
+    return find(array, el => el[`${property}`] === item[`${property}`]);
 }

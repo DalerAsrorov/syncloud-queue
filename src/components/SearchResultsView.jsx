@@ -14,6 +14,7 @@ const SearchResultsWrapper = styled.div`
 
 const SearchResultsView = (props: {
     results: Array<Object>,
+    filteredResults: Array<Object>,
     isLoading: boolean,
     firstAction: string,
     onFirstAction: Function,
@@ -21,6 +22,8 @@ const SearchResultsView = (props: {
     onSecondAction?: Function
 }) => {
     const { results, isLoading } = props;
+
+    console.log(props.filteredResults);
 
     if (isLoading) {
         return <Loader loadDescription="Loading tracks..." />;
