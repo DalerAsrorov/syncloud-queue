@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         firstAction: 'FaMinusSquare',
         firstActionColor: NEGATIVE,
-        tracks: state.tracks
+        results: state.tracks
     };
 };
 

@@ -19,24 +19,26 @@ const Playlist = (props: {
     firstActionColor: string,
     secondAction?: string,
     onSecondAction?: Function
-}) => (
-    <PlaylistWrapper>
-        {props.tracks.map(({ permalink_url, artwork_url, id, title, user: { username, avatar_url } }) => (
-            <Player
-                key={id}
-                artwork={artwork_url}
-                resolveUrl={permalink_url}
-                title={title}
-                username={username}
-                avatar={avatar_url}
-                firstAction={props.firstAction}
-                onFirstAction={props.onFirstAction}
-                firstActionColor={props.firstActionColor}
-                secondAction={props.secondAction}
-                onSecondAction={props.onSecondAction}
-            />
-        ))}
-    </PlaylistWrapper>
-);
+}) => {
+    return (
+        <PlaylistWrapper>
+            {props.tracks.map(({ permalink_url, artwork_url, id, title, user: { username, avatar_url } }) => (
+                <Player
+                    key={id}
+                    artwork={artwork_url}
+                    resolveUrl={permalink_url}
+                    title={title}
+                    username={username}
+                    avatar={avatar_url}
+                    firstAction={props.firstAction}
+                    onFirstAction={props.onFirstAction}
+                    firstActionColor={props.firstActionColor}
+                    secondAction={props.secondAction}
+                    onSecondAction={props.onSecondAction}
+                />
+            ))}
+        </PlaylistWrapper>
+    );
+};
 
 export default Playlist;
