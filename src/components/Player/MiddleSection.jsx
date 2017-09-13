@@ -22,8 +22,6 @@ const MiddleSectionWrapper = styled.section`
 const TrackTitle = styled.a`font-weight: 600;`;
 const UserName = styled.div`font-size: 12px;`;
 
-const TEXT_LIMIT = 80;
-
 // const CustomButtonWrapper = styled.div`
 //     float: right;
 
@@ -46,15 +44,16 @@ const MiddleSection = (props: {
     firstAction: string,
     onFirstAction: Function,
     firstActionColor: string,
+    charLimit: number,
     secondAction?: string,
     onSecondAction?: Function
 }) => {
-    const { username, secondAction, onSecondAction, track } = props;
+    const { username, secondAction, onSecondAction, track, charLimit } = props;
     let { title } = props;
     let secondButton;
 
-    if (title.length > TEXT_LIMIT) {
-        title = `${title.trim().substring(0, TEXT_LIMIT)}...`;
+    if (title.length > charLimit) {
+        title = `${title.trim().substring(0, charLimit)}...`;
     }
 
     if (secondAction && onSecondAction) {

@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         firstAction: 'FaPlusSquare',
         firstActionColor: POSITIVE,
+        charLimit: 80,
         results: ownProps.results.filter(trackInResults => {
             return !isInArray(trackInResults, state.tracks, 'id');
         })
