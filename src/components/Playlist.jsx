@@ -27,6 +27,7 @@ const Playlist = (props: {
             {props.tracks.map(({ permalink_url, artwork_url, id, title, user: { username, avatar_url } }) => (
                 <Player
                     key={id}
+                    id={id}
                     artwork={artwork_url}
                     resolveUrl={permalink_url}
                     title={title}

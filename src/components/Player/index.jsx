@@ -26,6 +26,7 @@ const PlayerWrapper = styled.article`
 `;
 
 type Props = {
+    id: number,
     resolveUrl: string,
     artwork: string,
     title: string,
@@ -42,7 +43,10 @@ type Props = {
 
 class Player extends Component<Props, {}> {
     componentDidMount() {
-        console.log('My track is', this.props);
+        const { id, currentTrack } = this.props;
+
+        // check if the currently selected track
+        // matches the ID of this particular track
     }
 
     render() {
