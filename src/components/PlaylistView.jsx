@@ -7,6 +7,7 @@ const CHAR_LIMIT = 28;
 
 const PlaylistView = (props: {
     results: Array<Object>,
+    currentTrack: Object,
     firstAction: string,
     firstActionColor: string,
     onFirstAction: Function
@@ -14,6 +15,7 @@ const PlaylistView = (props: {
     <div>
         <SearchResultsView
             results={props.results}
+            currentTrack={props.currentTrack}
             isLoading={false}
             firstAction={props.firstAction}
             firstActionColor={props.firstActionColor}

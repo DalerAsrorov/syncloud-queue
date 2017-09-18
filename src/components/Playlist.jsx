@@ -19,7 +19,8 @@ const Playlist = (props: {
     firstActionColor: string,
     charLimit: number,
     secondAction?: string,
-    onSecondAction?: Function
+    onSecondAction?: Function,
+    currentTrack?: Object
 }) => {
     return (
         <PlaylistWrapper>
@@ -37,6 +38,7 @@ const Playlist = (props: {
                     charLimit={props.charLimit}
                     secondAction={props.secondAction}
                     onSecondAction={props.onSecondAction}
+                    currentTrack={props.currentTrack}
                 />
             ))}
         </PlaylistWrapper>

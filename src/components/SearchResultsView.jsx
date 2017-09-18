@@ -19,6 +19,7 @@ const SearchResultsView = (props: {
     firstActionColor: string,
     onFirstAction: Function,
     charLimit: number,
+    currentTrack?: Object,
     secondAction?: string,
     onSecondAction?: Function
 }) => {
@@ -38,6 +39,7 @@ const SearchResultsView = (props: {
                 secondAction={props.secondAction}
                 onSecondAction={props.onSecondAction}
                 charLimit={props.charLimit}
+                currentTrack={props.currentTrack}
             />
         </SearchResultsWrapper>
     );

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
@@ -36,27 +36,41 @@ type Props = {
     firstActionColor: string,
     charLimit: number,
     secondAction?: string,
-    onSecondAction?: Function
+    onSecondAction?: Function,
+    currentTrack?: Object
 };
 
-const Player = (props: Props) => (
-    <PlayerWrapper>
-        <SoundPlayerContainer clientId={getClientID()} resolveUrl={props.resolveUrl}>
-            <PlayPause background={BASE_COLOR} color={COLOR} artwork={props.artwork} avatar={props.avatar} />
-            <MiddleSection
-                baseColor={BASE_COLOR}
-                coverColor={COVER_COLOR}
-                title={props.title}
-                username={props.username}
-                firstAction={props.firstAction}
-                onFirstAction={props.onFirstAction}
-                firstActionColor={props.firstActionColor}
-                charLimit={props.charLimit}
-                secondAction={props.secondAction}
-                onSecondAction={props.onSecondAction}
-            />
-        </SoundPlayerContainer>
-    </PlayerWrapper>
-);
+class Player extends Component<Props, {}> {
+    componentDidMount() {
+        console.log('My track is', this.props);
+    }
+
+    render() {
+        return (
+            <PlayerWrapper>
+                <SoundPlayerContainer clientId={getClientID()} resolveUrl={this.props.resolveUrl}>
+                    <PlayPause
+                        background={BASE_COLOR}
+                        color={COLOR}
+                        artwork={this.props.artwork}
+                        avatar={this.props.avatar}
+                    />
+                    <MiddleSection
+                        baseColor={BASE_COLOR}
+                        coverColor={COVER_COLOR}
+                        title={this.props.title}
+                        username={this.props.username}
+                        firstAction={this.props.firstAction}
+                        onFirstAction={this.props.onFirstAction}
+                        firstActionColor={this.props.firstActionColor}
+                        charLimit={this.props.charLimit}
+                        secondAction={this.props.secondAction}
+                        onSecondAction={this.props.onSecondAction}
+                    />
+                </SoundPlayerContainer>
+            </PlayerWrapper>
+        );
+    }
+}
 
 export default Player;

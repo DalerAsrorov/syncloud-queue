@@ -1,6 +1,12 @@
 // @flow
 
-import { ADD_TRACK_TO_QUEUE, DELETE_TRACK_FROM_QUEUE, INCREMENT_REPEAT_TIMES, DECREMENT_REPEAT_TIMES } from './actions';
+import {
+    ADD_TRACK_TO_QUEUE,
+    DELETE_TRACK_FROM_QUEUE,
+    SET_CURRENT_TRACK,
+    INCREMENT_REPEAT_TIMES,
+    DECREMENT_REPEAT_TIMES
+} from './actions';
 
 export const addTrack = (track: Object) => {
     return {
@@ -14,6 +20,13 @@ export const deleteTrack = (id: number) => {
     return {
         type: DELETE_TRACK_FROM_QUEUE,
         id
+    };
+};
+
+export const setCurrentTrack = (track: Object) => {
+    return {
+        type: SET_CURRENT_TRACK,
+        track
     };
 };
 
