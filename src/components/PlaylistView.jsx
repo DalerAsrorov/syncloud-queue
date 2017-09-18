@@ -13,18 +13,16 @@ const PlaylistView = (props: {
     firstActionColor: string,
     onFirstAction: Function
 }) => (
-    <div>
-        <SearchResultsView
-            results={props.results}
-            currentTrack={props.currentTrack}
-            isLoading={false}
-            firstAction={props.firstAction}
-            firstActionColor={props.firstActionColor}
-            onFirstAction={props.onFirstAction}
-            charLimit={CHAR_LIMIT}
-            queueIsEmpty={props.queueIsEmpty}
-        />
-    </div>
+    <SearchResultsView
+        results={props.results}
+        currentTrack={props.currentTrack}
+        isLoading={false}
+        firstAction={props.firstAction}
+        firstActionColor={props.firstActionColor}
+        onFirstAction={props.onFirstAction}
+        charLimit={CHAR_LIMIT}
+        queueIsEmpty={props.queueIsEmpty}
+    />
 );
 
 export default PlaylistView;

@@ -19,6 +19,7 @@ const PlaylistWrapper = styled.section`
     padding: 10px;
     flex: 400px 0;
     background: #fff;
+    overflow: auto;
 `;
 // @flow
 
