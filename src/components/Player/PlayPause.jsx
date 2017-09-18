@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
 import { PlayButton, Icons } from 'react-soundplayer/components';
@@ -34,10 +34,30 @@ const PlayPauseWrapper = styled.section`
     height: 100%;
 `;
 
-const PlayPause = (props: { color: string, background: string, artwork: string, avatar: string }) => (
-    <PlayPauseWrapper>
-        <PlayButton className={playPauseClassName(props)} {...props} seekingIcon={<FaClockO />} />
-    </PlayPauseWrapper>
-);
+type Props = {
+    id: number,
+    color: string,
+    background: string,
+    artwork: string,
+    avatar: string,
+    currentTrack?: Object,
+    soundCloudAudio?: Object
+};
 
-export default PlayPause;
+export default class PlayPause extends Component<Props, {}> {
+    componentDidMount() {
+        const { id, currentTrack, soundCloudAudio } = this.props;
+
+        if (currentTrack && soundCloudAudio && currentTrack.id === id) {
+            soundCloudAudio.play();
+        }
+    }
+
+    render() {
+        return (
+            <PlayPauseWrapper>
+                <PlayButton className={playPauseClassName(this.props)} {...this.props} seekingIcon={<FaClockO />} />
+            </PlayPauseWrapper>
+        );
+    }
+}

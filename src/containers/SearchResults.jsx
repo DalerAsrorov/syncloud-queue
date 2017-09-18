@@ -21,7 +21,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onFirstAction: (track: Object) => {
             const formattedTrack = formatTrack(track);
-            console.log('formattedTrack', formattedTrack);
             dispatch(addTrack(formattedTrack));
         }
     };

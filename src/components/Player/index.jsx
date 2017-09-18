@@ -42,22 +42,17 @@ type Props = {
 };
 
 class Player extends Component<Props, {}> {
-    componentDidMount() {
-        const { id, currentTrack } = this.props;
-
-        // check if the currently selected track
-        // matches the ID of this particular track
-    }
-
     render() {
         return (
             <PlayerWrapper>
                 <SoundPlayerContainer clientId={getClientID()} resolveUrl={this.props.resolveUrl}>
                     <PlayPause
+                        id={this.props.id}
                         background={BASE_COLOR}
                         color={COLOR}
                         artwork={this.props.artwork}
                         avatar={this.props.avatar}
+                        currentTrack={this.props.currentTrack}
                     />
                     <MiddleSection
                         baseColor={BASE_COLOR}
