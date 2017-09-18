@@ -18,6 +18,7 @@ const Playlist = (props: {
     onFirstAction: Function,
     firstActionColor: string,
     charLimit: number,
+    queueIsEmpty: boolean,
     secondAction?: string,
     onSecondAction?: Function,
     currentTrack?: Object
@@ -28,6 +29,7 @@ const Playlist = (props: {
                 <Player
                     key={id}
                     id={id}
+                    queueIsEmpty={props.queueIsEmpty}
                     artwork={artwork_url}
                     resolveUrl={permalink_url}
                     title={title}

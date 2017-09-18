@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux';
-import { addTrack } from '../actionCreators.js';
+import { addTrack, setCurrentTrack } from '../actionCreators.js';
 import { isInArray, formatTrack } from '../utils';
 import SearchResultsView from '../components/SearchResultsView';
 import { POSITIVE } from '../theme';
@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
         charLimit: 80,
         results: ownProps.results.filter(trackInResults => {
             return !isInArray(trackInResults, state.tracks, 'id');
-        })
+        }),
+        queueIsEmpty: state.tracks.length === 0
     };
 };
 
@@ -22,6 +23,12 @@ const mapDispatchToProps = dispatch => {
         onFirstAction: (track: Object) => {
             const formattedTrack = formatTrack(track);
             dispatch(addTrack(formattedTrack));
+        },
+
+        onSecondAction: (track: Object) => {
+            const formattedTrack = formatTrack(track);
+            console.log('second action triggered');
+            dispatch(setCurrentTrack(formattedTrack));
         }
     };
 };

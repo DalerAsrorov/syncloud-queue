@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => {
         firstAction: 'FaMinusSquare',
         firstActionColor: NEGATIVE,
         results: state.tracks,
-        currentTrack: state.currentTrack
+        currentTrack: state.currentTrack,
+        queueIsEmpty: false
     };
 };
 

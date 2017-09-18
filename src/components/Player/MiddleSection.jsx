@@ -21,22 +21,11 @@ const MiddleSectionWrapper = styled.section`
 
 const TrackTitle = styled.a`font-weight: 600;`;
 const UserName = styled.div`font-size: 12px;`;
-
-// const CustomButtonWrapper = styled.div`
-//     float: right;
-
-//     & > button {
-//         background: transparent;
-//         color: ${POSITIVE};
-//         border: none;
-//         outline: none;
-//         font-size: 1em;
-//     }
-// `;
 const Header = styled.header``;
 
 const MiddleSection = (props: {
     track?: Object,
+    queueIsEmpty: boolean,
     baseColor: string,
     coverColor: string,
     title: string,
@@ -56,19 +45,6 @@ const MiddleSection = (props: {
         title = `${title.trim().substring(0, charLimit)}...`;
     }
 
-    if (secondAction && onSecondAction) {
-        secondButton = (
-            <button
-                onClick={ev => {
-                    ev.preventDefault();
-                    onSecondAction(track);
-                }}
-            >
-                {props.secondAction}
-            </button>
-        );
-    }
-
     const FirstActionIcon = FontAwesome[`${props.firstAction}`];
 
     return (
@@ -82,6 +58,10 @@ const MiddleSection = (props: {
                         onClick={ev => {
                             ev.preventDefault();
                             props.onFirstAction(track);
+
+                            if (props.queueIsEmpty && onSecondAction) {
+                                onSecondAction(track);
+                            }
                         }}
                     >
                         <FirstActionIcon />

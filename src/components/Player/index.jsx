@@ -27,6 +27,7 @@ const PlayerWrapper = styled.article`
 
 type Props = {
     id: number,
+    queueIsEmpty: boolean,
     resolveUrl: string,
     artwork: string,
     title: string,
@@ -55,6 +56,7 @@ class Player extends Component<Props, {}> {
                         currentTrack={this.props.currentTrack}
                     />
                     <MiddleSection
+                        queueIsEmpty={this.props.queueIsEmpty}
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
                         title={this.props.title}

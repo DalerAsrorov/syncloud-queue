@@ -8,6 +8,7 @@ const CHAR_LIMIT = 28;
 const PlaylistView = (props: {
     results: Array<Object>,
     currentTrack: Object,
+    queueIsEmpty: boolean,
     firstAction: string,
     firstActionColor: string,
     onFirstAction: Function
@@ -21,6 +22,7 @@ const PlaylistView = (props: {
             firstActionColor={props.firstActionColor}
             onFirstAction={props.onFirstAction}
             charLimit={CHAR_LIMIT}
+            queueIsEmpty={props.queueIsEmpty}
         />
     </div>
 );
