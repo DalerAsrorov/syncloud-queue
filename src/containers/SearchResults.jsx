@@ -27,7 +27,6 @@ const mapDispatchToProps = dispatch => {
 
         onSecondAction: (track: Object) => {
             const formattedTrack = formatTrack(track);
-            console.log('second action triggered');
             dispatch(setCurrentTrack(formattedTrack));
         }
     };
