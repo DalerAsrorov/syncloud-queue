@@ -21,7 +21,9 @@ const Playlist = (props: {
     queueIsEmpty: boolean,
     secondAction?: string,
     onSecondAction?: Function,
-    currentTrack?: Object
+    onNextTrack?: Function,
+    currentTrack?: Object,
+    nextTrackID?: number
 }) => {
     return (
         <PlaylistWrapper>
@@ -42,6 +44,7 @@ const Playlist = (props: {
                     secondAction={props.secondAction}
                     onSecondAction={props.onSecondAction}
                     currentTrack={props.currentTrack}
+                    nextTrackID={props.nextTrackID}
                 />
             ))}
         </PlaylistWrapper>

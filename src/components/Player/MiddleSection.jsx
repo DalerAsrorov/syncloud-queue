@@ -38,7 +38,9 @@ const MiddleSection = (props: {
     charLimit: number,
     currentTrack?: Object,
     secondAction?: string,
-    onSecondAction?: Function
+    onSecondAction?: Function,
+    onNextTrack?: Function,
+    nextTrackID?: number
 }) => {
     const { id, username, secondAction, onSecondAction, track, charLimit, currentTrack } = props;
     let { title } = props;
@@ -48,8 +50,10 @@ const MiddleSection = (props: {
         title = `${title.trim().substring(0, charLimit)}...`;
     }
 
+    // TODO: add another condition that checks whether
+    // current player component has next track object
     if (currentTrack && id === currentTrack.id) {
-        NextButton = <Next color={props.baseColor} />;
+        NextButton = <Next color={props.baseColor} onNextTrack={props.onNextTrack} />;
     }
 
     const FirstActionIcon = FontAwesome[`${props.firstAction}`];

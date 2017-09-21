@@ -39,7 +39,9 @@ type Props = {
     charLimit: number,
     secondAction?: string,
     onSecondAction?: Function,
-    currentTrack?: Object
+    onNextTrack?: Function,
+    currentTrack?: Object,
+    nextTrackID?: number
 };
 
 class Player extends Component<Props, {}> {
@@ -69,6 +71,8 @@ class Player extends Component<Props, {}> {
                         charLimit={this.props.charLimit}
                         secondAction={this.props.secondAction}
                         onSecondAction={this.props.onSecondAction}
+                        onNextTrack={this.props.onNextTrack}
+                        nextTrackID={this.props.nextTrackID}
                     />
                 </SoundPlayerContainer>
             </PlayerWrapper>

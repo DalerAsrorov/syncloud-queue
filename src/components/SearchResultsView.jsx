@@ -21,8 +21,10 @@ const SearchResultsView = (props: {
     charLimit: number,
     queueIsEmpty: boolean,
     currentTrack?: Object,
+    nextTrackID?: number,
     secondAction?: string,
-    onSecondAction?: Function
+    onSecondAction?: Function,
+    onNextTrack?: Function
 }) => {
     const { results, isLoading } = props;
 
@@ -42,6 +44,8 @@ const SearchResultsView = (props: {
                 charLimit={props.charLimit}
                 currentTrack={props.currentTrack}
                 queueIsEmpty={props.queueIsEmpty}
+                nextTrackID={props.nextTrackID}
+                onNextTrack={props.onNextTrack}
             />
         </SearchResultsWrapper>
     );
