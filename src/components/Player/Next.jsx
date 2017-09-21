@@ -1,6 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-classnames';
+import { NextButton } from 'react-soundplayer/components';
 
-const Next = (props: { color: string }) => <button> Next Button </button>;
+const nextClassName = styled`
+    cursor: pointer; 
+    height: 100%; 
+    width: 18px; 
+    color: ${props => props.color} !important; 
+`;
+
+const Next = (props: { color: string }) => <NextButton className={nextClassName(props)} {...props} />;
 
 export default Next;

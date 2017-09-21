@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 export const ButtonWrapper = styled.div`
     float: right;
+    display: flex;
 
     & > button {
         background: transparent;
