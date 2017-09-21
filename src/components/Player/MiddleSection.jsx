@@ -7,6 +7,7 @@ import { checkProp } from '../../utils';
 import ButtonWrapper from '../ButtonWrapper';
 import Progress from './Progress';
 import Timer from './Timer';
+import Next from './Next';
 
 const MiddleSectionWrapper = styled.section`
     flex: 1;
@@ -24,6 +25,7 @@ const UserName = styled.div`font-size: 12px;`;
 const Header = styled.header``;
 
 const MiddleSection = (props: {
+    id: number,
     track?: Object,
     queueIsEmpty: boolean,
     baseColor: string,
@@ -34,15 +36,20 @@ const MiddleSection = (props: {
     onFirstAction: Function,
     firstActionColor: string,
     charLimit: number,
+    currentTrack?: Object,
     secondAction?: string,
     onSecondAction?: Function
 }) => {
-    const { username, secondAction, onSecondAction, track, charLimit } = props;
+    const { id, username, secondAction, onSecondAction, track, charLimit, currentTrack } = props;
     let { title } = props;
-    let secondButton;
+    let NextButton;
 
     if (title.length > charLimit) {
         title = `${title.trim().substring(0, charLimit)}...`;
+    }
+
+    if (currentTrack && id === currentTrack.id) {
+        NextButton = <Next color={props.baseColor} />;
     }
 
     const FirstActionIcon = FontAwesome[`${props.firstAction}`];
@@ -66,7 +73,7 @@ const MiddleSection = (props: {
                     >
                         <FirstActionIcon />
                     </button>
-                    {secondButton}
+                    {NextButton}
                 </ButtonWrapper>
             </Header>
             <UserName>{username}</UserName>

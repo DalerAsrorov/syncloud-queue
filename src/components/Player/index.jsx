@@ -56,7 +56,9 @@ class Player extends Component<Props, {}> {
                         currentTrack={this.props.currentTrack}
                     />
                     <MiddleSection
+                        id={this.props.id}
                         queueIsEmpty={this.props.queueIsEmpty}
+                        currentTrack={this.props.currentTrack}
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
                         title={this.props.title}
