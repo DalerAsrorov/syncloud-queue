@@ -1,12 +1,14 @@
 // @flow
 
 import { combineReducers } from 'redux';
+import { cloneDeep, last } from 'lodash';
 import {
     ADD_TRACK_TO_QUEUE,
     DELETE_TRACK_FROM_QUEUE,
     INCREMENT_REPEAT_TIMES,
     DECREMENT_REPEAT_TIMES,
-    SET_CURRENT_TRACK
+    SET_CURRENT_TRACK,
+    SET_NEXT_TRACK
 } from './actions';
 
 const tracks = (state = [], action: Object) => {
@@ -35,6 +37,18 @@ const tracks = (state = [], action: Object) => {
                 }
                 return track;
             });
+        case SET_NEXT_TRACK:
+            const { trackID } = action;
+            let tracks = cloneDeep(state);
+
+            if (tracks.length === 0) {
+                return tracks;
+            }
+
+            let lastElement = last(tracks);
+            lastElement['nextTrackID'] = trackID;
+
+            return tracks;
         default:
             return state;
     }

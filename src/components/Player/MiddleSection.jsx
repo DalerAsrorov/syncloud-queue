@@ -40,9 +40,10 @@ const MiddleSection = (props: {
     secondAction?: string,
     onSecondAction?: Function,
     onNextTrack?: Function,
+    onSetNextTrack?: Function,
     nextTrackID?: number
 }) => {
-    const { id, username, secondAction, onSecondAction, track, charLimit, currentTrack } = props;
+    const { id, username, secondAction, onSecondAction, onSetNextTrack, track, charLimit, currentTrack } = props;
     let { title } = props;
     let NextButton;
 
@@ -68,6 +69,11 @@ const MiddleSection = (props: {
                     <button
                         onClick={ev => {
                             ev.preventDefault();
+
+                            if (onSetNextTrack) {
+                                onSetNextTrack(track);
+                            }
+
                             props.onFirstAction(track);
 
                             if (props.queueIsEmpty && onSecondAction) {

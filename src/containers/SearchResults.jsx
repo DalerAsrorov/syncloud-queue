@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux';
-import { addTrack, setCurrentTrack } from '../actionCreators.js';
+import { addTrack, setCurrentTrack, setNextTrack } from '../actionCreators.js';
 import { isInArray, formatTrack } from '../utils';
 import SearchResultsView from '../components/SearchResultsView';
 import { POSITIVE } from '../theme';
@@ -28,6 +28,10 @@ const mapDispatchToProps = dispatch => {
         onSecondAction: (track: Object) => {
             const formattedTrack = formatTrack(track);
             dispatch(setCurrentTrack(formattedTrack));
+        },
+
+        onSetNextTrack: ({ id: trackID }) => {
+            dispatch(setNextTrack(trackID));
         }
     };
 };

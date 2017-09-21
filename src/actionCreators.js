@@ -4,6 +4,7 @@ import {
     ADD_TRACK_TO_QUEUE,
     DELETE_TRACK_FROM_QUEUE,
     SET_CURRENT_TRACK,
+    SET_NEXT_TRACK,
     INCREMENT_REPEAT_TIMES,
     DECREMENT_REPEAT_TIMES
 } from './actions';
@@ -27,6 +28,13 @@ export const setCurrentTrack = (track: Object) => {
     return {
         type: SET_CURRENT_TRACK,
         track
+    };
+};
+
+export const setNextTrack = (trackID: number) => {
+    return {
+        type: SET_NEXT_TRACK,
+        trackID
     };
 };
 

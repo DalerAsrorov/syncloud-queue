@@ -24,7 +24,8 @@ const SearchResultsView = (props: {
     nextTrackID?: number,
     secondAction?: string,
     onSecondAction?: Function,
-    onNextTrack?: Function
+    onNextTrack?: Function,
+    onSetNextTrack?: Function
 }) => {
     const { results, isLoading } = props;
 
@@ -46,6 +47,7 @@ const SearchResultsView = (props: {
                 queueIsEmpty={props.queueIsEmpty}
                 nextTrackID={props.nextTrackID}
                 onNextTrack={props.onNextTrack}
+                onSetNextTrack={props.onSetNextTrack}
             />
         </SearchResultsWrapper>
     );

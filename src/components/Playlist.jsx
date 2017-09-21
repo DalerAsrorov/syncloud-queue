@@ -22,6 +22,7 @@ const Playlist = (props: {
     secondAction?: string,
     onSecondAction?: Function,
     onNextTrack?: Function,
+    onSetNextTrack?: Function,
     currentTrack?: Object,
     nextTrackID?: number
 }) => {
@@ -43,6 +44,7 @@ const Playlist = (props: {
                     charLimit={props.charLimit}
                     secondAction={props.secondAction}
                     onSecondAction={props.onSecondAction}
+                    onSetNextTrack={props.onSetNextTrack}
                     currentTrack={props.currentTrack}
                     nextTrackID={props.nextTrackID}
                 />
