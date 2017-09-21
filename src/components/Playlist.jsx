@@ -23,32 +23,34 @@ const Playlist = (props: {
     onSecondAction?: Function,
     onNextTrack?: Function,
     onSetNextTrack?: Function,
-    currentTrack?: Object,
-    nextTrackID?: number
+    currentTrackID?: number
 }) => {
     return (
         <PlaylistWrapper>
-            {props.tracks.map(({ permalink_url, artwork_url, id, title, user: { username, avatar_url } }) => (
-                <Player
-                    key={id}
-                    id={id}
-                    queueIsEmpty={props.queueIsEmpty}
-                    artwork={artwork_url}
-                    resolveUrl={permalink_url}
-                    title={title}
-                    username={username}
-                    avatar={avatar_url}
-                    firstAction={props.firstAction}
-                    onFirstAction={props.onFirstAction}
-                    firstActionColor={props.firstActionColor}
-                    charLimit={props.charLimit}
-                    secondAction={props.secondAction}
-                    onSecondAction={props.onSecondAction}
-                    onSetNextTrack={props.onSetNextTrack}
-                    currentTrack={props.currentTrack}
-                    nextTrackID={props.nextTrackID}
-                />
-            ))}
+            {props.tracks.map(
+                ({ permalink_url, artwork_url, id, title, user: { username, avatar_url }, nextTrackID }) => (
+                    <Player
+                        key={id}
+                        id={id}
+                        queueIsEmpty={props.queueIsEmpty}
+                        artwork={artwork_url}
+                        resolveUrl={permalink_url}
+                        title={title}
+                        username={username}
+                        avatar={avatar_url}
+                        firstAction={props.firstAction}
+                        onFirstAction={props.onFirstAction}
+                        firstActionColor={props.firstActionColor}
+                        charLimit={props.charLimit}
+                        secondAction={props.secondAction}
+                        onSecondAction={props.onSecondAction}
+                        onSetNextTrack={props.onSetNextTrack}
+                        onNextTrack={props.onNextTrack}
+                        currentTrackID={props.currentTrackID}
+                        nextTrackID={nextTrackID}
+                    />
+                )
+            )}
         </PlaylistWrapper>
     );
 };

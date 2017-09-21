@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
@@ -41,11 +41,11 @@ type Props = {
     onSecondAction?: Function,
     onNextTrack?: Function,
     onSetNextTrack?: Function,
-    currentTrack?: Object,
+    currentTrackID?: number,
     nextTrackID?: number
 };
 
-class Player extends Component<Props, {}> {
+class Player extends PureComponent<Props, {}> {
     render() {
         return (
             <PlayerWrapper>
@@ -56,12 +56,12 @@ class Player extends Component<Props, {}> {
                         color={COLOR}
                         artwork={this.props.artwork}
                         avatar={this.props.avatar}
-                        currentTrack={this.props.currentTrack}
+                        currentTrackID={this.props.currentTrackID}
                     />
                     <MiddleSection
                         id={this.props.id}
                         queueIsEmpty={this.props.queueIsEmpty}
-                        currentTrack={this.props.currentTrack}
+                        currentTrackID={this.props.currentTrackID}
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
                         title={this.props.title}

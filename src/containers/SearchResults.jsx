@@ -25,9 +25,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(addTrack(formattedTrack));
         },
 
-        onSecondAction: (track: Object) => {
-            const formattedTrack = formatTrack(track);
-            dispatch(setCurrentTrack(formattedTrack));
+        onSecondAction: (id: number) => {
+            // const formattedTrack = formatTrack(track);
+            dispatch(setCurrentTrack(id));
         },
 
         onSetNextTrack: ({ id: trackID }) => {

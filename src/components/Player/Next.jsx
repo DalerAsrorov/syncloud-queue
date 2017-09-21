@@ -1,14 +1,33 @@
-import React from 'react';
-import styled from 'styled-classnames';
+import React, { PureComponent } from 'react';
+import styled from 'styled-components';
 import { NextButton } from 'react-soundplayer/components';
 
-const nextClassName = styled`
-    cursor: pointer; 
-    height: 100%; 
-    width: 18px; 
-    color: ${props => props.color} !important; 
+type Props = {
+    color: string,
+    onNextTrack: Function,
+    nextTrackID: number
+};
+
+const NextWrapper = styled.button`
+    cursor: pointer;
+    height: 100%;
+    width: 18px;
+    color: ${props => props.color} !important;
 `;
 
-const Next = (props: { color: string }) => <NextButton className={nextClassName(props)} {...props} />;
+class Next extends PureComponent<Props, {}> {
+    _handleClickNext = (event: SyntheticInputElement<HTMLElement>) => {
+        event.preventDefault();
+        this.props.onNextTrack(this.props.nextTrackID);
+    };
+
+    render() {
+        return (
+            <NextWrapper onClick={this._handleClickNext} {...this.props}>
+                next
+            </NextWrapper>
+        );
+    }
+}
 
 export default Next;

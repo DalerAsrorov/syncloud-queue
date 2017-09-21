@@ -40,19 +40,20 @@ type Props = {
     background: string,
     artwork: string,
     avatar: string,
-    currentTrack?: Object,
+    currentTrackID?: number,
     soundCloudAudio?: Object
 };
 
 export default class PlayPause extends Component<Props, {}> {
     componentDidMount() {
-        const { id, currentTrack, soundCloudAudio } = this.props;
+        const { id, currentTrackID, soundCloudAudio } = this.props;
 
         // currently onload method doesn't work in
         // making sure that the track is loaded before
         // it is played. Temporary solution is to
         // have a time out.
-        if (currentTrack && soundCloudAudio && currentTrack.id === id) {
+        if (currentTrackID && soundCloudAudio && currentTrackID === id) {
+            console.log(`Should play ${id}`);
             setTimeout(function() {
                 soundCloudAudio.play();
             }, 3000);

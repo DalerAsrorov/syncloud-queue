@@ -7,7 +7,7 @@ const CHAR_LIMIT = 28;
 
 const PlaylistView = (props: {
     results: Array<Object>,
-    currentTrack: Object,
+    currentTrackID: number,
     nextTrackID: number,
     queueIsEmpty: boolean,
     firstAction: string,
@@ -17,7 +17,7 @@ const PlaylistView = (props: {
 }) => (
     <SearchResultsView
         results={props.results}
-        currentTrack={props.currentTrack}
+        currentTrackID={props.currentTrackID}
         nextTrackID={props.nextTrackID}
         isLoading={false}
         firstAction={props.firstAction}

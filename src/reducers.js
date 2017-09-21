@@ -57,7 +57,7 @@ const tracks = (state = [], action: Object) => {
 const currentTrack = (state = null, action: Object) => {
     switch (action.type) {
         case SET_CURRENT_TRACK:
-            return action.track;
+            return action.trackID;
         default:
             return state;
     }

@@ -24,10 +24,10 @@ export const deleteTrack = (id: number) => {
     };
 };
 
-export const setCurrentTrack = (track: Object) => {
+export const setCurrentTrack = (trackID: number) => {
     return {
         type: SET_CURRENT_TRACK,
-        track
+        trackID
     };
 };
 
