@@ -6,10 +6,6 @@ import styledClass from 'styled-classnames';
 import { PlayButton, Icons } from 'react-soundplayer/components';
 import FaClockO from 'react-icons/lib/fa/clock-o';
 
-import { BASE_COLOR } from '../../theme';
-
-const { NextIconSVG } = Icons;
-
 const playPauseClassName = styledClass`
     width: 100%;
     height: 100%;

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import styledClassNames from 'styled-classnames';
 import Search from '../containers/Search';
 import SearchResults from '../containers/SearchResults';
 
@@ -13,15 +12,6 @@ const SearchViewWrapper = styled.div`
 `;
 
 const SearchWrapper = styled.div`flex: 50px 0;`;
-
-const searchResultsWrapperClass = styledClassNames`
-    display: flex;
-    flex: 1;
-    height: 100%;
-    border-radius: 0 !important;
-    border: 1px solid #ddd;
-    margin-top: 5px;
-`;
 
 const SearchResultsWrapper = styled.div`
     display: flex;

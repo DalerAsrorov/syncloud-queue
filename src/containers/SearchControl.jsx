@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import SearchView from '../components/SearchView';
 import { searchQuery } from '../api';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 type State = {
     tracks: Array<Object>,

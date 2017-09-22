@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import SearchForm from '../components/SearchForm';
 
 type State = {

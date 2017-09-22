@@ -33,14 +33,13 @@ const MiddleSection = (props: {
     onFirstAction: Function,
     firstActionColor: string,
     charLimit: number,
-    currentTrackID?: number,
-    secondAction?: string,
+    currentTrack?: Object,
     onSecondAction?: Function,
     onNextTrack?: Function,
     onSetNextTrack?: Function,
     nextTrackID?: number
 }) => {
-    const { secondAction, onSecondAction, onSetNextTrack, track, charLimit, currentTrackID, nextTrackID, onNextTrack } = props;
+    const { onSecondAction, onSetNextTrack, track, charLimit, currentTrackID, nextTrackID, onNextTrack } = props;
     const { id, username } = track;
 
     let { title } = track;

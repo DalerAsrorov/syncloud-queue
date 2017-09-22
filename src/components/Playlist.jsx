@@ -10,8 +10,6 @@ const PlaylistWrapper = styled.div`
     overflow: auto;
 `;
 
-const RESOLVE_URL_TEST = 'https://soundcloud.com/zion22be/joji-medicine-beat-extended';
-
 const Playlist = (props: {
     tracks: Array<Object>,
     firstAction: string,

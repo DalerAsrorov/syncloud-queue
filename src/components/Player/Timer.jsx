@@ -1,12 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-classnames';
 import { Timer as TimerBar } from 'react-soundplayer/components';
 
-const timerClassName = styled` 
+const timerClassName = styled`
     cursor: pointer;
-    color: ${props => props.color}; 
+    color: ${props => props.color};
     text-align: right;
     font-size: 14px;
 `;

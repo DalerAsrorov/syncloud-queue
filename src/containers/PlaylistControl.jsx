@@ -1,6 +1,5 @@
 // @flow
 
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTrack, setCurrentTrack } from '../actionCreators.js';
 import PlaylistView from '../components/PlaylistView';

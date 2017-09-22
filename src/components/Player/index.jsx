@@ -2,14 +2,11 @@
 
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import styledClass from 'styled-classnames';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
-import { BASE_COLOR, COLOR, TEXT_COLOR, COVER_COLOR } from '../../theme';
+import { BASE_COLOR, COLOR, COVER_COLOR } from '../../theme';
 import { getClientID } from '../../api';
 import PlayPause from './PlayPause';
 import MiddleSection from './MiddleSection';
-
-const PLAYER_CLASS_NAME = 'sq-player';
 
 const PlayerWrapper = styled.article`
     padding: 3px;
