@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
-import { PlayButton, Icons } from 'react-soundplayer/components';
+import { PlayButton } from 'react-soundplayer/components';
 import FaClockO from 'react-icons/lib/fa/clock-o';
 
 const playPauseClassName = styledClass`
