@@ -13,6 +13,17 @@ Create your own tracklist by searching sounds that you like and adding them to y
 - https://developers.soundcloud.com/docs/api/guide#search
 - https://developers.soundcloud.com/docs/api/reference#tracks
 
+## TODO: 
+
+- (*) Make sure the loader component goes away after all tracks are ready to play 
+    - (Current solution is a timeout - not good)
+- Make "Next" button transition faster. It is slow because of (*)
+- If the user is searching artists fast, there is an error that is due 
+  to state being changed before all tracks are resolved. 
+- Add "reapeatTimes" feature 
+    - User can increase number of times a song in a queue can be played before it's removed (pop).
+
+
 ## Global state 
 ```javascript
 {
