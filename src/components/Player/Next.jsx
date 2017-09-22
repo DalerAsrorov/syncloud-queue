@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import FaStepForward from 'react-icons/lib/fa/step-forward';
 import { NextButton } from 'react-soundplayer/components';
 
 type Props = {
@@ -26,7 +27,7 @@ class Next extends PureComponent<Props, {}> {
     render() {
         return (
             <NextWrapper onClick={this._handleClickNext} {...this.props}>
-                next
+                <FaStepForward />
             </NextWrapper>
         );
     }

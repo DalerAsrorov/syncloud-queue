@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
         firstActionColor: NEGATIVE,
         results: state.tracks,
         currentTrackID: state.currentTrack,
+        charLimit: 26,
         queueIsEmpty: false
     };
 };

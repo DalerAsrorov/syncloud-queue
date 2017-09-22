@@ -3,8 +3,6 @@
 import React from 'react';
 import SearchResultsView from './SearchResultsView';
 
-const CHAR_LIMIT = 28;
-
 const PlaylistView = (props: {
     results: Array<Object>,
     currentTrackID: number,
@@ -12,6 +10,7 @@ const PlaylistView = (props: {
     queueIsEmpty: boolean,
     firstAction: string,
     firstActionColor: string,
+    charLimit: number,
     onFirstAction: Function,
     onNextTrack: Function
 }) => (
@@ -23,7 +22,7 @@ const PlaylistView = (props: {
         firstAction={props.firstAction}
         firstActionColor={props.firstActionColor}
         onFirstAction={props.onFirstAction}
-        charLimit={CHAR_LIMIT}
+        charLimit={props.charLimit}
         queueIsEmpty={props.queueIsEmpty}
         onNextTrack={props.onNextTrack}
     />
