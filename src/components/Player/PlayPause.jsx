@@ -45,7 +45,7 @@ type Props = {
 };
 
 export default class PlayPause extends Component<Props, {}> {
-    componentDidMount() {
+    _playCurrentTrack = (callback: Function = () => {}) => {
         const { id, currentTrackID, soundCloudAudio } = this.props;
 
         // currently onload method doesn't work in
@@ -56,23 +56,17 @@ export default class PlayPause extends Component<Props, {}> {
             console.log(`Should play ${id}`);
             setTimeout(function() {
                 soundCloudAudio.play();
+                callback();
             }, 3000);
         }
+    };
+
+    componentDidMount() {
+        this._playCurrentTrack();
     }
 
     componentDidUpdate() {
-        const { id, currentTrackID, soundCloudAudio } = this.props;
-
-        // currently onload method doesn't work in
-        // making sure that the track is loaded before
-        // it is played. Temporary solution is to
-        // have a time out.
-        if (currentTrackID && soundCloudAudio && currentTrackID === id) {
-            console.log(`Should play ${id}`);
-            setTimeout(function() {
-                soundCloudAudio.play();
-            }, 3000);
-        }
+        this._playCurrentTrack();
     }
 
     render() {
