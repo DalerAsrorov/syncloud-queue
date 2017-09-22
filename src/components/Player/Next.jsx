@@ -1,3 +1,5 @@
+// @flow
+
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { NextButton } from 'react-soundplayer/components';
@@ -16,7 +18,7 @@ const NextWrapper = styled.button`
 `;
 
 class Next extends PureComponent<Props, {}> {
-    _handleClickNext = (event: SyntheticInputElement<HTMLElement>) => {
+    _handleClickNext = (event: SyntheticInputEvent<HTMLInputElement>) => {
         event.preventDefault();
         this.props.onNextTrack(this.props.nextTrackID);
     };

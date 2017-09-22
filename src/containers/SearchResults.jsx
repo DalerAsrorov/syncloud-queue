@@ -1,9 +1,9 @@
 // @flow
 
 import { connect } from 'react-redux';
+import SearchResultsView from '../components/SearchResultsView';
 import { addTrack, setCurrentTrack, setNextTrack } from '../actionCreators.js';
 import { isInArray, formatTrack } from '../utils';
-import SearchResultsView from '../components/SearchResultsView';
 import { POSITIVE } from '../theme';
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,7 +26,6 @@ const mapDispatchToProps = dispatch => {
         },
 
         onSecondAction: (id: number) => {
-            // const formattedTrack = formatTrack(track);
             dispatch(setCurrentTrack(id));
         },
 
