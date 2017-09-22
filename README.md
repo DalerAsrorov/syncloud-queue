@@ -25,6 +25,10 @@ Create your own tracklist by searching sounds that you like and adding them to y
 - Make "Next" button transition faster. It is slow because of (*)
 - If the user is searching artists fast, there is an error that is due 
   to state being changed before all tracks are resolved. 
+- Currently, if the track gets deleted, it continues playing the track without 
+  acknowledging the change of state. In this case, we should add a setNextTrack action
+  after onDelete prop method which will set track to the next track in order. However, if 
+  the queue is empty after the track deletion, set current track to -1 (default). 
 - Add "reapeatTimes" feature 
     - User can increase number of times a song in a queue can be played before it's removed (pop).
 
