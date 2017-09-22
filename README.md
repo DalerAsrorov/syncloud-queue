@@ -7,6 +7,11 @@
 
 Create your own tracklist by searching sounds that you like and adding them to your tracklist queue. You can set the playlist on `autoplay` mode and the tracks will play sequentially.
 
+## Running locally 
+1. `cd ./syncloud-queue`
+1. `yarn` or `npm install`
+1. `yarn start` or `npm run start`
+
 ## Useful links for development
 - http://redux.js.org/ - Redux docs
 - https://github.com/troybetz/react-soundcloud-widget - React widget component
