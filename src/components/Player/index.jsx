@@ -51,11 +51,11 @@ class Player extends PureComponent<Props, State> {
         });
     }
 
-    render() {
+    _getTrackObjectFromProps() {
         const { track } = this.props;
-        const { id, artwork_url: artwork, permalink_url: resolveUrl, stream_url: streamUrl, title, username, avatar_url: avatar } = track;
+        const { id, artwork_url: artwork, permalink_url: resolveUrl, stream_url: streamUrl, title, user: {avatar_url: avatar, username} } = track;
 
-        const trackObject = {
+        return {
             id,
             artwork,
             resolveUrl,
@@ -64,24 +64,25 @@ class Player extends PureComponent<Props, State> {
             username,
             avatar
         };
+    }
 
+    render() {
+        const { currentTrackID } = this.props;
         const { isReadyToPlay } = this.state;
+        const trackObject = this._getTrackObjectFromProps();
 
         return (
             <PlayerWrapper>
                 <SoundPlayerContainer
                     onReady={this._setReady}
                     clientId={getClientID()}
-                    streamUrl={streamUrl}
-                    resolveUrl={resolveUrl}
+                    resolveUrl={trackObject.resolveUrl}
                 >
                     <PlayPause
-                        id={id}
+                        track={trackObject}
                         background={BASE_COLOR}
                         color={COLOR}
-                        artwork={artwork}
-                        avatar={avatar}
-                        currentTrack={this.props.currentTrack}
+                        currentTrackID={currentTrackID}
                         isReadyToPlay={isReadyToPlay}
                     />
                     <MiddleSection

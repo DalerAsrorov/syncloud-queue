@@ -36,14 +36,15 @@ type Props = {
     background: string,
     artwork: string,
     avatar: string,
+    track: Object,
     currentTrackID?: number,
     soundCloudAudio?: Object
 };
 
 export default class PlayPause extends Component<Props, {}> {
     _playCurrentTrack = (callback: Function = () => {}) => {
-        const { id, currentTrackID, soundCloudAudio } = this.props;
-
+        const { currentTrackID, soundCloudAudio, track } = this.props;
+        const { id } = track;
         // currently onload method doesn't work in
         // making sure that the track is loaded before
         // it is played. Temporary solution is to
@@ -66,9 +67,17 @@ export default class PlayPause extends Component<Props, {}> {
     }
 
     render() {
+        const { track, color } = this.props;
+        const { artwork, avatar } = track;
+        const classNameProps = {
+            artwork,
+            avatar,
+            color
+        };
+
         return (
             <PlayPauseWrapper>
-                <PlayButton className={playPauseClassName(this.props)} {...this.props} seekingIcon={<FaClockO />} />
+                <PlayButton className={playPauseClassName(classNameProps)} {...this.props} seekingIcon={<FaClockO />} />
             </PlayPauseWrapper>
         );
     }
