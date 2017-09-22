@@ -25,32 +25,19 @@ const Playlist = (props: {
     onSetNextTrack?: Function,
     currentTrackID?: number
 }) => {
+    const { tracks, ...restProps } = props;
+
     return (
         <PlaylistWrapper>
-            {props.tracks.map(
-                ({ permalink_url, artwork_url, id, title, user: { username, avatar_url }, nextTrackID }) => (
+            {tracks.map(track  => {
+                return (
                     <Player
-                        key={id}
-                        id={id}
-                        queueIsEmpty={props.queueIsEmpty}
-                        artwork={artwork_url}
-                        resolveUrl={permalink_url}
-                        title={title}
-                        username={username}
-                        avatar={avatar_url}
-                        firstAction={props.firstAction}
-                        onFirstAction={props.onFirstAction}
-                        firstActionColor={props.firstActionColor}
-                        charLimit={props.charLimit}
-                        secondAction={props.secondAction}
-                        onSecondAction={props.onSecondAction}
-                        onSetNextTrack={props.onSetNextTrack}
-                        onNextTrack={props.onNextTrack}
-                        currentTrackID={props.currentTrackID}
-                        nextTrackID={nextTrackID}
+                        key={track.id}
+                        track={track}
+                        {...restProps}
                     />
                 )
-            )}
+            })}
         </PlaylistWrapper>
     );
 };

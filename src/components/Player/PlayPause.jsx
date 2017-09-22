@@ -11,21 +11,21 @@ import { BASE_COLOR } from '../../theme';
 const { NextIconSVG } = Icons;
 
 const playPauseClassName = styledClass`
-    width: 100%; 
+    width: 100%;
     height: 100%;
-    min-width: 20px; 
-    min-height: 20px;  
-    padding: 3px; 
+    min-width: 20px;
+    min-height: 20px;
+    padding: 3px;
     cursor: pointer;
     background-size: cover;
     background-repeat: round;
     background: ${props => (props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`)};
-    color: ${props => props.color}; 
+    color: ${props => props.color};
     border: none;
-    
+
     & > svg {
-        width: 40%; 
-        height: 70%; 
+        width: 40%;
+        height: 70%;
     }
 `;
 

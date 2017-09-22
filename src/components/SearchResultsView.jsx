@@ -26,7 +26,7 @@ const SearchResultsView = (props: {
     onNextTrack?: Function,
     onSetNextTrack?: Function
 }) => {
-    const { results, isLoading } = props;
+    const { results, isLoading, ...restProps } = props;
 
     if (isLoading) {
         return <Loader loadDescription="Loading tracks..." />;
@@ -36,16 +36,7 @@ const SearchResultsView = (props: {
         <SearchResultsWrapper>
             <Playlist
                 tracks={results}
-                firstAction={props.firstAction}
-                onFirstAction={props.onFirstAction}
-                firstActionColor={props.firstActionColor}
-                secondAction={props.secondAction}
-                onSecondAction={props.onSecondAction}
-                charLimit={props.charLimit}
-                currentTrackID={props.currentTrackID}
-                queueIsEmpty={props.queueIsEmpty}
-                onNextTrack={props.onNextTrack}
-                onSetNextTrack={props.onSetNextTrack}
+                {...restProps}
             />
         </SearchResultsWrapper>
     );

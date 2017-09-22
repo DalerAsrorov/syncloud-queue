@@ -26,9 +26,14 @@ const SearchInput = styled.input`
 
 const SearchFormWrapper = styled.form`display: flex;`;
 
-const SearchForm = (props: { onSubmit: Function, onChange: Function }) =>
-    <SearchFormWrapper onSubmit={props.onSubmit}>
-        <SearchInput onChange={props.onChange} placeholder="Search artists, playlists, tracks..." name="search" />
-    </SearchFormWrapper>;
+const SearchForm = (props: { onSubmit: Function, onChange: Function }) => {
+    const { onSubmit, onChange } = props;
+
+    return (
+        <SearchFormWrapper onSubmit={onSubmit}>
+            <SearchInput onChange={onChange} placeholder="Search artists, playlists, tracks..." name="search" />
+        </SearchFormWrapper>
+    );
+};
 
 export default SearchForm;

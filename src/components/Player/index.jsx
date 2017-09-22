@@ -26,13 +26,8 @@ const PlayerWrapper = styled.article`
 `;
 
 type Props = {
-    id: number,
+    track: Object,
     queueIsEmpty: boolean,
-    resolveUrl: string,
-    artwork: string,
-    title: string,
-    username: string,
-    avatar: string,
     firstAction: string,
     onFirstAction: Function,
     firstActionColor: string,
@@ -45,27 +40,59 @@ type Props = {
     nextTrackID?: number
 };
 
-class Player extends PureComponent<Props, {}> {
+type State = {
+    isReadyToPlay: boolean
+}
+class Player extends PureComponent<Props, State> {
+    state = {
+        isReadyToPlay: false
+    }
+
+    _setReady = () => {
+        this.setState({
+            isReadyToPlay: true
+        });
+    }
+
     render() {
+        const { track } = this.props;
+        const { id, artwork_url: artwork, permalink_url: resolveUrl, stream_url: streamUrl, title, username, avatar_url: avatar } = track;
+
+        const trackObject = {
+            id,
+            artwork,
+            resolveUrl,
+            streamUrl,
+            title,
+            username,
+            avatar
+        };
+
+        const { isReadyToPlay } = this.state;
+
         return (
             <PlayerWrapper>
-                <SoundPlayerContainer clientId={getClientID()} resolveUrl={this.props.resolveUrl}>
+                <SoundPlayerContainer
+                    onReady={this._setReady}
+                    clientId={getClientID()}
+                    streamUrl={streamUrl}
+                    resolveUrl={resolveUrl}
+                >
                     <PlayPause
-                        id={this.props.id}
+                        id={id}
                         background={BASE_COLOR}
                         color={COLOR}
-                        artwork={this.props.artwork}
-                        avatar={this.props.avatar}
-                        currentTrackID={this.props.currentTrackID}
+                        artwork={artwork}
+                        avatar={avatar}
+                        currentTrack={this.props.currentTrack}
+                        isReadyToPlay={isReadyToPlay}
                     />
                     <MiddleSection
-                        id={this.props.id}
                         queueIsEmpty={this.props.queueIsEmpty}
                         currentTrackID={this.props.currentTrackID}
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
-                        title={this.props.title}
-                        username={this.props.username}
+                        track={trackObject}
                         firstAction={this.props.firstAction}
                         onFirstAction={this.props.onFirstAction}
                         firstActionColor={this.props.firstActionColor}

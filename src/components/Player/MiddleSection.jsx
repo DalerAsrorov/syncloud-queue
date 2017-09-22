@@ -25,13 +25,10 @@ const UserName = styled.div`font-size: 12px;`;
 const Header = styled.header``;
 
 const MiddleSection = (props: {
-    id: number,
-    track?: Object,
+    track: Object,
     queueIsEmpty: boolean,
     baseColor: string,
     coverColor: string,
-    title: string,
-    username: string,
     firstAction: string,
     onFirstAction: Function,
     firstActionColor: string,
@@ -43,19 +40,10 @@ const MiddleSection = (props: {
     onSetNextTrack?: Function,
     nextTrackID?: number
 }) => {
-    const {
-        id,
-        username,
-        secondAction,
-        onSecondAction,
-        onSetNextTrack,
-        onNextTrack,
-        track,
-        charLimit,
-        currentTrackID,
-        nextTrackID
-    } = props;
-    let { title } = props;
+    const { secondAction, onSecondAction, onSetNextTrack, track, charLimit, currentTrackID, nextTrackID, onNextTrack } = props;
+    const { id, username } = track;
+
+    let { title } = track;
     let NextButton;
 
     if (title.length > charLimit) {
@@ -70,6 +58,19 @@ const MiddleSection = (props: {
 
     const FirstActionIcon = FontAwesome[`${props.firstAction}`];
 
+    const _onClick = (ev) => {
+        ev.preventDefault();
+        if (onSetNextTrack) {
+            onSetNextTrack(track);
+        }
+
+        props.onFirstAction(track);
+
+        if (props.queueIsEmpty && onSecondAction) {
+            onSecondAction(id);
+        }
+    }
+
     return (
         <MiddleSectionWrapper>
             <Header>
@@ -77,21 +78,7 @@ const MiddleSection = (props: {
                     {title}
                 </TrackTitle>
                 <ButtonWrapper color={props.firstActionColor}>
-                    <button
-                        onClick={ev => {
-                            ev.preventDefault();
-
-                            if (onSetNextTrack) {
-                                onSetNextTrack(track);
-                            }
-
-                            props.onFirstAction(track);
-
-                            if (props.queueIsEmpty && onSecondAction) {
-                                onSecondAction(id);
-                            }
-                        }}
-                    >
+                    <button onClick={_onClick}>
                         <FirstActionIcon />
                     </button>
                     {NextButton}
