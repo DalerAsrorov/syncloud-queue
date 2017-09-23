@@ -31,11 +31,8 @@ const PlayPauseWrapper = styled.section`
 `;
 
 type Props = {
-    id: number,
     color: string,
     background: string,
-    artwork: string,
-    avatar: string,
     track: Object,
     currentTrackID?: number,
     soundCloudAudio?: Object
