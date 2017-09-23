@@ -65,7 +65,8 @@ export default class PlayPause extends Component<Props, {}> {
 
     render() {
         const { track, color } = this.props;
-        const { artwork, avatar } = track;
+        const { artwork_url: artwork, user: {avatar_url: avatar} } = track;
+
         const classNameProps = {
             artwork,
             avatar,

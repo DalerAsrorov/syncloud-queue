@@ -51,35 +51,22 @@ class Player extends PureComponent<Props, State> {
         });
     }
 
-    _getTrackObjectFromProps() {
-        const { track } = this.props;
-        const { id, artwork_url: artwork, permalink_url: resolveUrl, stream_url: streamUrl, title, user: {avatar_url: avatar, username} } = track;
 
-        return {
-            id,
-            artwork,
-            resolveUrl,
-            streamUrl,
-            title,
-            username,
-            avatar
-        };
-    }
 
     render() {
-        const { currentTrackID } = this.props;
+        const { currentTrackID, track } = this.props;
         const { isReadyToPlay } = this.state;
-        const trackObject = this._getTrackObjectFromProps();
+        const { permalink_url: resolveUrl } = track;
 
         return (
             <PlayerWrapper>
                 <SoundPlayerContainer
                     onReady={this._setReady}
                     clientId={getClientID()}
-                    resolveUrl={trackObject.resolveUrl}
+                    resolveUrl={resolveUrl}
                 >
                     <PlayPause
-                        track={trackObject}
+                        track={track}
                         background={BASE_COLOR}
                         color={COLOR}
                         currentTrackID={currentTrackID}
@@ -90,7 +77,7 @@ class Player extends PureComponent<Props, State> {
                         currentTrackID={this.props.currentTrackID}
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
-                        track={trackObject}
+                        track={track}
                         firstAction={this.props.firstAction}
                         onFirstAction={this.props.onFirstAction}
                         firstActionColor={this.props.firstActionColor}

@@ -40,7 +40,7 @@ const MiddleSection = (props: {
     nextTrackID?: number
 }) => {
     const { onSecondAction, onSetNextTrack, track, charLimit, currentTrackID, nextTrackID, onNextTrack } = props;
-    const { id, username } = track;
+    const { id, user: { username } } = track;
 
     let { title } = track;
     let NextButton;
