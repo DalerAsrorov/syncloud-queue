@@ -12,7 +12,7 @@ const IconLinkWrapper = styled.a`
     text-decoration: none;
     font-size: 2.5em;
     float: right;
-    color: #000;
+    color: ${props => props.iconColor};
     transition: color 0.3s ease-in;
 
     &:hover {
@@ -25,7 +25,7 @@ const IconLinkWrapper = styled.a`
 `;
 
 const NavWrapper = styled.nav`
-    background: #fff;
+    background: ${props => props.background};
     padding: 1px 15px;
 `;
 
@@ -36,10 +36,10 @@ const HeaderImage = styled.img`
 
 const REPO_LINK = 'https://github.com/DalerAsrorov/syncloud-queue';
 
-const Nav = (props: {}) => (
-    <NavWrapper>
+const Nav = (props: { iconColor: string, background: string }) => (
+    <NavWrapper background={props.background}>
         <HeaderImage src={logo} alt="SyncloudQueue Logo" />
-        <IconLinkWrapper target="__blank" href={REPO_LINK}>
+        <IconLinkWrapper iconColor={props.iconColor} target="__blank" href={REPO_LINK}>
             <FaGithub />
         </IconLinkWrapper>
     </NavWrapper>
