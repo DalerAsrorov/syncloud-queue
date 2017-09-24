@@ -1,4 +1,4 @@
-[![Build Status](https://circleci.com/gh/DalerAsrorov/syncloud-queue.svg?style=shield)]
+[![Build Status](https://circleci.com/gh/DalerAsrorov/syncloud-queue.svg?style=shield&circle-token=8ae269e2e60d0a4c30a4a2fe207c148ba01fe117)](https://circleci.com/gh/DalerAsrorov/syncloud-queue)
 
 <div>
     <a href="https://github.com/DalerAsrorov/syncloud-queue" target="__blank">
