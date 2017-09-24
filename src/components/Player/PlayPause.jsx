@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
 import { PlayButton } from 'react-soundplayer/components';
@@ -35,10 +35,24 @@ type Props = {
     background: string,
     track: Object,
     currentTrackID?: number,
+    soundCloudAudio?: Object,
+    playing?: boolean,
     soundCloudAudio?: Object
 };
 
-export default class PlayPause extends Component<Props, {}> {
+export default class PlayPause extends PureComponent<Props, {}> {
+    _handleTogglePlay = () => {
+        const { soundCloudAudio, playing } = this.props;
+
+        console.log('playing', playing);
+
+        if (playing && soundCloudAudio) {
+            soundCloudAudio.pause();
+        } else if (!playing && soundCloudAudio) {
+            soundCloudAudio.play();
+        }
+    };
+
     _playCurrentTrack = (callback: Function = () => {}) => {
         const { currentTrackID, soundCloudAudio, track } = this.props;
         const { id } = track;
@@ -65,7 +79,7 @@ export default class PlayPause extends Component<Props, {}> {
 
     render() {
         const { track, color } = this.props;
-        const { artwork_url: artwork, user: {avatar_url: avatar} } = track;
+        const { artwork_url: artwork, user: { avatar_url: avatar } } = track;
 
         const classNameProps = {
             artwork,
@@ -75,7 +89,12 @@ export default class PlayPause extends Component<Props, {}> {
 
         return (
             <PlayPauseWrapper>
-                <PlayButton className={playPauseClassName(classNameProps)} {...this.props} seekingIcon={<FaClockO />} />
+                <PlayButton
+                    onTogglePlay={this._handleTogglePlay}
+                    className={playPauseClassName(classNameProps)}
+                    {...this.props}
+                    seekingIcon={<FaClockO />}
+                />
             </PlayPauseWrapper>
         );
     }
