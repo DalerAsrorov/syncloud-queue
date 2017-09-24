@@ -14,7 +14,7 @@ Create your own tracklist by searching sounds that you like and adding them to y
 
 ## Useful links for development
 - http://redux.js.org/ - Redux docs
-- https://github.com/troybetz/react-soundcloud-widget - React widget component
+- https://github.com/soundblogs/react-soundplayer - React widget component
 - https://developers.soundcloud.com/docs/api/guide#search - SoundCloud API search query
 - https://developers.soundcloud.com/docs/api/reference#tracks - Soundcloud API tracks attributes 
 
