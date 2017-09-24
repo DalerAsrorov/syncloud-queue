@@ -27,14 +27,8 @@ const Playlist = (props: {
 
     return (
         <PlaylistWrapper>
-            {tracks.map(track  => {
-                return (
-                    <Player
-                        key={track.id}
-                        track={track}
-                        {...restProps}
-                    />
-                )
+            {tracks.map(track => {
+                return <Player key={track.id} track={track} {...restProps} />;
             })}
         </PlaylistWrapper>
     );

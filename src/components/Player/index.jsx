@@ -39,32 +39,26 @@ type Props = {
 
 type State = {
     isReadyToPlay: boolean
-}
+};
 class Player extends PureComponent<Props, State> {
     state = {
         isReadyToPlay: false
-    }
+    };
 
     _setReady = () => {
         this.setState({
             isReadyToPlay: true
         });
-    }
-
-
+    };
 
     render() {
         const { currentTrackID, track } = this.props;
         const { isReadyToPlay } = this.state;
-        const { permalink_url: resolveUrl } = track;
+        const { permalink_url: resolveUrl, nextTrackID } = track;
 
         return (
             <PlayerWrapper>
-                <SoundPlayerContainer
-                    onReady={this._setReady}
-                    clientId={getClientID()}
-                    resolveUrl={resolveUrl}
-                >
+                <SoundPlayerContainer onReady={this._setReady} clientId={getClientID()} resolveUrl={resolveUrl}>
                     <PlayPause
                         track={track}
                         background={BASE_COLOR}
@@ -86,7 +80,7 @@ class Player extends PureComponent<Props, State> {
                         onSecondAction={this.props.onSecondAction}
                         onNextTrack={this.props.onNextTrack}
                         onSetNextTrack={this.props.onSetNextTrack}
-                        nextTrackID={this.props.nextTrackID}
+                        nextTrackID={nextTrackID}
                     />
                 </SoundPlayerContainer>
             </PlayerWrapper>

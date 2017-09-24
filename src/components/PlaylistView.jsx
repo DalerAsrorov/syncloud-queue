@@ -6,7 +6,6 @@ import SearchResultsView from './SearchResultsView';
 const PlaylistView = (props: {
     results: Array<Object>,
     currentTrackID: number,
-    nextTrackID: number,
     queueIsEmpty: boolean,
     firstAction: string,
     firstActionColor: string,
@@ -17,7 +16,6 @@ const PlaylistView = (props: {
     <SearchResultsView
         results={props.results}
         currentTrackID={props.currentTrackID}
-        nextTrackID={props.nextTrackID}
         isLoading={false}
         firstAction={props.firstAction}
         firstActionColor={props.firstActionColor}
