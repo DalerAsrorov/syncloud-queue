@@ -35,7 +35,6 @@ type Props = {
     background: string,
     track: Object,
     currentTrackID?: number,
-    soundCloudAudio?: Object,
     playing?: boolean,
     soundCloudAudio?: Object
 };
@@ -43,8 +42,6 @@ type Props = {
 export default class PlayPause extends PureComponent<Props, {}> {
     _handleTogglePlay = () => {
         const { soundCloudAudio, playing } = this.props;
-
-        console.log('playing', playing);
 
         if (playing && soundCloudAudio) {
             soundCloudAudio.pause();
@@ -56,6 +53,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
     _playCurrentTrack = (callback: Function = () => {}) => {
         const { currentTrackID, soundCloudAudio, track } = this.props;
         const { id } = track;
+
         // currently onload method doesn't work in
         // making sure that the track is loaded before
         // it is played. Temporary solution is to
