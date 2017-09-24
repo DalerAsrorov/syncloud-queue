@@ -1,3 +1,5 @@
+[![Build Status](https://circleci.com/gh/DalerAsrorov/syncloud-queue.svg?style=shield)]
+
 <div>
     <a href="https://github.com/DalerAsrorov/syncloud-queue" target="__blank">
         <img height="200" width="300" src="src/images/syncloud.png"  />
