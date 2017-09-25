@@ -74,10 +74,6 @@ export default class PlayPause extends PureComponent<Props, {}> {
         }
     };
 
-    componentDidMount() {
-        this._playCurrentTrack();
-    }
-
     componentDidUpdate(nextProps: Props, nextState: Object) {
         const { currentTrackID } = this.props;
 
