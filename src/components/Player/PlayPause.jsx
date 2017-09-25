@@ -63,7 +63,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
         if (currentTrackID && soundCloudAudio && soundCloudAudio.play && currentTrackID === id) {
             if (!playing) {
                 let readyCheckInterval = setInterval(() => {
-                    const { audio, audio: { readyState: trackState }, duration } = soundCloudAudio;
+                    const { duration } = soundCloudAudio;
 
                     if (duration > 0) {
                         soundCloudAudio.play();
