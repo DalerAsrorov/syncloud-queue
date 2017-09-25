@@ -59,7 +59,6 @@ export default class PlayPause extends PureComponent<Props, {}> {
         // it is played. Temporary solution is to
         // have a time out.
         if (currentTrackID && soundCloudAudio && currentTrackID === id) {
-            console.log(`Should play ${id}`);
             setTimeout(function() {
                 soundCloudAudio.play();
                 callback();

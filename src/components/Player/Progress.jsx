@@ -19,9 +19,42 @@ const progressClassName = styled`
 
 type Props = {
     color: string,
-    background: string
+    background: string,
+    track: Object,
+    // this way of getting duration is preferred
+    // as it is already converted from ms.
+    duration?: number,
+    nextTrackID?: number,
+    currentTime?: number,
+    onNextTrack?: Function,
+    soundCloudAudio?: Object
 };
 
-const Progress = (props: Props) => <ProgressBar className={progressClassName(props)} {...props} />;
+class Progress extends React.PureComponent<Props, {}> {
+    _handleChange = () => {
+        console.log('changing');
+    };
+
+    _checkForTrackEnding = () => {
+        let { duration, currentTime, onNextTrack, nextTrackID, soundCloudAudio } = this.props;
+
+        if (soundCloudAudio && duration && currentTime && onNextTrack && nextTrackID) {
+            duration = Math.floor(duration);
+            currentTime = Math.floor(currentTime);
+
+            console.log(duration, currentTime);
+            if (duration !== 0 && duration === currentTime) {
+                soundCloudAudio.pause();
+                onNextTrack(nextTrackID);
+            }
+        }
+    };
+
+    render() {
+        this._checkForTrackEnding();
+
+        return <ProgressBar onChange={this._handleChange} className={progressClassName(this.props)} {...this.props} />;
+    }
+}
 
 export default Progress;
