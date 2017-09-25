@@ -39,7 +39,9 @@ type Props = {
     soundCloudAudio?: Object
 };
 
-export default class PlayPause extends PureComponent<Props, {}> {
+const TIME_TO_CHECK_TRACK_READY_INTERVAL = 10;
+
+export default class PlayPause extends PureComponent<Props, State> {
     _handleTogglePlay = () => {
         const { soundCloudAudio, playing } = this.props;
 
@@ -51,18 +53,24 @@ export default class PlayPause extends PureComponent<Props, {}> {
     };
 
     _playCurrentTrack = (callback: Function = () => {}) => {
-        const { currentTrackID, soundCloudAudio, track } = this.props;
+        const { currentTrackID, soundCloudAudio, track, playing } = this.props;
         const { id } = track;
 
-        // currently onload method doesn't work in
-        // making sure that the track is loaded before
-        // it is played. Temporary solution is to
-        // have a time out.
-        if (currentTrackID && soundCloudAudio && currentTrackID === id) {
-            setTimeout(function() {
-                soundCloudAudio.play();
-                callback();
-            }, 3000);
+        // New solution to `noReady` prop function - 09/24/2017:
+        // set interval to periodically check whether duration property
+        // is available. If it is available, that means the track
+        // is ready to play.
+        if (currentTrackID && soundCloudAudio && soundCloudAudio.play && currentTrackID === id) {
+            if (!playing) {
+                let readyCheckInterval = setInterval(() => {
+                    const { audio, audio: { readyState: trackState }, duration } = soundCloudAudio;
+
+                    if (duration > 0) {
+                        soundCloudAudio.play();
+                        clearInterval(readyCheckInterval);
+                    }
+                }, TIME_TO_CHECK_TRACK_READY_INTERVAL);
+            }
         }
     };
 
@@ -70,8 +78,12 @@ export default class PlayPause extends PureComponent<Props, {}> {
         this._playCurrentTrack();
     }
 
-    componentDidUpdate() {
-        this._playCurrentTrack();
+    componentDidUpdate(nextProps: Props, nextState: Object) {
+        const { currentTrackID } = this.props;
+
+        if (currentTrackID) {
+            this._playCurrentTrack();
+        }
     }
 
     render() {
