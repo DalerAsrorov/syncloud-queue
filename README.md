@@ -4,7 +4,7 @@
     <a href="https://github.com/DalerAsrorov/syncloud-queue" target="__blank">
         <img height="200" width="300" src="src/images/syncloud.png"  />
     </a>
-    <h1>SynCloud</h1>
+    <h1>SynCloud Queue</h1>
 </div>
 
 Create your own tracklist by searching sounds that you like and adding them to your tracklist queue. You can set the playlist on `autoplay` mode and the tracks will play sequentially.
@@ -54,3 +54,6 @@ Create your own tracklist by searching sounds that you like and adding them to y
     tracklist: array
 }
 ```
+
+## License
+* [MIT](LICENSE)
