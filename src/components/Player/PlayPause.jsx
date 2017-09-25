@@ -41,7 +41,7 @@ type Props = {
 
 const TIME_TO_CHECK_TRACK_READY_INTERVAL = 10;
 
-export default class PlayPause extends PureComponent<Props, State> {
+export default class PlayPause extends PureComponent<Props, {}> {
     _handleTogglePlay = () => {
         const { soundCloudAudio, playing } = this.props;
 
