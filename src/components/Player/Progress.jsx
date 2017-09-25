@@ -31,10 +31,6 @@ type Props = {
 };
 
 class Progress extends React.PureComponent<Props, {}> {
-    _handleChange = () => {
-        console.log('changing');
-    };
-
     _checkForTrackEnding = () => {
         let { duration, currentTime, onNextTrack, nextTrackID, soundCloudAudio } = this.props;
 
@@ -53,7 +49,7 @@ class Progress extends React.PureComponent<Props, {}> {
     render() {
         this._checkForTrackEnding();
 
-        return <ProgressBar onChange={this._handleChange} className={progressClassName(this.props)} {...this.props} />;
+        return <ProgressBar className={progressClassName(this.props)} {...this.props} />;
     }
 }
 
