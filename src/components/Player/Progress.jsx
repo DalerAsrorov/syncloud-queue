@@ -39,7 +39,6 @@ class Progress extends React.PureComponent<Props, {}> {
             currentTime = Math.floor(currentTime);
 
             if (duration !== 0 && duration === currentTime) {
-                soundCloudAudio.pause();
                 onNextTrack(nextTrackID);
             }
         }
