@@ -10,7 +10,9 @@ type State = {
     isLoading: boolean
 };
 
-export default class SearchControl extends Component<{}, State> {
+type Props = {};
+
+export default class SearchControl extends Component<Props, State> {
     state = {
         tracks: [],
         isLoading: false

@@ -66,6 +66,7 @@ class Player extends PureComponent<Props, State> {
                         color={COLOR}
                         currentTrackID={currentTrackID}
                         isReadyToPlay={isReadyToPlay}
+                        onReadyToPlay={this._setReady}
                     />
                     <MiddleSection
                         queueIsEmpty={this.props.queueIsEmpty}

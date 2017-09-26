@@ -4,7 +4,8 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import styledClass from 'styled-classnames';
 import { PlayButton } from 'react-soundplayer/components';
-import FaClockO from 'react-icons/lib/fa/clock-o';
+import { FaClockO } from 'react-icons/lib/fa';
+import { BASE_COLOR } from '../../theme';
 
 const playPauseClassName = styledClass`
     width: 100%;
@@ -25,6 +26,18 @@ const playPauseClassName = styledClass`
     }
 `;
 
+const WaitForReadyWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    color: ${BASE_COLOR};
+    border: none;
+
+    & > svg {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
 const PlayPauseWrapper = styled.section`
     flex: 0 100px;
     height: 100%;
@@ -34,7 +47,9 @@ type Props = {
     color: string,
     background: string,
     track: Object,
+    onReadyToPlay: Function,
     currentTrackID?: number,
+    isReadyToPlay: boolean,
     playing?: boolean,
     soundCloudAudio?: Object
 };
@@ -49,6 +64,22 @@ export default class PlayPause extends PureComponent<Props, {}> {
             soundCloudAudio.pause();
         } else if (!playing && soundCloudAudio) {
             soundCloudAudio.play();
+        }
+    };
+
+    _checkIfReady = () => {
+        const { soundCloudAudio, track, onReadyToPlay } = this.props;
+
+        if (soundCloudAudio && soundCloudAudio.play) {
+            const { id } = track;
+            let readyCheckInterval = setInterval(() => {
+                const { duration } = soundCloudAudio;
+
+                if (duration > 0) {
+                    clearInterval(readyCheckInterval);
+                    onReadyToPlay(id);
+                }
+            }, TIME_TO_CHECK_TRACK_READY_INTERVAL);
         }
     };
 
@@ -74,6 +105,10 @@ export default class PlayPause extends PureComponent<Props, {}> {
         }
     };
 
+    componentDidMount = () => {
+        this._checkIfReady();
+    };
+
     componentDidUpdate(nextProps: Props, nextState: Object) {
         const { currentTrackID } = this.props;
 
@@ -83,24 +118,31 @@ export default class PlayPause extends PureComponent<Props, {}> {
     }
 
     render() {
-        const { track, color } = this.props;
+        const { track, color, isReadyToPlay } = this.props;
         const { artwork_url: artwork, user: { avatar_url: avatar } } = track;
-
         const classNameProps = {
             artwork,
             avatar,
             color
         };
 
-        return (
-            <PlayPauseWrapper>
+        let toggleWaitPlayButton = (
+            <WaitForReadyWrapper {...this.props}>
+                <FaClockO />
+            </WaitForReadyWrapper>
+        );
+
+        if (isReadyToPlay) {
+            toggleWaitPlayButton = (
                 <PlayButton
                     onTogglePlay={this._handleTogglePlay}
                     className={playPauseClassName(classNameProps)}
                     {...this.props}
                     seekingIcon={<FaClockO />}
                 />
-            </PlayPauseWrapper>
-        );
+            );
+        }
+
+        return <PlayPauseWrapper>{toggleWaitPlayButton}</PlayPauseWrapper>;
     }
 }

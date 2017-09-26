@@ -24,9 +24,9 @@ const SearchResultsWrapper = styled.div`
 `;
 
 const SearchView = (props: {
-    onSearchStart: Function,
     results: Array<Object>,
     onLoaderShow: Function,
+    onSearchStart: Function,
     isLoading: boolean
 }) => (
     <SearchViewWrapper>
