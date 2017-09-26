@@ -51,9 +51,17 @@ const tracks = (state = [], action: Object) => {
 
             return tracks;
         case UPDATE_POINTER_ON_DELETE:
-            console.log('action', action);
-            console.log('state', state);
-            return state;
+            const { id, nextTrackID: newNextTrackID } = action;
+
+            return state.map(track => {
+                const { nextTrackID } = track;
+
+                if (nextTrackID === id) {
+                    track['nextTrackID'] = newNextTrackID;
+                }
+
+                return track;
+            });
         default:
             return state;
     }

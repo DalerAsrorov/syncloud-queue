@@ -32,8 +32,6 @@ const mapDispatchToProps = dispatch => {
                 nextTrackID
             };
 
-            console.log(payload);
-
             dispatch(updatePointerOnDelete(payload));
         }
     };
