@@ -24,7 +24,8 @@ const SearchResultsView = (props: {
     secondAction?: string,
     onSecondAction?: Function,
     onNextTrack?: Function,
-    onSetNextTrack?: Function
+    onSetNextTrack?: Function,
+    onAfterDelete?: Function
 }) => {
     const { results, isLoading, ...restProps } = props;
 
@@ -34,10 +35,7 @@ const SearchResultsView = (props: {
 
     return (
         <SearchResultsWrapper>
-            <Playlist
-                tracks={results}
-                {...restProps}
-            />
+            <Playlist tracks={results} {...restProps} />
         </SearchResultsWrapper>
     );
 };

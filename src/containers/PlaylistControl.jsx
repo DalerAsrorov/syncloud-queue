@@ -1,7 +1,7 @@
 // @flow
 
 import { connect } from 'react-redux';
-import { deleteTrack, setCurrentTrack } from '../actionCreators.js';
+import { deleteTrack, setCurrentTrack, updatePointerOnDelete } from '../actionCreators.js';
 import PlaylistView from '../components/PlaylistView';
 import { NEGATIVE } from '../theme';
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
         results: state.tracks,
         currentTrackID: state.currentTrack,
         charLimit: 26,
-        queueIsEmpty: false
+        queueIsEmpty: state.tracks.length === 0
     };
 };
 
@@ -22,8 +22,19 @@ const mapDispatchToProps = dispatch => {
             dispatch(deleteTrack(track.id));
         },
 
-        onNextTrack: (nextTrackID: number) => {
-            dispatch(setCurrentTrack(nextTrackID));
+        onSecondAction: (id: number) => {
+            dispatch(setCurrentTrack(id));
+        },
+
+        onAfterDelete: (id: number, nextTrackID: number) => {
+            const payload = {
+                id,
+                nextTrackID
+            };
+
+            console.log(payload);
+
+            dispatch(updatePointerOnDelete(payload));
         }
     };
 };

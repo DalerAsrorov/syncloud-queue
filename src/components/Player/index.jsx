@@ -33,6 +33,7 @@ type Props = {
     onSecondAction?: Function,
     onNextTrack?: Function,
     onSetNextTrack?: Function,
+    onAfterDelete?: Function,
     currentTrackID?: number,
     nextTrackID?: number
 };
@@ -80,6 +81,7 @@ class Player extends PureComponent<Props, State> {
                         onSecondAction={this.props.onSecondAction}
                         onNextTrack={this.props.onNextTrack}
                         onSetNextTrack={this.props.onSetNextTrack}
+                        onAfterDelete={this.props.onAfterDelete}
                         nextTrackID={nextTrackID}
                     />
                 </SoundPlayerContainer>

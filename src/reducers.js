@@ -8,7 +8,8 @@ import {
     INCREMENT_REPEAT_TIMES,
     DECREMENT_REPEAT_TIMES,
     SET_CURRENT_TRACK,
-    SET_NEXT_TRACK
+    SET_NEXT_TRACK,
+    UPDATE_POINTER_ON_DELETE
 } from './actions';
 
 const tracks = (state = [], action: Object) => {
@@ -49,6 +50,10 @@ const tracks = (state = [], action: Object) => {
             lastElement['nextTrackID'] = trackID;
 
             return tracks;
+        case UPDATE_POINTER_ON_DELETE:
+            console.log('action', action);
+            console.log('state', state);
+            return state;
         default:
             return state;
     }

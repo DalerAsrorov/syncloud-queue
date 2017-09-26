@@ -6,8 +6,14 @@ import {
     SET_CURRENT_TRACK,
     SET_NEXT_TRACK,
     INCREMENT_REPEAT_TIMES,
-    DECREMENT_REPEAT_TIMES
+    DECREMENT_REPEAT_TIMES,
+    UPDATE_POINTER_ON_DELETE
 } from './actions';
+
+type Payload = {
+    id: number,
+    nextTrackID: number
+};
 
 export const addTrack = (track: Object) => {
     return {
@@ -49,5 +55,12 @@ export const decrementRepeatTimes = (id: number) => {
     return {
         type: DECREMENT_REPEAT_TIMES,
         id
+    };
+};
+
+export const updatePointerOnDelete = (payload: Payload) => {
+    return {
+        type: UPDATE_POINTER_ON_DELETE,
+        ...payload
     };
 };
