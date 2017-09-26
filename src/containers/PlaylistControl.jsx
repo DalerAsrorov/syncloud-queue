@@ -22,8 +22,8 @@ const mapDispatchToProps = dispatch => {
             dispatch(deleteTrack(track.id));
         },
 
-        onSecondAction: (id: number) => {
-            dispatch(setCurrentTrack(id));
+        onNextTrack: (nextTrackID: number) => {
+            dispatch(setCurrentTrack(nextTrackID));
         },
 
         onAfterDelete: (id: number, nextTrackID: number) => {
