@@ -27,6 +27,7 @@ const Header = styled.header``;
 const MiddleSection = (props: {
     track: Object,
     queueIsEmpty: boolean,
+    isReadyToPlay: boolean,
     baseColor: string,
     coverColor: string,
     firstAction: string,
@@ -53,7 +54,7 @@ const MiddleSection = (props: {
     const { id, user: { username } } = track;
 
     let { title } = track;
-    let NextButton;
+    let NextButton, FirstActionButton;
 
     if (title.length > charLimit) {
         title = `${title.trim().substring(0, charLimit)}...`;
@@ -85,18 +86,25 @@ const MiddleSection = (props: {
         }
     };
 
+    if (props.isReadyToPlay) {
+        FirstActionButton = (
+            <ButtonWrapper color={props.firstActionColor}>
+                <button onClick={_onClick}>
+                    <FirstActionIcon />
+                </button>
+                {NextButton}
+            </ButtonWrapper>
+        );
+    }
+
     return (
         <MiddleSectionWrapper>
             <Header>
                 <TrackTitle target="__blank" href={checkProp(props, 'track', 'permalink_url')}>
                     {title}
                 </TrackTitle>
-                <ButtonWrapper color={props.firstActionColor}>
-                    <button onClick={_onClick}>
-                        <FirstActionIcon />
-                    </button>
-                    {NextButton}
-                </ButtonWrapper>
+
+                {FirstActionButton}
             </Header>
             <UserName>{username}</UserName>
             <Progress {...props} background={props.coverColor} color={props.baseColor} />

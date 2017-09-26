@@ -74,6 +74,7 @@ class Player extends PureComponent<Props, State> {
                         baseColor={BASE_COLOR}
                         coverColor={COVER_COLOR}
                         track={track}
+                        isReadyToPlay={isReadyToPlay}
                         firstAction={this.props.firstAction}
                         onFirstAction={this.props.onFirstAction}
                         firstActionColor={this.props.firstActionColor}
