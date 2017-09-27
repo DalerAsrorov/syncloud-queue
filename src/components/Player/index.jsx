@@ -15,6 +15,10 @@ const PlayerWrapper = styled.article`
     display: block;
     width: 98%;
     margin: 3px auto;
+    box-shadow: ${props =>
+        props.currentTrackID && props.currentTrackID === props.id
+            ? 'inset -1px 0px 14px -1px rgba(228,154,83,0.79)'
+            : ''};
 
     & > span {
         display: flex;
@@ -59,7 +63,7 @@ class Player extends PureComponent<Props, State> {
         const { permalink_url: resolveUrl, nextTrackID } = track;
 
         return (
-            <PlayerWrapper>
+            <PlayerWrapper currentTrackID={currentTrackID} id={track.id}>
                 <SoundPlayerContainer onReady={this._setReady} clientId={getClientID()} resolveUrl={resolveUrl}>
                     <PlayPause
                         track={track}
