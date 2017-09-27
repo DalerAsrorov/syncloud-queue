@@ -38,6 +38,15 @@ const WaitForReadyWrapper = styled.div`
     }
 `;
 
+const PlainCover = styled.div`
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: round;
+    background: ${props => (props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`)};
+    border: none;
+`;
+
 const PlayPauseWrapper = styled.section`
     flex: 0 100px;
     height: 100%;
@@ -50,6 +59,7 @@ type Props = {
     onReadyToPlay: Function,
     currentTrackID?: number,
     isReadyToPlay: boolean,
+    isPurePlaylist: boolean,
     playing?: boolean,
     soundCloudAudio?: Object
 };
@@ -118,7 +128,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
     }
 
     render() {
-        const { track, color, isReadyToPlay } = this.props;
+        const { track, color, isReadyToPlay, currentTrackID, isPurePlaylist } = this.props;
         const { artwork_url: artwork, user: { avatar_url: avatar } } = track;
         const classNameProps = {
             artwork,
@@ -132,7 +142,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
             </WaitForReadyWrapper>
         );
 
-        if (isReadyToPlay) {
+        if ((isReadyToPlay && isPurePlaylist) || currentTrackID === track.id) {
             toggleWaitPlayButton = (
                 <PlayButton
                     onTogglePlay={this._handleTogglePlay}
@@ -141,6 +151,8 @@ export default class PlayPause extends PureComponent<Props, {}> {
                     seekingIcon={<FaClockO />}
                 />
             );
+        } else if (isReadyToPlay && !isPurePlaylist) {
+            toggleWaitPlayButton = <PlainCover {...classNameProps} />;
         }
 
         return <PlayPauseWrapper>{toggleWaitPlayButton}</PlayPauseWrapper>;

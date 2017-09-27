@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
         results: state.tracks,
         currentTrackID: state.currentTrack,
         charLimit: 26,
+        isPurePlaylist: false,
         queueIsEmpty: state.tracks.length === 0
     };
 };

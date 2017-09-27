@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
         firstAction: 'FaPlusSquare',
         firstActionColor: POSITIVE,
         charLimit: 60,
+        isPurePlaylist: true,
         results: ownProps.results.filter(trackInResults => {
             return !isInArray(trackInResults, state.tracks, 'id');
         }),

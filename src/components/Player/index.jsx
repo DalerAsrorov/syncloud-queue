@@ -29,6 +29,7 @@ type Props = {
     onFirstAction: Function,
     firstActionColor: string,
     charLimit: number,
+    isPurePlaylist: boolean,
     secondAction?: string,
     onSecondAction?: Function,
     onNextTrack?: Function,
@@ -67,6 +68,7 @@ class Player extends PureComponent<Props, State> {
                         currentTrackID={currentTrackID}
                         isReadyToPlay={isReadyToPlay}
                         onReadyToPlay={this._setReady}
+                        isPurePlaylist={this.props.isPurePlaylist}
                     />
                     <MiddleSection
                         queueIsEmpty={this.props.queueIsEmpty}

@@ -17,6 +17,7 @@ const Playlist = (props: {
     firstActionColor: string,
     charLimit: number,
     queueIsEmpty: boolean,
+    isPurePlaylist: boolean,
     secondAction?: string,
     onSecondAction?: Function,
     onNextTrack?: Function,

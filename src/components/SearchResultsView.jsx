@@ -20,6 +20,7 @@ const SearchResultsView = (props: {
     onFirstAction: Function,
     charLimit: number,
     queueIsEmpty: boolean,
+    isPurePlaylist?: boolean,
     currentTrackID?: number,
     secondAction?: string,
     onSecondAction?: Function,
