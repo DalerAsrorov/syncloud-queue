@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
         firstAction: 'FaMinusSquare',
         firstActionColor: NEGATIVE,
         results: state.tracks,
+        numberOfTracks: state.tracks.length,
         currentTrackID: state.currentTrack,
         charLimit: 26,
         isPurePlaylist: false,
@@ -20,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
 type DeletePayload = {
     id: number,
     nextTrackID: number,
-    currentTrackID: number
+    currentTrackID: number,
+    numberOfTracks: number
 };
 
 const mapDispatchToProps = dispatch => {
@@ -34,7 +36,7 @@ const mapDispatchToProps = dispatch => {
         },
 
         onAfterDelete: (deletePayload: DeletePayload) => {
-            const { id, nextTrackID, currentTrackID } = deletePayload;
+            const { id, nextTrackID, currentTrackID, numberOfTracks } = deletePayload;
 
             const infoForUpdate = {
                 id,
@@ -44,7 +46,12 @@ const mapDispatchToProps = dispatch => {
             dispatch(updatePointerOnDelete(infoForUpdate));
 
             if (currentTrackID === id) {
-                dispatch(setCurrentTrack(nextTrackID));
+                if (numberOfTracks === 1) {
+                    console.log(numberOfTracks);
+                    dispatch(setCurrentTrack(-1));
+                } else {
+                    dispatch(setCurrentTrack(nextTrackID));
+                }
             }
         }
     };

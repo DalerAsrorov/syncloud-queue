@@ -12,7 +12,8 @@ const PlaylistView = (props: {
     charLimit: number,
     onFirstAction: Function,
     onNextTrack: Function,
-    onAfterDelete: Function
+    onAfterDelete: Function,
+    numberOfTracks: number
 }) => (
     <SearchResultsView
         results={props.results}
@@ -25,6 +26,7 @@ const PlaylistView = (props: {
         queueIsEmpty={props.queueIsEmpty}
         onNextTrack={props.onNextTrack}
         onAfterDelete={props.onAfterDelete}
+        numberOfTracks={props.numberOfTracks}
     />
 );
 

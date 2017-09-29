@@ -101,6 +101,15 @@ export default class PlayPause extends PureComponent<Props, {}> {
         // set interval to periodically check whether duration property
         // is available. If it is available, that means the track
         // is ready to play.
+        console.log('currentTrackID', currentTrackID);
+
+        if (currentTrackID === -1 && soundCloudAudio && soundCloudAudio.stop) {
+            console.log(currentTrackID + 'GOT IT');
+            soundCloudAudio.stop();
+            return;
+            console.log('No statement should be here');
+        }
+
         if (currentTrackID && soundCloudAudio && soundCloudAudio.play && currentTrackID === id) {
             if (!playing) {
                 let readyCheckInterval = setInterval(() => {

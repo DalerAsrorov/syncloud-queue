@@ -34,12 +34,13 @@ const MiddleSection = (props: {
     onFirstAction: Function,
     firstActionColor: string,
     charLimit: number,
-    currentTrackID?: number,
     onSecondAction?: Function,
     onNextTrack?: Function,
     onSetNextTrack?: Function,
     onAfterDelete?: Function,
-    nextTrackID?: number
+    currentTrackID?: number,
+    nextTrackID?: number,
+    numberOfTracks?: number
 }) => {
     const {
         onSecondAction,
@@ -49,7 +50,8 @@ const MiddleSection = (props: {
         currentTrackID,
         nextTrackID,
         onNextTrack,
-        onAfterDelete
+        onAfterDelete,
+        numberOfTracks
     } = props;
     const { id, user: { username } } = track;
 
@@ -81,8 +83,8 @@ const MiddleSection = (props: {
             onSecondAction(id);
         }
 
-        if (onAfterDelete) {
-            onAfterDelete({ id, nextTrackID, currentTrackID });
+        if (onAfterDelete && numberOfTracks) {
+            onAfterDelete({ id, nextTrackID, currentTrackID, numberOfTracks });
         }
     };
 
