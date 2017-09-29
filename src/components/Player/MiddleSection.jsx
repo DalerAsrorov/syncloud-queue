@@ -82,7 +82,7 @@ const MiddleSection = (props: {
         }
 
         if (onAfterDelete) {
-            onAfterDelete(id, nextTrackID);
+            onAfterDelete({ id, nextTrackID, currentTrackID });
         }
     };
 

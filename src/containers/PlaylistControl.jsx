@@ -17,6 +17,12 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
+type DeletePayload = {
+    id: number,
+    nextTrackID: number,
+    currentTrackID: number
+};
+
 const mapDispatchToProps = dispatch => {
     return {
         onFirstAction: (track: Object) => {
@@ -27,13 +33,19 @@ const mapDispatchToProps = dispatch => {
             dispatch(setCurrentTrack(nextTrackID));
         },
 
-        onAfterDelete: (id: number, nextTrackID: number) => {
-            const payload = {
+        onAfterDelete: (deletePayload: DeletePayload) => {
+            const { id, nextTrackID, currentTrackID } = deletePayload;
+
+            const infoForUpdate = {
                 id,
                 nextTrackID
             };
 
-            dispatch(updatePointerOnDelete(payload));
+            dispatch(updatePointerOnDelete(infoForUpdate));
+
+            if (currentTrackID === id) {
+                dispatch(setCurrentTrack(nextTrackID));
+            }
         }
     };
 };
