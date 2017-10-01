@@ -61,6 +61,7 @@ type Props = {
     isReadyToPlay: boolean,
     isPurePlaylist: boolean,
     playing?: boolean,
+    numberOfTracks?: number,
     soundCloudAudio?: Object
 };
 
@@ -79,6 +80,8 @@ export default class PlayPause extends PureComponent<Props, {}> {
 
     _checkIfReady = () => {
         const { soundCloudAudio, track, onReadyToPlay } = this.props;
+
+        console.log('mate mate mate', this.props.numberOfTracks);
 
         if (soundCloudAudio && soundCloudAudio.play) {
             const { id } = track;
@@ -103,6 +106,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
         // is ready to play.
         console.log('currentTrackID', currentTrackID);
 
+        console.log(currentTrackID);
         if (currentTrackID === -1 && soundCloudAudio && soundCloudAudio.stop) {
             console.log(currentTrackID + 'GOT IT');
             soundCloudAudio.stop();

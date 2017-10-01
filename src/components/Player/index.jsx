@@ -72,6 +72,7 @@ class Player extends PureComponent<Props, State> {
                         color={COLOR}
                         currentTrackID={currentTrackID}
                         isReadyToPlay={isReadyToPlay}
+                        numberOfTracks={this.props.numberOfTracks}
                         onReadyToPlay={this._setReady}
                         isPurePlaylist={this.props.isPurePlaylist}
                     />

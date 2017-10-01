@@ -45,9 +45,12 @@ const mapDispatchToProps = dispatch => {
 
             dispatch(updatePointerOnDelete(infoForUpdate));
 
+            debugger;
+
             if (currentTrackID === id) {
+                console.log(numberOfTracks);
                 if (numberOfTracks === 1) {
-                    console.log(numberOfTracks);
+                    console.log('setting id to -1');
                     dispatch(setCurrentTrack(-1));
                 } else {
                     dispatch(setCurrentTrack(nextTrackID));
