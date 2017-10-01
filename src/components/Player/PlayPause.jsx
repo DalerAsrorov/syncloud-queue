@@ -81,8 +81,6 @@ export default class PlayPause extends PureComponent<Props, {}> {
     _checkIfReady = () => {
         const { soundCloudAudio, track, onReadyToPlay } = this.props;
 
-        console.log('mate mate mate', this.props.numberOfTracks);
-
         if (soundCloudAudio && soundCloudAudio.play) {
             const { id } = track;
             let readyCheckInterval = setInterval(() => {
@@ -100,20 +98,6 @@ export default class PlayPause extends PureComponent<Props, {}> {
         const { currentTrackID, soundCloudAudio, track, playing } = this.props;
         const { id } = track;
 
-        // New solution to `noReady` prop function - 09/24/2017:
-        // set interval to periodically check whether duration property
-        // is available. If it is available, that means the track
-        // is ready to play.
-        console.log('currentTrackID', currentTrackID);
-
-        console.log(currentTrackID);
-        if (currentTrackID === -1 && soundCloudAudio && soundCloudAudio.stop) {
-            console.log(currentTrackID + 'GOT IT');
-            soundCloudAudio.stop();
-            return;
-            console.log('No statement should be here');
-        }
-
         if (currentTrackID && soundCloudAudio && soundCloudAudio.play && currentTrackID === id) {
             if (!playing) {
                 let readyCheckInterval = setInterval(() => {
@@ -127,6 +111,14 @@ export default class PlayPause extends PureComponent<Props, {}> {
             }
         }
     };
+
+    componentWillUnmount() {
+        const { soundCloudAudio, track, numberOfTracks } = this.props;
+
+        if (numberOfTracks === 1 && soundCloudAudio && soundCloudAudio.stop) {
+            soundCloudAudio.stop();
+        }
+    }
 
     componentDidMount = () => {
         this._checkIfReady();
