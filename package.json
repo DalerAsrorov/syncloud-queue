@@ -1,25 +1,29 @@
 {
-	"name": "syncloud-queue",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"flow-bin": "^0.53.1",
-		"lodash": "^4.17.4",
-		"react": "^15.6.1",
-		"react-dom": "^15.6.1",
-		"react-icons": "^2.2.5",
-		"react-redux": "^5.0.6",
-		"react-scripts": "1.0.12",
-		"react-soundplayer": "^0.3.6",
-		"redux": "^3.7.2",
-		"styled-classnames": "^2.2.1",
-		"styled-components": "^2.1.2"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test --env=jsdom",
-		"eject": "react-scripts eject",
-		"flow": "flow"
-	}
+    "name": "syncloud-queue",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://DalerAsrorov.github.io/syncloud-queue",
+    "dependencies": {
+        "flow-bin": "^0.53.1",
+        "gh-pages": "^1.0.0",
+        "lodash": "^4.17.4",
+        "react": "^15.6.1",
+        "react-dom": "^15.6.1",
+        "react-icons": "^2.2.5",
+        "react-redux": "^5.0.6",
+        "react-scripts": "1.0.12",
+        "react-soundplayer": "^0.3.6",
+        "redux": "^3.7.2",
+        "styled-classnames": "^2.2.1",
+        "styled-components": "^2.1.2"
+    },
+    "scripts": {
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject",
+        "flow": "flow"
+    }
 }
