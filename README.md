@@ -20,34 +20,13 @@ Create your own tracklist by searching sounds that you like and adding them to y
 - https://developers.soundcloud.com/docs/api/guide#search - SoundCloud API search query
 - https://developers.soundcloud.com/docs/api/reference#tracks - Soundcloud API tracks attributes 
 
-## TODO: 
-
-- (*) Make sure the loader component goes away after all tracks are ready to play 
-    - (Current solution is a timeout - not good)
-- Make "Next" button transition faster. It is slow because of (*)
-- If the user is searching artists fast, there is an error that is due 
-  to state being changed before all tracks are resolved. 
-- Currently, if the track gets deleted, it continues playing the track without 
-  acknowledging the change of state. In this case, we should add a setNextTrack action
-  after onDelete prop method which will set track to the next track in order. However, if 
-  the queue is empty after the track deletion, set current track to -1 (default). 
-- Add "reapeatTimes" feature 
-    - User can increase number of times a song in a queue can be played before it's removed (pop).
-
-
 ## Global state 
 ```javascript
 {
-    // if true, the songs are played sequentially
-    // in the order they were placed by the user
-    // otherwise, play in repeat
-    // DEFAULT: true
-    autoplay: boolean,
-
     // an ID of the current song that is currently 
     // playing in the tracklist
     // DEFAULT: -1
-    currentSongPlaying: number,
+    currentTrackPlayingID: number,
     
     // a global queue of tracks added by the user
     // DEFAULT: []
