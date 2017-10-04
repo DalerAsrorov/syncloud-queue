@@ -1,25 +1,38 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# music: http://ogp.me/ns/music#">
 
-      <!-- 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# music: http://ogp.me/ns/music#">
+
+    <!-- 
         SEO improvement meta tags 
-      --> 
-      <meta name="keywords" content="SoundCloud, player, music, audio, search">
-      <meta name="author" content="Daler Asrorov">
+      -->
+    <meta name="keywords" content="SoundCloud, player, music, audio, search">
+    <meta name="author" content="Daler Asrorov">
 
-      <!-- 
+    <!-- 
+        Twitter meta tags for sharing render optimization
+      -->
+    <meta name="twitter:card" content="../src/images/syncloud.png">
+    <meta name="twitter:site" content="@dalerbill">
+    <meta name="twitter:creator" content="@dalerbill">
+    <meta name="twitter:title" content="Syncloud Queue">
+    <meta name="twitter:description" content="Create and change SoundCloud playlist and set to auto play. This is a Redux/React app built by Daler Asrorov (@dalerbill).">
+    <meta name="twitter:image" content="../src/images/syncloud.png">
+
+    <!-- 
         Facebook share meta tags for better sharing experience. 
-        --> 
-      <meta property="og:type" content="music.radio_station" />
-      <meta property="og:url" content="Put your own URL to the object here" />
-      <meta property="og:description" content="Soundcloud player with searc build in React/Redux. Add songs to the queue and assign number of repeats, and you're set!" />
-      <meta property="og:title" content="Syncloud Queue" />
-      <meta property="og:image" content="../src/images/syncloud.png" />
+        -->
+    <meta property="og:type" content="music.radio_station" />
+    <meta property="og:url" content="Put your own URL to the object here" />
+    <meta property="og:description" content="Soundcloud player with searc build in React/Redux. Add songs to the queue and assign number of repeats, and you're set!"
+    />
+    <meta property="og:title" content="Syncloud Queue" />
+    <meta property="og:image" content="../src/images/syncloud.png" />
 
     <!--
       manifest.json provides metadata used when your web app is added to the
@@ -38,6 +51,7 @@
     -->
     <title>Syncloud Queue</title>
   </head>
+
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
@@ -55,10 +69,11 @@
     -->
     <script src="https://connect.soundcloud.com/sdk/sdk-3.2.1.js"></script>
     <script>
-       // To make it available to the entire app 
-       // I had to assign the SC API object to the global
-       // window object.
-       window.SC = SC; 
-    </script> 
+      // To make it available to the entire app 
+      // I had to assign the SC API object to the global
+      // window object.
+      window.SC = SC;
+    </script>
   </body>
+
 </html>
