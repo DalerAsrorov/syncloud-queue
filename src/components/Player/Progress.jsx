@@ -26,20 +26,26 @@ type Props = {
     duration?: number,
     nextTrackID?: number,
     currentTime?: number,
+    currentTrackID?: number,
     onNextTrack?: Function,
+    onTrackEnd?: Function,
     soundCloudAudio?: Object
 };
 
 class Progress extends React.PureComponent<Props, {}> {
     _checkForTrackEnding = (nextTrackID: number) => {
-        let { duration, currentTime, onNextTrack, soundCloudAudio } = this.props;
+        let { track, duration, currentTime, onNextTrack, onTrackEnd, soundCloudAudio } = this.props;
 
         if (soundCloudAudio && duration && currentTime && onNextTrack) {
             duration = Math.floor(duration);
             currentTime = Math.floor(currentTime);
 
-            if (duration !== 0 && duration === currentTime) {
+            if (nextTrackID && duration !== 0 && duration === currentTime) {
                 onNextTrack(nextTrackID);
+
+                if (onTrackEnd) {
+                    onTrackEnd(track);
+                }
             }
         }
     };

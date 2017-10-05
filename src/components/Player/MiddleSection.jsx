@@ -66,7 +66,7 @@ const MiddleSection = (props: {
     // current player component has next track object
     // console.log(`${currentTrackID} ${id} ${nextTrackID} ${onNextTrack}`);
     if (currentTrackID && id === currentTrackID && nextTrackID && onNextTrack) {
-        NextButton = <Next color={props.baseColor} onNextTrack={onNextTrack} nextTrackID={nextTrackID} />;
+        NextButton = <Next color={props.baseColor} {...props} onNextTrack={onNextTrack} nextTrackID={nextTrackID} />;
     }
 
     const FirstActionIcon = FontAwesome[`${props.firstAction}`];
@@ -109,7 +109,12 @@ const MiddleSection = (props: {
                 {FirstActionButton}
             </Header>
             <UserName>{username}</UserName>
-            <Progress {...props} background={props.coverColor} color={props.baseColor} />
+            <Progress
+                {...props}
+                onTrackEnd={props.onFirstAction}
+                background={props.coverColor}
+                color={props.baseColor}
+            />
             <Timer {...props} color={props.baseColor} />
         </MiddleSectionWrapper>
     );
