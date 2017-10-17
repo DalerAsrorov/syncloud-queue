@@ -100,8 +100,6 @@ export default class PlayPause extends PureComponent<Props, {}> {
         const { currentTrackID, soundCloudAudio, track, playing } = this.props;
         const { id } = track;
 
-        console.log('playing', currentTrackID, track, playing, id);
-
         if (
             currentTrackID &&
             soundCloudAudio &&
