@@ -115,7 +115,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
     componentWillUnmount() {
         const { soundCloudAudio, numberOfTracks } = this.props;
 
-        if (numberOfTracks === 1 && soundCloudAudio && soundCloudAudio.stop) {
+        if (numberOfTracks && numberOfTracks <= 1 && soundCloudAudio && soundCloudAudio.stop) {
             soundCloudAudio.stop();
         }
     }
