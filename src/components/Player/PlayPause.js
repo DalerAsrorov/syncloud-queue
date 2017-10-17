@@ -16,7 +16,8 @@ const playPauseClassName = styledClass`
     cursor: pointer;
     background-size: cover;
     background-repeat: round;
-    background: ${props => (props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`)};
+    background: ${props =>
+        props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`};
     color: ${props => props.color};
     border: none;
 
@@ -43,7 +44,8 @@ const PlainCover = styled.div`
     height: 100%;
     background-size: cover;
     background-repeat: round;
-    background: ${props => (props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`)};
+    background: ${props =>
+        props.artwork ? `url(${props.artwork})` : `url(${props.avatar})`};
     border: none;
 `;
 
@@ -98,7 +100,14 @@ export default class PlayPause extends PureComponent<Props, {}> {
         const { currentTrackID, soundCloudAudio, track, playing } = this.props;
         const { id } = track;
 
-        if (currentTrackID && soundCloudAudio && soundCloudAudio.play && currentTrackID === id) {
+        console.log('playing', currentTrackID, track, playing, id);
+
+        if (
+            currentTrackID &&
+            soundCloudAudio &&
+            soundCloudAudio.play &&
+            currentTrackID === id
+        ) {
             if (!playing) {
                 let readyCheckInterval = setInterval(() => {
                     const { duration } = soundCloudAudio;
@@ -115,7 +124,7 @@ export default class PlayPause extends PureComponent<Props, {}> {
     componentWillUnmount() {
         const { soundCloudAudio, numberOfTracks } = this.props;
 
-        if (numberOfTracks && numberOfTracks <= 1 && soundCloudAudio && soundCloudAudio.stop) {
+        if (soundCloudAudio && soundCloudAudio.stop) {
             soundCloudAudio.stop();
         }
     }
@@ -133,7 +142,13 @@ export default class PlayPause extends PureComponent<Props, {}> {
     }
 
     render() {
-        const { track, color, isReadyToPlay, currentTrackID, isPurePlaylist } = this.props;
+        const {
+            track,
+            color,
+            isReadyToPlay,
+            currentTrackID,
+            isPurePlaylist
+        } = this.props;
         const { artwork_url: artwork, user: { avatar_url: avatar } } = track;
         const classNameProps = {
             artwork,

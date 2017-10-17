@@ -33,11 +33,12 @@ type Props = {
 };
 
 class Progress extends React.PureComponent<Props, {}> {
-    _checkForTrackEnding = (nextTrackID: number) => {
+    _checkForTrackEnding = () => {
         let {
             track,
             duration,
             currentTime,
+            nextTrackID,
             onNextTrack,
             onTrackEnd,
             soundCloudAudio
@@ -60,10 +61,10 @@ class Progress extends React.PureComponent<Props, {}> {
     };
 
     componentDidUpdate = (nextProps: Props, nextState: Object) => {
-        const { nextTrackID } = nextProps;
+        const { currentTrackID } = nextProps;
 
-        if (nextTrackID) {
-            this._checkForTrackEnding(nextTrackID);
+        if (currentTrackID) {
+            this._checkForTrackEnding();
         }
     };
 
