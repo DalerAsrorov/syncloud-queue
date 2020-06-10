@@ -1,7 +1,7 @@
-import React from "react";
-import { Container, Grid, Segment } from "semantic-ui-react";
-import { Nav } from "./components/Nav";
-import { Search } from "./components/Search";
+import React from 'react';
+import { Container, Grid, Segment } from 'semantic-ui-react';
+import { Nav } from './components/Nav';
+import { Search } from './components/Search';
 
 export const App = () => (
   <Container fluid as={Segment} basic>
