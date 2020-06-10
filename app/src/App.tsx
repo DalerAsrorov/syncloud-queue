@@ -1,34 +1,15 @@
 import React from "react";
-import { Container, Grid, Image, Segment, Input } from "semantic-ui-react";
-import appLogo from "./images/syncloud.png";
-import githubLogo from "./images/github.png";
+import { Container, Grid, Segment } from "semantic-ui-react";
+import { Nav } from "./components/Nav";
+import { Search } from "./components/Search";
 
 export const App = () => (
-  <Container fluid as={Segment}>
-    <Grid as={Segment} style={{ marginTop: 0 }}>
-      <Grid.Column floated="left" width={5}>
-        <Image
-          src={appLogo}
-          style={{ width: "4rem" }}
-          size="mini"
-          floated="left"
-        />
-      </Grid.Column>
-      <Grid.Column floated="right" width={5}>
-        <Image
-          href="https://github.com/DalerAsrorov/syncloud-queue"
-          target="__blank"
-          style={{ width: "3rem" }}
-          src={githubLogo}
-          size="mini"
-          floated="right"
-        />
-      </Grid.Column>
-    </Grid>
+  <Container fluid as={Segment} basic>
+    <Nav />
     <Grid>
       <Grid.Row>
         <Grid.Column width="16">
-          <Input size="huge" fluid icon="search" placeholder="Search..." />
+          <Search />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row divided>
