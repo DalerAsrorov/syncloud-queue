@@ -15,8 +15,6 @@ export const Search: React.FC<SearchProps> = (props) => {
     console.log(`Final result: ${queryInput}`);
   };
 
-  console.log(queryInput);
-
   return (
     <Form onSubmit={handleSubmit}>
       <Input
