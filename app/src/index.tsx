@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 
 import 'semantic-ui-css/semantic.min.css';
+
+initSoundCloudApi({
+  client_id: process.env.REACT_APP_CLIENT_ID,
+});
 
 ReactDOM.render(
   <React.StrictMode>
