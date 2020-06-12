@@ -3,16 +3,21 @@ import ReactDOM from 'react-dom';
 import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import { StoreProvider } from './store-context';
 
 import 'semantic-ui-css/semantic.min.css';
 
+const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID || '';
+
 initSoundCloudApi({
-  client_id: process.env.REACT_APP_CLIENT_ID,
+  client_id: APP_CLIENT_ID,
 });
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StoreProvider>
+      <App clientId={APP_CLIENT_ID} />
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

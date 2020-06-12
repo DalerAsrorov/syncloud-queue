@@ -6,8 +6,7 @@ declare global {
   }
 }
 
-export const initSoundCloudApi = (params: APIParams) => {
-  SC().initialize(params);
-};
+export const initSoundCloudApi = async (params: APIParams) =>
+  await SC().initialize(params);
 
 export const SC = () => window.SC;
