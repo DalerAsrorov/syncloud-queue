@@ -7,14 +7,12 @@ import { Env, Environments } from './environments';
 import * as serviceWorker from './serviceWorker';
 import { StoreProvider } from './store-context';
 
-const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID || '';
+const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 const APP_ENVIRONMENT = process.env.REACT_APP_APP_ENV as Environments;
 
 initSoundCloudApi({
   client_id: APP_CLIENT_ID,
 });
-
-console.log({ APP_CLIENT_ID, APP_ENVIRONMENT });
 
 const AppContainer = (props: { env: Env; children: React.ReactElement }) =>
   APP_ENVIRONMENT === Environments.development ? (
