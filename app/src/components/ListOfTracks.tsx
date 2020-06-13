@@ -6,7 +6,7 @@ import { useStore } from '../store-context';
 import { Player } from './Player';
 
 export interface NoDataContainerProps {
-  children: React.ReactElement;
+  children: any;
   data: object | Array<any>;
   isListEmpty: boolean;
   isDataLoading: boolean;
@@ -55,17 +55,15 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
       isDataLoading={store.isRequestingQueryTracks}
       data={store.queryTracklist}
     >
-      <Segment>
-        {store.queryTracklist.map((track) => (
-          <Player
-            key={track.id}
-            track={track}
-            resolveUrl={track.permalink_url}
-            clientId={props.clientId}
-            onReady={() => console.log('track is loaded!')}
-          />
-        ))}
-      </Segment>
+      {store.queryTracklist.map((track) => (
+        <Player
+          key={track.id}
+          track={track}
+          resolveUrl={track.permalink_url}
+          clientId={props.clientId}
+          onReady={() => console.log('track is loaded!')}
+        />
+      ))}
     </NoDataContainer>
   );
 });

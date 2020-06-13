@@ -9,7 +9,7 @@ interface AppProps {
 }
 
 export const App: React.FC<AppProps> = ({ clientId }) => (
-  <Container fluid as={Segment} basic>
+  <Container as={Segment} basic>
     <Nav />
     <Grid>
       <Grid.Row>
@@ -18,10 +18,10 @@ export const App: React.FC<AppProps> = ({ clientId }) => (
         </Grid.Column>
       </Grid.Row>
       <Grid.Row divided>
-        <Grid.Column width={6}>
+        <Grid.Column width={5}>
           <Segment>Left side container for player</Segment>
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={11}>
           <ListOfTracks clientId={clientId} />
         </Grid.Column>
       </Grid.Row>

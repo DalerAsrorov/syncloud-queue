@@ -12,8 +12,6 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
     const { track, currentTime } = props;
     const { nextTrackID } = track;
 
-    console.log(props);
-
     return (
       <Segment>
         <PlayButton
