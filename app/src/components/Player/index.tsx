@@ -25,6 +25,19 @@ const playButtonStyleClass = classNames`
   }
 `;
 
+const progressStyleClass = classNames`
+    cursor: pointer;
+    width: 100%;
+    height: 10px;
+    background: skyblue;
+
+    & > div {
+        background: cyan;
+        height: 100%;
+        transition: width .2s ease-in;
+    }
+`;
+
 export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
   (props: PlayerProps) => {
     const { track, currentTime } = props;
@@ -49,7 +62,7 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
           </Grid.Column>
           <Grid.Column width={9} stretched>
             <h3>{track.title}</h3>
-            <Progress {...props} />
+            <Progress {...props} className={progressStyleClass()} />
           </Grid.Column>
           <Grid.Column width={3} stretched>
             <Timer
