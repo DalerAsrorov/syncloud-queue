@@ -1,4 +1,4 @@
-import { SoundCloudSDK, APIParams } from './SC';
+import { APIParams, APISearchParams, SoundCloudSDK } from './SC';
 
 declare global {
   interface Window {
@@ -6,7 +6,12 @@ declare global {
   }
 }
 
+export const SC = () => window.SC;
+
 export const initSoundCloudApi = async (params: APIParams) =>
   await SC().initialize(params);
 
-export const SC = () => window.SC;
+export const searchTracksApi = async (params: APISearchParams) =>
+  await SC().get('/tracks', {
+    ...params,
+  });

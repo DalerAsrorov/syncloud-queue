@@ -10,9 +10,9 @@ type PlayerProps = any;
 export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
   (props: PlayerProps) => {
     const { track, currentTime } = props;
-    const { permalink_url, nextTrackID } = track;
+    const { nextTrackID } = track;
 
-    console.log({ nextTrackID, props });
+    console.log(props);
 
     return (
       <Segment>
@@ -20,7 +20,6 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
           onPlayClick={() => {
             console.log('play button clicked!');
           }}
-          resolveUrl={permalink_url}
           {...props}
         />
         <h2 className="custom-player-title">
