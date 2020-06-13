@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-import { Track, APISearchParams } from './api/SC';
+import { APISearchParams, Track } from './api/SC';
 import { searchTracksApi } from './api/soundcloud';
 import { SearchQueryType } from './utils/search-options';
 
