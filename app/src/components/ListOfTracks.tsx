@@ -1,4 +1,3 @@
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Container, Header, Icon, Segment } from 'semantic-ui-react';
