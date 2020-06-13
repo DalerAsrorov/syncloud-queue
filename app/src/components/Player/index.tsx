@@ -47,7 +47,6 @@ const usernameStyleClass = classNames`
 export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
   (props: PlayerProps) => {
     const { track, currentTime } = props;
-    const { nextTrackID } = track;
     const artwork = track.artwork_url
       ? track.artwork_url
       : track.user.avatar_url;
