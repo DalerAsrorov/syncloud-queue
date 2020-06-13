@@ -1,11 +1,13 @@
 import { action, computed, observable } from 'mobx';
 import { Track, APISearchParams } from './api/SC';
 import { searchTracksApi } from './api/soundcloud';
+import { SearchQueryType } from './utils/search-options';
 
 export interface App {
   queryTracklistMap: { [id: string]: Track };
   isQueryTracklistEmpty: boolean;
   myTracklist: Track[];
+  queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
   limit: number;
   offset: number;
@@ -20,6 +22,7 @@ export const createStore = () => new AppLocalStore();
 export class AppLocalStore {
   @observable queryTracklistMap: App['queryTracklistMap'] = {};
   @observable myTracklist: App['myTracklist'] = [];
+  @observable queryType: App['queryType'] = SearchQueryType.Q;
   @observable
   isRequestingQueryTracks: App['isRequestingQueryTracks'] = false;
   @observable limit: App['limit'] = SEARCH_QUERY_TRACKS_LIMIT;

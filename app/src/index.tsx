@@ -1,24 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'semantic-ui-css/semantic.min.css';
 import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
+import { Env, Environments } from './environments';
 import * as serviceWorker from './serviceWorker';
 import { StoreProvider } from './store-context';
 
-import 'semantic-ui-css/semantic.min.css';
-
 const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID || '';
+const APP_ENVIRONMENT = process.env.REACT_APP_APP_ENV as Environments;
 
 initSoundCloudApi({
   client_id: APP_CLIENT_ID,
 });
 
+console.log({ APP_CLIENT_ID, APP_ENVIRONMENT });
+
+const AppContainer = (props: { env: Env; children: React.ReactElement }) =>
+  APP_ENVIRONMENT === Environments.development ? (
+    <>{props.children}</>
+  ) : (
+    <React.StrictMode>{props.children}</React.StrictMode>
+  );
+
 ReactDOM.render(
-  <React.StrictMode>
+  <AppContainer env={APP_ENVIRONMENT}>
     <StoreProvider>
       <App clientId={APP_CLIENT_ID} />
     </StoreProvider>
-  </React.StrictMode>,
+  </AppContainer>,
   document.getElementById('root')
 );
 

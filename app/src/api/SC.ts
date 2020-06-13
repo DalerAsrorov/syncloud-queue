@@ -12,6 +12,7 @@ export interface APIParams {
 export interface APISearchParams {
   q?: string;
   license?: string;
+  genres?: string;
   duration?: string;
   tag_list?: string[];
   limit?: number;
