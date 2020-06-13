@@ -45,8 +45,6 @@ export const Search: React.FC<SearchProps> = observer((props) => {
         action={
           <Dropdown
             button
-            basic
-            floating
             id={`dropdown-${store.queryType}`}
             options={SEARCH_OPTIONS}
             value={store.queryType}
