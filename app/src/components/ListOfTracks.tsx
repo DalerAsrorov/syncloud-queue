@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Container, Header, Icon, Segment } from 'semantic-ui-react';
+import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
 import { Player } from './Player';
 
@@ -12,10 +13,14 @@ export interface NoDataContainerProps {
 }
 
 const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
-  let headerInfo: { title: string; description: string; icon: string } = {
+  let headerInfo: {
+    title: string;
+    description: string;
+    icon: SemanticICONS;
+  } = {
     title: '',
     description: '',
-    icon: '',
+    icon: 'list layout',
   };
 
   if (props.isDataLoading) {
@@ -25,7 +30,6 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
   } else if (props.isListEmpty) {
     headerInfo.title = 'No tracks to show';
     headerInfo.description = 'Searched tracks will appear here';
-    headerInfo.icon = 'list layout';
   } else if (!!props.data) {
     return <>{props.children}</>;
   }
@@ -33,7 +37,7 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
   return (
     <Container fluid as={Segment} basic textAlign="center">
       <Header color="grey" as="h2" icon>
-        <Icon color="teal" name="list layout" />
+        <Icon color="teal" name={headerInfo.icon} />
         {headerInfo.title}
         <Header.Subheader>{headerInfo.description}</Header.Subheader>
       </Header>
@@ -60,7 +64,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
           track={track}
           resolveUrl={track.permalink_url}
           clientId={props.clientId}
-          onReady={() => console.log('track is loaded!')}
+          // onReady={() => console.log('track is loaded!')}
         />
       ))}
     </NoDataContainer>

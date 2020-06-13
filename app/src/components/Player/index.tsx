@@ -51,8 +51,6 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
       ? track.artwork_url
       : track.user.avatar_url;
 
-    console.log(track);
-
     return (
       <Grid as={Segment} verticalAlign="middle">
         <Grid.Row>
