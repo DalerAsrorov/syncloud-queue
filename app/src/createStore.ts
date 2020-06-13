@@ -3,7 +3,7 @@ import { Track, APISearchParams } from './api/SC';
 import { searchTracksApi } from './api/soundcloud';
 
 export interface App {
-  queryTrackist: Track[];
+  queryTracklistMap: { [id: string]: Track };
   isQueryTracklistEmpty: boolean;
   myTracklist: Track[];
   isRequestingQueryTracks: boolean;
@@ -18,7 +18,7 @@ export const SEARCH_QUERY_TRACKS_LIMIT = 20;
 export const createStore = () => new AppLocalStore();
 
 export class AppLocalStore {
-  @observable queryTracklist: App['queryTrackist'] = [];
+  @observable queryTracklistMap: App['queryTracklistMap'] = {};
   @observable myTracklist: App['myTracklist'] = [];
   @observable
   isRequestingQueryTracks: App['isRequestingQueryTracks'] = false;
@@ -27,12 +27,12 @@ export class AppLocalStore {
 
   @computed
   get queryTracklistNTotal(): App['queryTracklistNTotal'] {
-    return this.queryTracklist.length;
+    return Object.keys(this.queryTracklistMap).length;
   }
 
   @computed
   get isQueryTracklistEmpty(): App['isQueryTracklistEmpty'] {
-    return this.queryTracklist.length === 0;
+    return Object.keys(this.queryTracklistMap).length === 0;
   }
 
   @computed
@@ -40,18 +40,39 @@ export class AppLocalStore {
     return this.myTracklist.length;
   }
 
+  @computed
+  get searchTracklist(): Track[] {
+    return Object.values(this.queryTracklistMap);
+  }
+
   @action
   fetchSearchedTracks(params: APISearchParams) {
     this.isRequestingQueryTracks = true;
+
     searchTracksApi(params).then((searchPayload) => {
-      this.queryTracklist.push(...searchPayload.collection);
+      const newTracksMap = searchPayload.collection.reduce(
+        (prev, currTrack) => {
+          const { id, ...restTrackProps } = currTrack;
+
+          return {
+            ...prev,
+            [id]: { id, ...restTrackProps },
+          };
+        },
+        {} as App['queryTracklistMap']
+      );
+
+      this.queryTracklistMap = {
+        ...this.queryTracklistMap,
+        ...newTracksMap,
+      };
       this.isRequestingQueryTracks = false;
     });
   }
 
   @action
   clearSearchData() {
-    this.queryTracklist = [];
+    this.queryTracklistMap = {};
     this.offset = 0;
     this.isRequestingQueryTracks = false;
   }

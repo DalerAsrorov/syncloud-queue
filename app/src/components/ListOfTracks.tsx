@@ -52,9 +52,9 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
     <NoDataContainer
       isListEmpty={store.isQueryTracklistEmpty}
       isDataLoading={store.isRequestingQueryTracks}
-      data={store.queryTracklist}
+      data={store.queryTracklistMap}
     >
-      {store.queryTracklist.map((track) => (
+      {store.searchTracklist.map((track) => (
         <Player
           key={track.id}
           track={track}
