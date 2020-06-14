@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Container, Grid, Ref, Segment, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
-import { MainPlayer } from './components/MainPlayer';
+import MainPlayer from './components/MainPlayer';
 import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
@@ -65,20 +65,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
           </Grid>
         </Ref>
       </Container>
-      <Container
-        textAlign="center"
-        as={Segment}
-        style={{
-          position: 'fixed',
-          width: '100%',
-          bottom: 0,
-          left: 0,
-        }}
-      >
-        <Container>
-          <MainPlayer />
-        </Container>
-      </Container>
+      <MainPlayer clientId={clientId} />
     </>
   );
 };

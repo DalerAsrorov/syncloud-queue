@@ -5,6 +5,7 @@ import { APISearchParams, Track } from './typings/SC';
 import { SearchQueryType } from './utils/search-options';
 
 export interface App {
+  currentTrackId: Track['id'] | null;
   query: string;
   nextRef: string | undefined | null;
   queryTracklist: Track[];
@@ -23,6 +24,7 @@ export const SEARCH_QUERY_TRACKS_LIMIT = 40;
 export const createStore = () => new AppLocalStore();
 
 export class AppLocalStore {
+  @observable currentTrackId: App['currentTrackId'] = null;
   @observable query: App['query'] = '';
   @observable nextRef: App['nextRef'] = null;
   @observable queryTracklist: App['queryTracklist'] = [];
@@ -67,6 +69,10 @@ export class AppLocalStore {
   }
 
   @action addTrackToQueue(newTrack: Track): void {
+    if (this.currentTrackId === null) {
+      this.currentTrackId = newTrack.id;
+    }
+
     this.myTracklistMap = {
       [newTrack.id]: {
         index: Object.keys(this.myTracklistMap).length + 1,
