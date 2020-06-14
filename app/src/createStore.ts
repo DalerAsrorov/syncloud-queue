@@ -61,6 +61,12 @@ export class AppLocalStore {
     this.myTracklist = [...this.myTracklist, trackId];
   }
 
+  @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {
+    this.myTracklist = this.myTracklist.filter(
+      (trackId) => trackId !== deleteTrackId
+    );
+  }
+
   @action
   fetchSearchedTracks(
     params: APISearchParams,

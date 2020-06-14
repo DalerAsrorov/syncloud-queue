@@ -1,4 +1,4 @@
-import React, { createRef, useRef, useEffect, useState } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Container, Grid, Ref, Segment, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
 import { MyTrackList } from './components/MyTracklist';
@@ -29,7 +29,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
         ? searchRef.current.clientHeight + 20
         : state.searchHeight,
     });
-  }, []);
+  }, [state.searchHeight]);
 
   return (
     <Container as={Segment} basic>
