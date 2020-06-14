@@ -57,7 +57,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
                     <MyTrackList />
                   </Sticky>
                 </Grid.Column>
-                <Grid.Column width={11}>
+                <Grid.Column width={11} style={{ marginBottom: '3.5rem' }}>
                   <ListOfTracks clientId={clientId} />
                 </Grid.Column>
               </Grid.Row>
