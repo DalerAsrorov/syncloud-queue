@@ -1,13 +1,14 @@
 import { action, computed, observable } from 'mobx';
-import { APISearchParams, Track } from './api/SC';
 import { searchTracksApi } from './api/soundcloud';
+import { EnhancedTrack } from './typings/common';
+import { APISearchParams, Track } from './typings/SC';
 import { SearchQueryType } from './utils/search-options';
 
 export interface App {
   query: string;
   nextRef: string | undefined | null;
-  queryTracklistMap: { [id: string]: Track };
-  myTracklistMap: { [id: string]: Track };
+  queryTracklist: Track[];
+  myTracklistMap: { [id: string]: EnhancedTrack };
   isQueryTracklistEmpty: boolean;
   queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
@@ -24,7 +25,7 @@ export const createStore = () => new AppLocalStore();
 export class AppLocalStore {
   @observable query: App['query'] = '';
   @observable nextRef: App['nextRef'] = null;
-  @observable queryTracklistMap: App['queryTracklistMap'] = {};
+  @observable queryTracklist: App['queryTracklist'] = [];
   @observable myTracklistMap: App['myTracklistMap'] = {};
   @observable queryType: App['queryType'] = SearchQueryType.Q;
   @observable lastSavedQueryType: App['queryType'] = this.queryType;
@@ -35,12 +36,12 @@ export class AppLocalStore {
 
   @computed
   get queryTracklistNTotal(): App['queryTracklistNTotal'] {
-    return Object.keys(this.queryTracklistMap).length;
+    return this.queryTracklist.length;
   }
 
   @computed
   get isQueryTracklistEmpty(): App['isQueryTracklistEmpty'] {
-    return Object.keys(this.queryTracklistMap).length === 0;
+    return this.queryTracklist.length === 0;
   }
 
   @computed
@@ -49,24 +50,16 @@ export class AppLocalStore {
   }
 
   @computed
-  get searchTracklistAsList(): Track[] {
-    return Object.values(this.queryTracklistMap);
-  }
-
-  @computed
   get myTrackListAsList(): Track[] {
-    return Object.values(this.myTracklistMap);
+    return Object.values(this.myTracklistMap).sort(
+      (trackA, trackB) => trackA.index - trackB.index
+    );
   }
 
   @computed get filteredSearchList(): Track[] {
-    const myTrackIds = Object.keys(this.myTracklistMap);
-    let filteredListMap = { ...this.queryTracklistMap };
-
-    for (let trackId of myTrackIds) {
-      delete filteredListMap[trackId];
-    }
-
-    return Object.values(filteredListMap);
+    return this.queryTracklist.filter(
+      (track) => !this.myTracklistMap[track.id]
+    );
   }
 
   @action setSearchQuery(query: string): void {
@@ -75,10 +68,11 @@ export class AppLocalStore {
 
   @action addTrackToQueue(newTrack: Track): void {
     this.myTracklistMap = {
-      ...this.myTracklistMap,
       [newTrack.id]: {
+        index: Object.keys(this.myTracklistMap).length + 1,
         ...newTrack,
       },
+      ...this.myTracklistMap,
     };
   }
 
@@ -111,25 +105,19 @@ export class AppLocalStore {
         [this.queryType]: this.query.trim(),
       }).then((searchPayload) => {
         const { collection, next_href } = searchPayload;
-        const newTracksMap = collection.reduce((prev, currTrack) => {
+        const newTracks = collection.map((currTrack) => {
           const artwork_url = currTrack.artwork_url
             ? currTrack.artwork_url
             : currTrack.user.avatar_url;
 
           return {
-            ...prev,
-            [currTrack.id]: {
-              ...currTrack,
-              artwork_url,
-            },
+            ...currTrack,
+            artwork_url,
           };
-        }, {} as App['queryTracklistMap']);
+        });
 
         this.nextRef = next_href;
-        this.queryTracklistMap = {
-          ...this.queryTracklistMap,
-          ...newTracksMap,
-        };
+        this.queryTracklist = [...this.queryTracklist, ...newTracks];
         this.isRequestingQueryTracks = false;
       });
     } else {
@@ -139,7 +127,7 @@ export class AppLocalStore {
 
   @action
   clearSearchData() {
-    this.queryTracklistMap = {};
+    this.queryTracklist = [];
     this.offset = 0;
     this.isRequestingQueryTracks = false;
   }

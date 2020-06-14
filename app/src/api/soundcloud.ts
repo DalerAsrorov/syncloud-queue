@@ -1,4 +1,4 @@
-import { APIParams, APISearchParams, SoundCloudSDK } from './SC';
+import { APIParams, APISearchParams, SoundCloudSDK } from '../typings/SC';
 
 declare global {
   interface Window {

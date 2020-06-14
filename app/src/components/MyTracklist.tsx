@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Button, Image, List } from 'semantic-ui-react';
-import { Track } from '../api/SC';
 import { useStore } from '../store-context';
 
 export interface MyTracklistProps {}
@@ -10,7 +9,13 @@ export const MyTrackList: React.FC<MyTracklistProps> = observer(() => {
   const store = useStore();
 
   return (
-    <List verticalAlign="middle" divided relaxed="very" size="large">
+    <List
+      style={{ overflowY: 'auto', maxHeight: '70vh' }}
+      verticalAlign="middle"
+      divided
+      relaxed="very"
+      size="large"
+    >
       {store.myTrackListAsList.map((track) => {
         return (
           <List.Item key={track.id}>

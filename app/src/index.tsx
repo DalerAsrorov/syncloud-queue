@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
-import { Env, Environments } from './environments';
 import * as serviceWorker from './serviceWorker';
 import { StoreProvider } from './store-context';
+import { Env, Environments } from './typings/environments';
 
 const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 const APP_ENVIRONMENT = process.env.REACT_APP_APP_ENV as Environments;

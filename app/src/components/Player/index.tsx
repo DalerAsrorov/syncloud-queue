@@ -5,7 +5,7 @@ import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
 import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
-import { Track } from '../../api/SC';
+import { Track } from '../../typings/SC';
 
 export type PlayerProps = {
   onAddClick: (trackId: Track['id']) => void;
