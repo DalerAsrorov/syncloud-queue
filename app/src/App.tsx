@@ -1,36 +1,65 @@
-import React, { createRef } from 'react';
-import { Container, Grid, Segment, Sticky, Ref } from 'semantic-ui-react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
+import { Container, Grid, Ref, Segment, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
+import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
 
-interface AppProps {
+export interface AppProps {
   clientId: string;
 }
 
+export interface AppState {
+  searchHeight: number;
+}
+
+const SEARCH_DEFAULT_OFFSET_HEIGHT = 80;
+
 export const App: React.FC<AppProps> = ({ clientId }) => {
-  const contextRef = createRef();
+  const [state, setState] = useState<AppState>({
+    searchHeight: SEARCH_DEFAULT_OFFSET_HEIGHT,
+  });
+  const containerContextRef = createRef();
+  const tracklistContextRef = createRef();
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setState({
+      searchHeight: searchRef.current
+        ? searchRef.current.clientHeight + 20
+        : state.searchHeight,
+    });
+  }, [state.searchHeight]);
 
   return (
     <Container as={Segment} basic>
       <Nav />
-      <Ref innerRef={contextRef}>
+      <Ref innerRef={containerContextRef}>
         <Grid>
           <Grid.Row>
             <Grid.Column width="16">
-              <Sticky context={contextRef}>
-                <Search />
+              <Sticky context={containerContextRef}>
+                <div ref={searchRef}>
+                  <Search />
+                </div>
               </Sticky>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row divided>
-            <Grid.Column width={5}>
-              <Segment>Left side container for player</Segment>
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <ListOfTracks clientId={clientId} />
-            </Grid.Column>
-          </Grid.Row>
+          <Ref innerRef={tracklistContextRef}>
+            <Grid.Row divided>
+              <Grid.Column width={5}>
+                <Sticky
+                  context={tracklistContextRef}
+                  offset={state.searchHeight}
+                >
+                  <MyTrackList />
+                </Sticky>
+              </Grid.Column>
+              <Grid.Column width={11}>
+                <ListOfTracks clientId={clientId} />
+              </Grid.Column>
+            </Grid.Row>
+          </Ref>
         </Grid>
       </Ref>
     </Container>

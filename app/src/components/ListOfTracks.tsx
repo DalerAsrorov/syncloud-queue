@@ -5,6 +5,7 @@ import { Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
 import { Player } from './Player';
+import { Track } from '../api/SC';
 
 export interface NoDataContainerProps {
   children: any;
@@ -71,8 +72,9 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
       data={store.queryTracklistMap}
       nItems={store.queryTracklistNTotal}
     >
-      {store.searchTracklist.map((track) => (
+      {store.filteredSearchList.map((track) => (
         <Player
+          onAddClick={() => store.addTrackToQueue(track)}
           key={track.id}
           track={track}
           resolveUrl={track.permalink_url}

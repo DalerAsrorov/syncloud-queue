@@ -7,8 +7,8 @@ export interface App {
   query: string;
   nextRef: string | undefined | null;
   queryTracklistMap: { [id: string]: Track };
+  myTracklistMap: { [id: string]: Track };
   isQueryTracklistEmpty: boolean;
-  myTracklist: Track[];
   queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
   limit: number;
@@ -25,7 +25,7 @@ export class AppLocalStore {
   @observable query: App['query'] = '';
   @observable nextRef: App['nextRef'] = null;
   @observable queryTracklistMap: App['queryTracklistMap'] = {};
-  @observable myTracklist: App['myTracklist'] = [];
+  @observable myTracklistMap: App['myTracklistMap'] = {};
   @observable queryType: App['queryType'] = SearchQueryType.Q;
   @observable lastSavedQueryType: App['queryType'] = this.queryType;
   @observable
@@ -45,16 +45,45 @@ export class AppLocalStore {
 
   @computed
   get myTracklistNTotal(): App['myTracklistNTotal'] {
-    return this.myTracklist.length;
+    return Object.keys(this.myTracklistMap).length;
   }
 
   @computed
-  get searchTracklist(): Track[] {
+  get searchTracklistAsList(): Track[] {
     return Object.values(this.queryTracklistMap);
+  }
+
+  @computed
+  get myTrackListAsList(): Track[] {
+    return Object.values(this.myTracklistMap);
+  }
+
+  @computed get filteredSearchList(): Track[] {
+    const myTrackIds = Object.keys(this.myTracklistMap);
+    let filteredListMap = { ...this.queryTracklistMap };
+
+    for (let trackId of myTrackIds) {
+      delete filteredListMap[trackId];
+    }
+
+    return Object.values(filteredListMap);
   }
 
   @action setSearchQuery(query: string): void {
     this.query = query;
+  }
+
+  @action addTrackToQueue(newTrack: Track): void {
+    this.myTracklistMap = {
+      ...this.myTracklistMap,
+      [newTrack.id]: {
+        ...newTrack,
+      },
+    };
+  }
+
+  @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {
+    delete this.myTracklistMap[deleteTrackId];
   }
 
   @action
@@ -83,11 +112,16 @@ export class AppLocalStore {
       }).then((searchPayload) => {
         const { collection, next_href } = searchPayload;
         const newTracksMap = collection.reduce((prev, currTrack) => {
-          const { id, ...restTrackProps } = currTrack;
+          const artwork_url = currTrack.artwork_url
+            ? currTrack.artwork_url
+            : currTrack.user.avatar_url;
 
           return {
             ...prev,
-            [id]: { id, ...restTrackProps },
+            [currTrack.id]: {
+              ...currTrack,
+              artwork_url,
+            },
           };
         }, {} as App['queryTracklistMap']);
 

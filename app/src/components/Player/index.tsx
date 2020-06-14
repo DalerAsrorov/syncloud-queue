@@ -2,11 +2,18 @@
 
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import { PlayButton, Timer, Progress } from 'react-soundplayer/components';
+import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
+import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Track } from '../../api/SC';
 
-type PlayerProps = any;
+export type PlayerProps = {
+  onAddClick: (trackId: Track['id']) => void;
+  resolveUrl: Track['permalink_url'];
+  clientId: string;
+  track: Track;
+  currentTime?: number;
+};
 
 const playButtonStyleClass = classNames`
   width: 100%;
@@ -47,16 +54,13 @@ const usernameStyleClass = classNames`
 export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
   (props: PlayerProps) => {
     const { track, currentTime } = props;
-    const artwork = track.artwork_url
-      ? track.artwork_url
-      : track.user.avatar_url;
 
     return (
       <Grid as={Segment} verticalAlign="middle">
         <Grid.Row>
           <Grid.Column width={4} stretched>
             <PlayButton
-              className={playButtonStyleClass({ artwork })}
+              className={playButtonStyleClass({ artwork: track.artwork_url })}
               onPlayClick={() => {
                 console.log('play button clicked!');
               }}
@@ -67,7 +71,9 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
             <Grid padded>
               <Grid.Row>
                 <Grid.Column width={12} style={{ padding: 0 }}>
-                  <h3 style={{ margin: 0 }}>{track.title}</h3>
+                  <Header as="h3" color="grey">
+                    {track.title}
+                  </Header>
                   <a
                     className={usernameStyleClass()}
                     href={track.user.permalink_url}
@@ -80,6 +86,17 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
                   width={4}
                   style={{ padding: 0, textAlign: 'right' }}
                 >
+                  <Button
+                    onClick={() => {
+                      props.onAddClick(track.id);
+                    }}
+                    icon
+                    positive
+                    compact
+                    style={{ marginBottom: '0.25rem' }}
+                  >
+                    <Icon name="add circle" size="large" />
+                  </Button>
                   <Timer
                     duration={track ? track.duration / 1000 : 0}
                     currentTime={currentTime}

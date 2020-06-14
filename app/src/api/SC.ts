@@ -1,6 +1,15 @@
 export interface Track {
   id: string;
+  title: string;
+  duration: number;
+  user: {
+    avatar_url: string;
+    permalink_url: string;
+    username: string;
+  };
   permalink_url?: string;
+  artwork_url?: string;
+  [key: string]: any;
 }
 
 export interface APIParams {
