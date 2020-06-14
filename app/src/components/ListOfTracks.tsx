@@ -72,7 +72,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
       data={store.queryTracklistMap}
       nItems={store.queryTracklistNTotal}
     >
-      {store.searchTracklistAsList.map((track) => (
+      {store.filteredSearchList.map((track) => (
         <Player
           onAddClick={() => store.addTrackToQueue(track)}
           key={track.id}

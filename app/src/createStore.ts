@@ -58,16 +58,27 @@ export class AppLocalStore {
     return Object.values(this.myTracklistMap);
   }
 
+  @computed get filteredSearchList(): Track[] {
+    const myTrackIds = Object.keys(this.myTracklistMap);
+    let filteredListMap = { ...this.queryTracklistMap };
+
+    for (let trackId of myTrackIds) {
+      delete filteredListMap[trackId];
+    }
+
+    return Object.values(filteredListMap);
+  }
+
   @action setSearchQuery(query: string): void {
     this.query = query;
   }
 
   @action addTrackToQueue(newTrack: Track): void {
     this.myTracklistMap = {
+      ...this.myTracklistMap,
       [newTrack.id]: {
         ...newTrack,
       },
-      ...this.myTracklistMap,
     };
   }
 
