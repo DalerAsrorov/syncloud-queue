@@ -8,7 +8,7 @@ export interface App {
   nextRef: string | undefined | null;
   queryTracklistMap: { [id: string]: Track };
   isQueryTracklistEmpty: boolean;
-  myTracklist: Track[];
+  myTracklist: Track['id'][];
   queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
   limit: number;
@@ -49,12 +49,16 @@ export class AppLocalStore {
   }
 
   @computed
-  get searchTracklist(): Track[] {
+  get searchTracklistAsList(): Track[] {
     return Object.values(this.queryTracklistMap);
   }
 
   @action setSearchQuery(query: string): void {
     this.query = query;
+  }
+
+  @action addTrackToQueue(trackId: Track['id']): void {
+    this.myTracklist = [...this.myTracklist, trackId];
   }
 
   @action
@@ -84,10 +88,17 @@ export class AppLocalStore {
         const { collection, next_href } = searchPayload;
         const newTracksMap = collection.reduce((prev, currTrack) => {
           const { id, ...restTrackProps } = currTrack;
+          const artwork_url = restTrackProps['artwork_url']
+            ? restTrackProps['artwork_url']
+            : restTrackProps['user']['avatar_url'];
 
           return {
             ...prev,
-            [id]: { id, ...restTrackProps },
+            [id]: {
+              ...restTrackProps,
+              artwork_url,
+              id,
+            },
           };
         }, {} as App['queryTracklistMap']);
 

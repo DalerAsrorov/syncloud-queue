@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
-import { Container, Grid, Segment, Sticky, Ref } from 'semantic-ui-react';
+import { Container, Grid, Ref, Segment, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
+import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
 
@@ -25,7 +26,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
           </Grid.Row>
           <Grid.Row divided>
             <Grid.Column width={5}>
-              <Segment>Left side container for player</Segment>
+              <MyTrackList />
             </Grid.Column>
             <Grid.Column width={11}>
               <ListOfTracks clientId={clientId} />
