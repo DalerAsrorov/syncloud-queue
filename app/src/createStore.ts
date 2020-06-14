@@ -27,6 +27,7 @@ export class AppLocalStore {
   @observable queryTracklistMap: App['queryTracklistMap'] = {};
   @observable myTracklist: App['myTracklist'] = [];
   @observable queryType: App['queryType'] = SearchQueryType.Q;
+  @observable lastSavedQueryType: App['queryType'] = this.queryType;
   @observable
   isRequestingQueryTracks: App['isRequestingQueryTracks'] = false;
   @observable limit: App['limit'] = SEARCH_QUERY_TRACKS_LIMIT;
@@ -66,9 +67,15 @@ export class AppLocalStore {
     this.isRequestingQueryTracks = true;
     this.offset += params.limit ? params.limit : SEARCH_QUERY_TRACKS_LIMIT;
 
-    console.log(isOutOfTracks, this.nextRef);
-
     if (!isOutOfTracks) {
+      let queryType = this.queryType;
+
+      if (!isFetchMoreRequest) {
+        this.lastSavedQueryType = queryType;
+      } else {
+        queryType = this.lastSavedQueryType;
+      }
+
       searchTracksApi({
         ...params,
         offset: prevOffset,
