@@ -1,18 +1,40 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
-import { Container, Header, Icon, Segment } from 'semantic-ui-react';
+import {
+  Container,
+  Header,
+  Icon,
+  Placeholder,
+  Segment,
+} from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
 import { Player } from './Player';
 
 export interface NoDataContainerProps {
   children: any;
+  nEmptyItems: number;
   data: object | Array<any>;
   isListEmpty: boolean;
   isDataLoading: boolean;
   nItems: number;
 }
+
+const ListPlaceHolder = () => (
+  <Segment raised padded="very">
+    <Placeholder>
+      <Placeholder.Header image>
+        <Placeholder.Line />
+        <Placeholder.Line />
+      </Placeholder.Header>
+      <Placeholder.Paragraph>
+        <Placeholder.Line length="medium" />
+        <Placeholder.Line length="short" />
+      </Placeholder.Paragraph>
+    </Placeholder>
+  </Segment>
+);
 
 const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
   let headerInfo: {
@@ -29,6 +51,14 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
     headerInfo.title = 'Loading tracks';
     headerInfo.description = 'This should take short amount of time';
     headerInfo.icon = 'search';
+
+    return (
+      <>
+        {[...new Array(props.nEmptyItems)].map((_item, index) => (
+          <ListPlaceHolder key={index} />
+        ))}
+      </>
+    );
   } else if (props.isListEmpty) {
     headerInfo.title = 'No tracks to show';
     headerInfo.description = 'Searched tracks will appear here';
@@ -66,6 +96,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
 
   return (
     <NoDataContainer
+      nEmptyItems={10}
       isListEmpty={store.isQueryTracklistEmpty}
       isDataLoading={store.isRequestingQueryTracks}
       data={store.queryTracklist}

@@ -93,7 +93,7 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
                     icon
                     positive
                     compact
-                    style={{ marginBottom: '0.25rem' }}
+                    style={{ marginBottom: '0.5rem' }}
                   >
                     <Icon name="add circle" size="large" />
                   </Button>
