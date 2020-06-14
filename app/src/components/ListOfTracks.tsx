@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
-import { Player } from './Player';
+import { SearchPlayer } from './SearchPlayer';
 
 export interface NoDataContainerProps {
   children: any;
@@ -103,7 +103,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
       nItems={store.queryTracklistNTotal}
     >
       {store.filteredSearchList.map((track) => (
-        <Player
+        <SearchPlayer
           onAddClick={() => store.addTrackToQueue(track)}
           key={track.id}
           track={track}

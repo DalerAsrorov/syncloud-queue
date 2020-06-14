@@ -1,13 +1,13 @@
-/// <reference path="../../index.d.ts"/>
+/// <reference path="../index.d.ts"/>
 
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
 import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
-import { Track } from '../../typings/SC';
+import { Track } from '../typings/SC';
 
-export type PlayerProps = {
+export type SearchPlayerProps = {
   onAddClick: (trackId: Track['id']) => void;
   resolveUrl: Track['permalink_url'];
   clientId: string;
@@ -51,8 +51,8 @@ const usernameStyleClass = classNames`
     font-weight: 500;
 `;
 
-export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
-  (props: PlayerProps) => {
+export const SearchPlayer: React.FC<SearchPlayerProps> = withSoundCloudAudio(
+  (props: SearchPlayerProps) => {
     const { track, currentTime } = props;
 
     return (
@@ -60,7 +60,9 @@ export const Player: React.FC<PlayerProps> = withSoundCloudAudio(
         <Grid.Row>
           <Grid.Column width={4} stretched>
             <PlayButton
-              className={playButtonStyleClass({ artwork: track.artwork_url })}
+              className={playButtonStyleClass({
+                artwork: track.artwork_url,
+              })}
               onPlayClick={() => {
                 console.log('play button clicked!');
               }}
