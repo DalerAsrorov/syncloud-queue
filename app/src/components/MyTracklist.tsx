@@ -9,25 +9,19 @@ export interface MyTracklistProps {}
 export const MyTrackList: React.FC<MyTracklistProps> = observer(() => {
   const store = useStore();
 
-  const handleDeleteTrack = (id: Track['id']) => {
-    store.deleteTrackFromQueue(id);
-  };
-
   return (
     <List verticalAlign="middle" divided relaxed="very" size="large">
-      {store.myTracklist.map((trackId) => {
-        const trackInfo = store.queryTracklistMap[trackId];
-
+      {store.myTrackListAsList.map((track) => {
         return (
-          <List.Item key={trackInfo.id}>
-            <Image avatar src={trackInfo.artwork_url} />
+          <List.Item key={track.id}>
+            <Image avatar src={track.artwork_url} />
             <List.Content>
-              <List.Header>{trackInfo.title}</List.Header>
-              <List.Description>{trackInfo.user.username}</List.Description>
+              <List.Header>{track.title}</List.Header>
+              <List.Description>{track.user.username}</List.Description>
             </List.Content>
             <List.Content floated="right">
               <Button
-                onClick={() => handleDeleteTrack(trackId)}
+                onClick={() => store.deleteTrackFromQueue(track.id)}
                 basic
                 negative
                 circular

@@ -7,8 +7,8 @@ export interface App {
   query: string;
   nextRef: string | undefined | null;
   queryTracklistMap: { [id: string]: Track };
+  myTracklistMap: { [id: string]: Track };
   isQueryTracklistEmpty: boolean;
-  myTracklist: Track['id'][];
   queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
   limit: number;
@@ -25,7 +25,7 @@ export class AppLocalStore {
   @observable query: App['query'] = '';
   @observable nextRef: App['nextRef'] = null;
   @observable queryTracklistMap: App['queryTracklistMap'] = {};
-  @observable myTracklist: App['myTracklist'] = [];
+  @observable myTracklistMap: App['myTracklistMap'] = {};
   @observable queryType: App['queryType'] = SearchQueryType.Q;
   @observable lastSavedQueryType: App['queryType'] = this.queryType;
   @observable
@@ -45,7 +45,7 @@ export class AppLocalStore {
 
   @computed
   get myTracklistNTotal(): App['myTracklistNTotal'] {
-    return this.myTracklist.length;
+    return Object.keys(this.myTracklistMap).length;
   }
 
   @computed
@@ -53,18 +53,26 @@ export class AppLocalStore {
     return Object.values(this.queryTracklistMap);
   }
 
+  @computed
+  get myTrackListAsList(): Track[] {
+    return Object.values(this.myTracklistMap);
+  }
+
   @action setSearchQuery(query: string): void {
     this.query = query;
   }
 
-  @action addTrackToQueue(trackId: Track['id']): void {
-    this.myTracklist = [...this.myTracklist, trackId];
+  @action addTrackToQueue(newTrack: Track): void {
+    this.myTracklistMap = {
+      [newTrack.id]: {
+        ...newTrack,
+      },
+      ...this.myTracklistMap,
+    };
   }
 
   @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {
-    this.myTracklist = this.myTracklist.filter(
-      (trackId) => trackId !== deleteTrackId
-    );
+    delete this.myTracklistMap[deleteTrackId];
   }
 
   @action
@@ -93,17 +101,15 @@ export class AppLocalStore {
       }).then((searchPayload) => {
         const { collection, next_href } = searchPayload;
         const newTracksMap = collection.reduce((prev, currTrack) => {
-          const { id, ...restTrackProps } = currTrack;
-          const artwork_url = restTrackProps['artwork_url']
-            ? restTrackProps['artwork_url']
-            : restTrackProps['user']['avatar_url'];
+          const artwork_url = currTrack.artwork_url
+            ? currTrack.artwork_url
+            : currTrack.user.avatar_url;
 
           return {
             ...prev,
-            [id]: {
-              ...restTrackProps,
+            [currTrack.id]: {
+              ...currTrack,
               artwork_url,
-              id,
             },
           };
         }, {} as App['queryTracklistMap']);

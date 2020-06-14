@@ -65,10 +65,6 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
     );
   };
 
-  const handleAddTrack = (id: Track['id']) => {
-    store.addTrackToQueue(id);
-  };
-
   return (
     <NoDataContainer
       isListEmpty={store.isQueryTracklistEmpty}
@@ -78,7 +74,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
     >
       {store.searchTracklistAsList.map((track) => (
         <Player
-          onAddClick={handleAddTrack}
+          onAddClick={() => store.addTrackToQueue(track)}
           key={track.id}
           track={track}
           resolveUrl={track.permalink_url}
