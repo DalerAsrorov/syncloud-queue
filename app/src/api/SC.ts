@@ -25,5 +25,5 @@ export interface SoundCloudSDK {
   get: (
     path: string,
     params?: APISearchParams
-  ) => Promise<{ collection: Track[]; href?: string }>;
+  ) => Promise<{ collection: Track[]; next_href?: string | undefined }>;
 }

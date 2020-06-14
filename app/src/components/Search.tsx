@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import {
   Dropdown,
   DropdownProps,
@@ -11,14 +11,12 @@ import { useStore } from '../store-context';
 import { SearchQueryType, SEARCH_OPTIONS } from '../utils/search-options';
 
 export interface SearchProps extends InputProps {}
-export type SearchState = string;
 
 export const Search: React.FC<SearchProps> = observer((props) => {
-  const [queryInput, setInputState] = useState<SearchState>('');
   const store = useStore();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputState(event.target.value);
+    store.setSearchQuery(event.target.value);
   };
 
   const handleQueryTypeChange = (
@@ -31,9 +29,7 @@ export const Search: React.FC<SearchProps> = observer((props) => {
   const handleSubmit = () => {
     store.clearSearchData();
     store.fetchSearchedTracks({
-      [store.queryType]: queryInput.trim(),
       limit: store.limit,
-      offset: store.offset + store.limit,
       linked_partitioning: 1,
     });
   };
@@ -57,6 +53,7 @@ export const Search: React.FC<SearchProps> = observer((props) => {
         fluid
         icon="search"
         placeholder="Search..."
+        value={store.query}
         {...props}
       />
     </Form>

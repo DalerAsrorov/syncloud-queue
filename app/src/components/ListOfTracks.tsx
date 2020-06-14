@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import { Waypoint } from 'react-waypoint';
 import { Container, Header, Icon, Segment } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
@@ -10,6 +11,7 @@ export interface NoDataContainerProps {
   data: object | Array<any>;
   isListEmpty: boolean;
   isDataLoading: boolean;
+  nItems: number;
 }
 
 const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
@@ -23,7 +25,7 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
     icon: 'list layout',
   };
 
-  if (props.isDataLoading) {
+  if (props.isDataLoading && props.isListEmpty) {
     headerInfo.title = 'Loading tracks';
     headerInfo.description = 'This should take short amount of time';
     headerInfo.icon = 'search';
@@ -52,11 +54,22 @@ export interface ListOfTracksProps {
 export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
   const store = useStore();
 
+  const handleFetchMore = () => {
+    store.fetchSearchedTracks(
+      {
+        limit: store.limit,
+        linked_partitioning: 1,
+      },
+      true
+    );
+  };
+
   return (
     <NoDataContainer
       isListEmpty={store.isQueryTracklistEmpty}
       isDataLoading={store.isRequestingQueryTracks}
       data={store.queryTracklistMap}
+      nItems={store.queryTracklistNTotal}
     >
       {store.searchTracklist.map((track) => (
         <Player
@@ -67,6 +80,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
           // onReady={() => console.log('track is loaded!')}
         />
       ))}
+      <Waypoint onEnter={handleFetchMore}></Waypoint>
     </NoDataContainer>
   );
 });
