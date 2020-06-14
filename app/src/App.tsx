@@ -1,10 +1,10 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Container, Grid, Ref, Segment, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
+import { MainPlayer } from './components/MainPlayer';
 import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
-import { MainPlayer } from './components/MainPlayer';
 
 export interface AppProps {
   clientId: string;
