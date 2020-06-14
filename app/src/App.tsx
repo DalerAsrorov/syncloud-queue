@@ -4,6 +4,7 @@ import { ListOfTracks } from './components/ListOfTracks';
 import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { Search } from './components/Search';
+import { MainPlayer } from './components/MainPlayer';
 
 export interface AppProps {
   clientId: string;
@@ -32,36 +33,52 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
   }, [state.searchHeight]);
 
   return (
-    <Container as={Segment} basic>
-      <Nav />
-      <Ref innerRef={containerContextRef}>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width="16">
-              <Sticky context={containerContextRef}>
-                <div ref={searchRef}>
-                  <Search />
-                </div>
-              </Sticky>
-            </Grid.Column>
-          </Grid.Row>
-          <Ref innerRef={tracklistContextRef}>
-            <Grid.Row divided>
-              <Grid.Column width={5}>
-                <Sticky
-                  context={tracklistContextRef}
-                  offset={state.searchHeight}
-                >
-                  <MyTrackList />
+    <>
+      <Container as={Segment} basic>
+        <Nav />
+        <Ref innerRef={containerContextRef}>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width="16">
+                <Sticky context={containerContextRef}>
+                  <div ref={searchRef}>
+                    <Search />
+                  </div>
                 </Sticky>
               </Grid.Column>
-              <Grid.Column width={11}>
-                <ListOfTracks clientId={clientId} />
-              </Grid.Column>
             </Grid.Row>
-          </Ref>
-        </Grid>
-      </Ref>
-    </Container>
+            <Ref innerRef={tracklistContextRef}>
+              <Grid.Row divided>
+                <Grid.Column width={5}>
+                  <Sticky
+                    context={tracklistContextRef}
+                    offset={state.searchHeight}
+                  >
+                    <MyTrackList />
+                  </Sticky>
+                </Grid.Column>
+                <Grid.Column width={11}>
+                  <ListOfTracks clientId={clientId} />
+                </Grid.Column>
+              </Grid.Row>
+            </Ref>
+          </Grid>
+        </Ref>
+      </Container>
+      <Container
+        textAlign="center"
+        as={Segment}
+        style={{
+          position: 'fixed',
+          width: '100%',
+          bottom: 0,
+          left: 0,
+        }}
+      >
+        <Container>
+          <MainPlayer />
+        </Container>
+      </Container>
+    </>
   );
 };
