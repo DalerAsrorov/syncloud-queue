@@ -1,6 +1,5 @@
 import { action, computed, observable } from 'mobx';
 import { searchTracksApi } from './api/soundcloud';
-import { EnhancedTrack } from './typings/common';
 import { APISearchParams, Track } from './typings/SC';
 import { SearchQueryType } from './utils/search-options';
 
@@ -9,8 +8,9 @@ export interface App {
   query: string;
   nextRef: string | undefined | null;
   queryTracklist: Track[];
-  myTracklistMap: { [id: string]: EnhancedTrack };
+  myTracklst: Track[];
   isQueryTracklistEmpty: boolean;
+  isMyTracklistEmpty: boolean;
   queryType: SearchQueryType;
   isRequestingQueryTracks: boolean;
   limit: number;
@@ -28,7 +28,7 @@ export class AppLocalStore {
   @observable query: App['query'] = '';
   @observable nextRef: App['nextRef'] = null;
   @observable queryTracklist: App['queryTracklist'] = [];
-  @observable myTracklistMap: App['myTracklistMap'] = {};
+  @observable myTracklst: App['myTracklst'] = [];
   @observable queryType: App['queryType'] = SearchQueryType.Q;
   @observable lastSavedQueryType: App['queryType'] = this.queryType;
   @observable
@@ -48,42 +48,81 @@ export class AppLocalStore {
 
   @computed
   get myTracklistNTotal(): App['myTracklistNTotal'] {
-    return Object.keys(this.myTracklistMap).length;
+    return this.myTracklst.length;
   }
 
   @computed
-  get myTrackListAsList(): Track[] {
-    return Object.values(this.myTracklistMap).sort(
-      (trackA, trackB) => trackA.index - trackB.index
-    );
+  get isMyTracklistEmpty(): App['isMyTracklistEmpty'] {
+    return this.myTracklst.length === 0;
   }
 
   @computed get filteredSearchList(): Track[] {
     return this.queryTracklist.filter(
-      (track) => !this.myTracklistMap[track.id]
+      (track) => !this.myTracklst.find((myTrack) => myTrack.id === track.id)
     );
+  }
+
+  @computed get currentTrack(): { track: Track; index: number } | undefined {
+    let index: number = 0;
+    let track: Track | null = null;
+
+    for (let i = 0; i < this.myTracklst.length; i++) {
+      if (this.myTracklst[i].id === this.currentTrackId) {
+        track = this.myTracklst[i];
+        index = i;
+        break;
+      }
+    }
+
+    return track ? { track, index } : undefined;
   }
 
   @action setSearchQuery(query: string): void {
     this.query = query;
   }
 
+  @action setCurrentTrack(id: Track['id'] | null): void {
+    this.currentTrackId = id;
+  }
+
+  @action prevClick(): void {
+    const currTrackIndex = this.currentTrack?.index;
+
+    // happy path
+    if (currTrackIndex) {
+      const prevTrack = this.myTracklst[currTrackIndex - 1];
+
+      if (prevTrack) {
+        this.setCurrentTrack(prevTrack.id);
+      }
+    }
+  }
+
+  @action nextClick(): void {
+    const currTrackIndex = this.currentTrack?.index;
+
+    if (currTrackIndex !== null && currTrackIndex !== undefined) {
+      const nextTrack = this.myTracklst[currTrackIndex + 1];
+
+      if (nextTrack) {
+        this.setCurrentTrack(nextTrack.id);
+      }
+    }
+  }
+
   @action addTrackToQueue(newTrack: Track): void {
     if (this.currentTrackId === null) {
-      this.currentTrackId = newTrack.id;
+      this.setCurrentTrack(newTrack.id);
     }
-
-    this.myTracklistMap = {
-      [newTrack.id]: {
-        index: Object.keys(this.myTracklistMap).length + 1,
-        ...newTrack,
-      },
-      ...this.myTracklistMap,
-    };
+    this.myTracklst = [...this.myTracklst, newTrack];
   }
 
   @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {
-    delete this.myTracklistMap[deleteTrackId];
+    const removeIndex = this.myTracklst
+      .map((track) => track.id)
+      .indexOf(deleteTrackId);
+
+    this.myTracklst.splice(removeIndex, 1);
   }
 
   @action

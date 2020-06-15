@@ -6,6 +6,7 @@ import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
 import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { Track } from '../typings/SC';
+import { progressStyleClass } from '../utils/common-classnames';
 
 export type SearchPlayerProps = {
   onAddClick: (trackId: Track['id']) => void;
@@ -30,19 +31,6 @@ const playButtonStyleClass = classNames`
     width: 50%;
     height: 50%;
   }
-`;
-
-const progressStyleClass = classNames`
-    cursor: pointer;
-    width: 100%;
-    height: 10px;
-    background: skyblue;
-
-    & > div {
-        background: cyan;
-        height: 100%;
-        transition: width .2s ease-in;
-    }
 `;
 
 const usernameStyleClass = classNames`

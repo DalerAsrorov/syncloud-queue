@@ -4,23 +4,27 @@ import { Container, Segment } from 'semantic-ui-react';
 import { useStore } from '../../store-context';
 import { PlayerView } from './PlayerView';
 
-export interface MainPlayerProps {
-  clientId: string;
-}
+export interface MainPlayerEnhancedViewProps extends MainPlayerIndexProps {}
 
-const MainPlayerView: React.FC<MainPlayerProps> = observer(
-  (props: MainPlayerProps) => {
+const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
+  (props) => {
     const store = useStore();
 
-    if (store.currentTrackId === null) {
+    if (!store.currentTrack) {
       return <Segment>No tracks</Segment>;
     }
 
-    const currentTrack = store.myTracklistMap[store.currentTrackId];
+    const currentTrack = store.currentTrack.track;
 
     return (
       <PlayerView
+        onPrevClick={() => store.prevClick()}
+        onNextClick={() => store.nextClick()}
+        onPlayClick={() => {
+          console.log('play button clicked!');
+        }}
         resolveUrl={currentTrack.permalink_url}
+        playlist={{ tracks: store.myTracklst }}
         track={currentTrack}
         {...props}
       />
@@ -28,7 +32,11 @@ const MainPlayerView: React.FC<MainPlayerProps> = observer(
   }
 );
 
-export default (props: MainPlayerProps) => (
+export interface MainPlayerIndexProps {
+  clientId: string;
+}
+
+export default (props: MainPlayerIndexProps) => (
   <Segment
     basic
     style={{
@@ -39,7 +47,7 @@ export default (props: MainPlayerProps) => (
     }}
   >
     <Container>
-      <MainPlayerView {...props} />
+      <MainPlayerEnhanced {...props} />
     </Container>
   </Segment>
 );
