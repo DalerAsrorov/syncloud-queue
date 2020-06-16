@@ -26,7 +26,7 @@ const ListPlaceHolder = () => (
     <Placeholder>
       <Placeholder.Header image>
         <Placeholder.Line />
-        <Placeholder.Line />
+        <Placeholder.Line length="long" />
       </Placeholder.Header>
       <Placeholder.Paragraph>
         <Placeholder.Line length="medium" />

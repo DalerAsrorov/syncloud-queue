@@ -3,7 +3,14 @@
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
-import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Grid,
+  Header,
+  Icon,
+  Segment,
+  Placeholder,
+} from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { Track } from '../../typings/SC';
 import { progressStyleClass } from '../../utils/common-classnames';
@@ -78,7 +85,7 @@ export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
                   width={4}
                   style={{ padding: 0, textAlign: 'right' }}
                 >
-                  {props.isReady && (
+                  {props.isReady ? (
                     <Button
                       onClick={() => {
                         props.onAddClick(track.id);
@@ -90,12 +97,24 @@ export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
                     >
                       <Icon name="add circle" size="large" />
                     </Button>
+                  ) : (
+                    <div style={{ display: 'flex', flexFlow: 'row-reverse' }}>
+                      <Placeholder style={{ width: '50%' }}>
+                        <Placeholder.Line length="full" />
+                      </Placeholder>
+                    </div>
                   )}
-                  <Timer
-                    duration={track ? track.duration / 1000 : 0}
-                    currentTime={currentTime}
-                    {...props}
-                  />
+                  {props.isReady ? (
+                    <Timer
+                      duration={track ? track.duration / 1000 : 0}
+                      currentTime={currentTime}
+                      {...props}
+                    />
+                  ) : (
+                    <Placeholder style={{ margin: 0 }}>
+                      <Placeholder.Line length="full" />
+                    </Placeholder>
+                  )}
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
