@@ -8,7 +8,7 @@ import {
   Progress,
   Timer,
 } from 'react-soundplayer/components';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid, Header, Image, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { CurrentTrack } from '../../createStore';
 import { Track } from '../../typings/SC';
@@ -30,9 +30,9 @@ export interface MainPlayerProps {
 }
 
 export enum PlayerSectionRation {
-  Controls = 3,
-  Progress = 8,
-  TrackInfo = 5,
+  Controls = 2,
+  Progress = 7,
+  TrackInfo = 7,
 }
 
 const controlButtonStyleClass = classNames`
@@ -133,8 +133,29 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
             </Grid>
           </Grid.Column>
           <Grid.Column width={PlayerSectionRation.TrackInfo}>
-            <Header size="medium">{currentTrack.track.title}</Header>
-            <Header size="tiny">{currentTrack.track.user.username}</Header>
+            <Grid verticalAlign="middle">
+              <Grid.Row style={{ ...controlsRowStyle, maxHeight: 'auto' }}>
+                <Grid.Column width="4">
+                  <Image
+                    size="tiny"
+                    circular
+                    centered
+                    src={currentTrack.track.artwork_url}
+                    style={{ padding: '0.25rem' }}
+                  />
+                </Grid.Column>
+                <Grid.Column width="12">
+                  <Header as="h3">
+                    <Header.Content>
+                      {currentTrack.track.title}
+                      <Header.Subheader>
+                        {currentTrack.track.user.username}
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Grid.Column>
         </Grid.Row>
       </Grid>
