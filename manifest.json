@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SyncLoud Queue",
+  "name": "SoundCloud MP3-like Player Web Application",
   "icons": [
     {
       "src": "favicon.ico",
