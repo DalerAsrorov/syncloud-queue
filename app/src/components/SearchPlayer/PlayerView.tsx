@@ -1,20 +1,22 @@
-/// <reference path="../index.d.ts"/>
+/// <reference path="../../index.d.ts"/>
 
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import { PlayButton, Progress, Timer } from 'react-soundplayer/components';
 import { Button, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
-import { Track } from '../typings/SC';
-import { progressStyleClass } from '../utils/common-classnames';
+import { Track } from '../../typings/SC';
+import { progressStyleClass } from '../../utils/common-classnames';
 
-export type SearchPlayerProps = {
+export interface SearchPlayerViewProps {
   onAddClick: (trackId: Track['id']) => void;
+  onReady?: () => void;
+  isReady?: boolean;
   resolveUrl: Track['permalink_url'];
   clientId: string;
   track: Track;
   currentTime?: number;
-};
+}
 
 const playButtonStyleClass = classNames`
   width: 100%;
@@ -39,8 +41,8 @@ const usernameStyleClass = classNames`
     font-weight: 500;
 `;
 
-export const SearchPlayer: React.FC<SearchPlayerProps> = withSoundCloudAudio(
-  (props: SearchPlayerProps) => {
+export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
+  (props: SearchPlayerViewProps) => {
     const { track, currentTime } = props;
 
     return (
@@ -76,17 +78,19 @@ export const SearchPlayer: React.FC<SearchPlayerProps> = withSoundCloudAudio(
                   width={4}
                   style={{ padding: 0, textAlign: 'right' }}
                 >
-                  <Button
-                    onClick={() => {
-                      props.onAddClick(track.id);
-                    }}
-                    icon
-                    positive
-                    compact
-                    style={{ marginBottom: '0.5rem' }}
-                  >
-                    <Icon name="add circle" size="large" />
-                  </Button>
+                  {props.isReady && (
+                    <Button
+                      onClick={() => {
+                        props.onAddClick(track.id);
+                      }}
+                      icon
+                      positive
+                      compact
+                      style={{ marginBottom: '0.5rem' }}
+                    >
+                      <Icon name="add circle" size="large" />
+                    </Button>
+                  )}
                   <Timer
                     duration={track ? track.duration / 1000 : 0}
                     currentTime={currentTime}

@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { useStore } from '../store-context';
-import { SearchPlayer } from './SearchPlayer';
+import SearchPlayer from './SearchPlayer';
 
 export interface NoDataContainerProps {
   children: any;
