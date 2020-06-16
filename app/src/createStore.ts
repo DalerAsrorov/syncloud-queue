@@ -19,6 +19,11 @@ export interface App {
   myTracklistNTotal: number;
 }
 
+export interface CurrentTrack {
+  track: Track;
+  index: number;
+}
+
 export const SEARCH_QUERY_TRACKS_LIMIT = 40;
 
 export const createStore = () => new AppLocalStore();
@@ -62,7 +67,7 @@ export class AppLocalStore {
     );
   }
 
-  @computed get currentTrack(): { track: Track; index: number } | undefined {
+  @computed get currentTrack(): CurrentTrack | undefined {
     let index: number = 0;
     let track: Track | null = null;
 

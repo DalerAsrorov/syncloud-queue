@@ -14,7 +14,8 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
       return <Segment>No tracks</Segment>;
     }
 
-    const trackInfo = store.currentTrack;
+    const currentTrack = store.currentTrack;
+    const tracks = store.myTracklst;
 
     return (
       <PlayerView
@@ -23,10 +24,10 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
         onPlayClick={() => {
           console.log('play button clicked!');
         }}
-        resolveUrl={trackInfo.track.permalink_url}
-        playlist={{ tracks: store.myTracklst }}
-        currentTrackIndex={trackInfo.index}
-        track={trackInfo.track}
+        resolveUrl={currentTrack.track.permalink_url}
+        playlist={{ tracks }}
+        track={currentTrack.track}
+        currentTrack={currentTrack}
         {...props}
       />
     );
