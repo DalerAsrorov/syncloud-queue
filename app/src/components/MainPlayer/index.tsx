@@ -11,7 +11,11 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
     const store = useStore();
 
     if (!store.currentTrack?.track) {
-      return <Segment>No tracks</Segment>;
+      return (
+        <Segment padded basic>
+          No tracks
+        </Segment>
+      );
     }
 
     const currentTrack = store.currentTrack;
@@ -39,17 +43,18 @@ export interface MainPlayerIndexProps {
 }
 
 export default (props: MainPlayerIndexProps) => (
-  <Segment
-    basic
+  <Container
+    as={Segment}
     style={{
       width: '100%',
       position: 'fixed',
+      padding: 0,
       bottom: 0,
       left: 0,
     }}
   >
-    <Container>
+    <Container as={Segment} style={{ padding: 0 }} basic>
       <MainPlayerEnhanced {...props} />
     </Container>
-  </Segment>
+  </Container>
 );

@@ -8,7 +8,7 @@ import {
   Progress,
   Timer,
 } from 'react-soundplayer/components';
-import { Grid, Header, Image, Segment } from 'semantic-ui-react';
+import { Grid, Header, Image } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { CurrentTrack } from '../../createStore';
 import { Track } from '../../typings/SC';
@@ -83,7 +83,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
     console.log({ playerProps });
 
     return (
-      <Grid as={Segment} verticalAlign="middle" style={{ margin: 0 }}>
+      <Grid verticalAlign="middle" style={{ margin: 0 }}>
         <Grid.Row>
           <Grid.Column width={PlayerSectionRation.Controls}>
             <Grid columns={3} divided>
@@ -120,14 +120,16 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
                   <Progress {...playerProps} className={progressStyleClass()} />
                 </Grid.Column>
                 <Grid.Column style={controlsColumnStyle} width="4">
-                  <Timer
-                    duration={
-                      track && props.duration ? props?.duration / 1000 : 0
-                    }
-                    currentTime={currentTime}
-                    className={controlButtonStyleClass()}
-                    {...playerProps}
-                  />
+                  <Header style={{ margin: 0 }} size="small" color="pink">
+                    <Timer
+                      duration={
+                        track && props.duration ? props?.duration / 1000 : 0
+                      }
+                      currentTime={currentTime}
+                      className={controlButtonStyleClass()}
+                      {...playerProps}
+                    />
+                  </Header>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -141,7 +143,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
                     circular
                     centered
                     src={currentTrack.track.artwork_url}
-                    style={{ padding: '0.25rem' }}
+                    style={{ padding: '0.5rem' }}
                   />
                 </Grid.Column>
                 <Grid.Column width="12">

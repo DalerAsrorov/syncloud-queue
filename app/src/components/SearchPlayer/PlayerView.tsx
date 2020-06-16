@@ -105,11 +105,13 @@ export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
                     </div>
                   )}
                   {props.isReady ? (
-                    <Timer
-                      duration={track ? track.duration / 1000 : 0}
-                      currentTime={currentTime}
-                      {...props}
-                    />
+                    <Header style={{ margin: 0 }} size="small" color="grey">
+                      <Timer
+                        duration={track ? track.duration / 1000 : 0}
+                        currentTime={currentTime}
+                        {...props}
+                      />
+                    </Header>
                   ) : (
                     <Placeholder style={{ margin: 0 }}>
                       <Placeholder.Line length="full" />
