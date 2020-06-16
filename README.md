@@ -9,25 +9,28 @@
 
 Create your own tracklist by searching sounds that you like and adding them to your tracklist queue. You can set the playlist on `autoplay` mode and the tracks will play sequentially.
 
-## Running locally 
+## Running locally
+
 1. `cd ./syncloud-queue`
 1. `yarn` or `npm install`
 1. `yarn start` or `npm run start`
 
 ## Useful links for development
-- http://redux.js.org/ - Redux docs
+
+- https://mobx.js.org/README.html- Mobx docs
 - https://github.com/soundblogs/react-soundplayer - React widget component
 - https://developers.soundcloud.com/docs/api/guide#search - SoundCloud API search query
-- https://developers.soundcloud.com/docs/api/reference#tracks - Soundcloud API tracks attributes 
+- https://developers.soundcloud.com/docs/api/reference#tracks - Soundcloud API tracks attributes
 
-## Global state 
+## Global state
+
 ```javascript
 {
-    // an ID of the current song that is currently 
+    // an ID of the current song that is currently
     // playing in the tracklist
     // DEFAULT: -1
     currentTrackPlayingID: number,
-    
+
     // a global queue of tracks added by the user
     // DEFAULT: []
     tracklist: array
@@ -35,4 +38,5 @@ Create your own tracklist by searching sounds that you like and adding them to y
 ```
 
 ## License
-* [MIT](LICENSE)
+
+- [MIT](LICENSE)

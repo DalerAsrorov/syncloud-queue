@@ -89,24 +89,23 @@ export class AppLocalStore {
     const currTrackIndex = this.currentTrack?.index;
 
     // happy path
-    if (currTrackIndex) {
+    if (currTrackIndex !== undefined && currTrackIndex !== 0) {
       const prevTrack = this.myTracklst[currTrackIndex - 1];
 
-      if (prevTrack) {
-        this.setCurrentTrack(prevTrack.id);
-      }
+      this.setCurrentTrack(prevTrack.id);
     }
   }
 
   @action nextClick(): void {
     const currTrackIndex = this.currentTrack?.index;
 
-    if (currTrackIndex !== null && currTrackIndex !== undefined) {
+    if (
+      currTrackIndex !== undefined &&
+      currTrackIndex + 1 < this.myTracklistNTotal
+    ) {
       const nextTrack = this.myTracklst[currTrackIndex + 1];
 
-      if (nextTrack) {
-        this.setCurrentTrack(nextTrack.id);
-      }
+      this.setCurrentTrack(nextTrack.id);
     }
   }
 
@@ -114,7 +113,7 @@ export class AppLocalStore {
     if (this.currentTrackId === null) {
       this.setCurrentTrack(newTrack.id);
     }
-    this.myTracklst = [...this.myTracklst, newTrack];
+    this.myTracklst.push(newTrack);
   }
 
   @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {

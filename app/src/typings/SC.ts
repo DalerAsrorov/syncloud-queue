@@ -7,6 +7,10 @@ export interface Track {
     permalink_url: string;
     username: string;
   };
+  soundCloudAudio: {
+    _playlist: { tracks: Track[] };
+    _playlistIndex?: number;
+  };
   permalink_url?: string;
   artwork_url?: string;
   [key: string]: any;

@@ -1,25 +1,29 @@
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import {
+  NextButton,
   PlayButton,
   PrevButton,
-  NextButton,
   Progress,
 } from 'react-soundplayer/components';
 import { Grid, Segment } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { Track } from '../../typings/SC';
 import { progressStyleClass } from '../../utils/common-classnames';
+import { observer } from 'mobx-react';
+import { useStore } from '../../store-context';
 
 export interface MainPlayerProps {
-  onPrevClick: Function;
-  onPlayClick: Function;
-  onNextClick: Function;
+  onPlayClick: () => void;
+  onPrevClick: () => void;
+  onNextClick: () => void;
+  currentTrackIndex: number;
   track: Track;
-  playlist: { tracks: Track[] };
   resolveUrl: Track['permalink_url'];
   clientId: string;
-  soundCloudAudio?: any;
+  playlist: { tracks: Track[] };
+  soundCloudAudio?: Track['soundCloudAudio'];
+  streamUrl?: string;
   currentTime?: number;
 }
 
@@ -54,19 +58,19 @@ const controlsRowStyle: Partial<CSSStyleDeclaration> = {
 };
 
 export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
-  (props: MainPlayerProps) => {
+  observer((props: MainPlayerProps) => {
     const { soundCloudAudio, ...restProps } = props;
-
-    // this allows the SoundCloud API to create
-    // a list of tracks for the internal playlist
-    // that belongs to the SoundCloud SDK API.
-    soundCloudAudio._playlist = props.playlist;
-    const playerProps = {
-      soundCloudAudio,
+    let playerProps: MainPlayerProps = {
       ...restProps,
     };
 
-    console.log(soundCloudAudio._playlistIndex);
+    if (soundCloudAudio) {
+      // this allows the SoundCloud API to create
+      // a list of tracks for the internal playlist
+      // that belongs to the SoundCloud SDK API.
+      soundCloudAudio._playlist = props.playlist;
+      soundCloudAudio._playlistIndex = props.currentTrackIndex;
+    }
 
     return (
       <Grid as={Segment} verticalAlign="middle" style={{ margin: 0 }}>
@@ -96,10 +100,10 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
             </Grid>
           </Grid.Column>
           <Grid.Column width={PlayerSectionRation.Progress}>
-            <Progress {...props} className={progressStyleClass()} />
+            <Progress {...playerProps} className={progressStyleClass()} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
     );
-  }
+  })
 );
