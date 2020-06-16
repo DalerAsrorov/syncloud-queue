@@ -1,7 +1,24 @@
 {
-  "main.css": "static/css/main.e7f44b14.css",
-  "main.css.map": "static/css/main.e7f44b14.css.map",
-  "main.js": "static/js/main.a1f3bf80.js",
-  "main.js.map": "static/js/main.a1f3bf80.js.map",
-  "static/media/syncloud.png": "static/media/syncloud.87ec2f60.png"
+  "files": {
+    "main.js": "/syncloud-queue/static/js/main.ff15fe48.chunk.js",
+    "main.js.map": "/syncloud-queue/static/js/main.ff15fe48.chunk.js.map",
+    "runtime-main.js": "/syncloud-queue/static/js/runtime-main.16faf015.js",
+    "runtime-main.js.map": "/syncloud-queue/static/js/runtime-main.16faf015.js.map",
+    "static/css/2.6b4b24bc.chunk.css": "/syncloud-queue/static/css/2.6b4b24bc.chunk.css",
+    "static/js/2.611736f7.chunk.js": "/syncloud-queue/static/js/2.611736f7.chunk.js",
+    "static/js/2.611736f7.chunk.js.map": "/syncloud-queue/static/js/2.611736f7.chunk.js.map",
+    "index.html": "/syncloud-queue/index.html",
+    "precache-manifest.350443c143d45ac8646af95e2f863d00.js": "/syncloud-queue/precache-manifest.350443c143d45ac8646af95e2f863d00.js",
+    "service-worker.js": "/syncloud-queue/service-worker.js",
+    "static/css/2.6b4b24bc.chunk.css.map": "/syncloud-queue/static/css/2.6b4b24bc.chunk.css.map",
+    "static/js/2.611736f7.chunk.js.LICENSE.txt": "/syncloud-queue/static/js/2.611736f7.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/syncloud-queue/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/syncloud.png": "/syncloud-queue/static/media/syncloud.87ec2f60.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.16faf015.js",
+    "static/css/2.6b4b24bc.chunk.css",
+    "static/js/2.611736f7.chunk.js",
+    "static/js/main.ff15fe48.chunk.js"
+  ]
 }
