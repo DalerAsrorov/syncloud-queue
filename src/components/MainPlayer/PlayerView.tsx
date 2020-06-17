@@ -61,7 +61,7 @@ const controlsRowStyle: Partial<CSSStyleDeclaration> = {
 };
 
 export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
-  observer((props: MainPlayerProps) => {
+  (props: MainPlayerProps) => {
     const { soundCloudAudio, track, currentTime, currentTrack } = props;
     let playerProps: MainPlayerProps = {
       ...props,
@@ -73,6 +73,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
       // that belongs to the SoundCloud SDK API.
       soundCloudAudio._playlist = props.playlist;
       soundCloudAudio._playlistIndex = currentTrack.index;
+      soundCloudAudio._track = currentTrack.track;
 
       playerProps = {
         ...playerProps,
@@ -80,7 +81,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
       };
     }
 
-    console.log({ playerProps });
+    console.log(props);
 
     return (
       <Grid verticalAlign="middle" style={{ margin: 0 }}>
@@ -162,5 +163,5 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
         </Grid.Row>
       </Grid>
     );
-  })
+  }
 );

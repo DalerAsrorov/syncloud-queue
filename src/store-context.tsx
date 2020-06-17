@@ -1,8 +1,11 @@
 import React from 'react';
 import { createStore, AppStore } from './createStore';
 import { useLocalStore } from 'mobx-react';
+import { configure } from 'mobx';
 
 const StoreContext = React.createContext<AppStore | null>(null);
+
+configure({ enforceActions: 'observed' });
 
 export const StoreProvider = ({
   children,

@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'semantic-ui-css/semantic.min.css';
 import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { StoreProvider } from './store-context';
 import { Env, Environments } from './typings/environments';
+
+import 'mobx-react-lite/batchingForReactDom';
+
+import 'semantic-ui-css/semantic.min.css';
 
 const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 const APP_ENVIRONMENT = process.env.REACT_APP_APP_ENV as Environments;
