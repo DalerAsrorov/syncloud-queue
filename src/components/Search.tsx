@@ -23,11 +23,10 @@ export const Search: React.FC<SearchProps> = observer((props) => {
     _event: React.SyntheticEvent<HTMLElement>,
     { value }: DropdownProps
   ) => {
-    store.queryType = value as SearchQueryType;
+    store.setQueryType(value as SearchQueryType);
   };
 
   const handleSubmit = () => {
-    store.clearSearchData();
     store.fetchSearchedTracks({
       limit: store.limit,
       linked_partitioning: 1,

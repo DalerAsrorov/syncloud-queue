@@ -35,7 +35,6 @@ export class AppLocalStore {
   @observable queryTracklist: App['queryTracklist'] = [];
   @observable myTracklst: App['myTracklst'] = [];
   @observable queryType: App['queryType'] = SearchQueryType.Q;
-  @observable lastSavedQueryType: App['queryType'] = this.queryType;
   @observable
   isRequestingQueryTracks: App['isRequestingQueryTracks'] = false;
   @observable limit: App['limit'] = SEARCH_QUERY_TRACKS_LIMIT;
@@ -134,23 +133,19 @@ export class AppLocalStore {
     params: APISearchParams,
     isFetchMoreRequest: boolean = false
   ): void {
-    const prevOffset = this.offset;
     const isOutOfTracks = isFetchMoreRequest && !this.nextRef;
-    this.isRequestingQueryTracks = true;
-    this.offset += params.limit ? params.limit : SEARCH_QUERY_TRACKS_LIMIT;
 
     if (!isOutOfTracks) {
-      let queryType = this.queryType;
+      this.setRequestTracksStatus(true);
 
       if (!isFetchMoreRequest) {
-        this.lastSavedQueryType = queryType;
-      } else {
-        queryType = this.lastSavedQueryType;
+        this.offset = 0;
+        this.queryTracklist = [];
       }
 
       searchTracksApi({
         ...params,
-        offset: prevOffset,
+        offset: this.offset,
         [this.queryType]: this.query.trim(),
       }).then((searchPayload) => {
         const { collection, next_href } = searchPayload;
@@ -165,20 +160,36 @@ export class AppLocalStore {
           };
         });
 
-        this.nextRef = next_href;
-        this.queryTracklist = [...this.queryTracklist, ...newTracks];
-        this.isRequestingQueryTracks = false;
+        this.updateRequestOffset(params);
+        this.setNextTrackListState({ nextHref: next_href, newTracks });
+        this.setRequestTracksStatus(false);
       });
-    } else {
-      this.isRequestingQueryTracks = false;
     }
   }
 
-  @action
-  clearSearchData() {
-    this.queryTracklist = [];
-    this.offset = 0;
-    this.isRequestingQueryTracks = false;
+  @action setQueryType(queryType: App['queryType']) {
+    this.queryType = queryType;
+  }
+
+  @action updateRequestOffset(params: APISearchParams) {
+    this.offset += params.limit ? params.limit : SEARCH_QUERY_TRACKS_LIMIT;
+  }
+
+  @action setNextTrackListState({
+    nextHref,
+    newTracks,
+  }: {
+    nextHref: string | undefined;
+    newTracks: Track[];
+  }) {
+    this.nextRef = nextHref;
+    this.queryTracklist = [...this.queryTracklist, ...newTracks];
+
+    console.log(this.queryTracklist.map((track) => track.id));
+  }
+
+  @action setRequestTracksStatus(isRequesting: boolean) {
+    this.isRequestingQueryTracks = isRequesting;
   }
 }
 
