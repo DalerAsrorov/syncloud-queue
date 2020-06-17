@@ -23,13 +23,19 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
       );
     }
 
+    const handlePrev = () => {
+      mainPlayerStore!.prevClick();
+    };
+    const handleNext = () => {
+      mainPlayerStore!.nextClick();
+    };
     const currentTrack = mainPlayerStore!.currentTrack;
     const tracks = mainPlayerStore!.tracklist;
 
     return (
       <PlayerView
-        onPrevClick={() => mainPlayerStore!.prevClick()}
-        onNextClick={() => mainPlayerStore!.nextClick()}
+        onPrevClick={handlePrev}
+        onNextClick={handleNext}
         onPlayClick={() => {
           console.log('play button clicked!');
         }}

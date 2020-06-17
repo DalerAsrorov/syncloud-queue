@@ -1,4 +1,4 @@
-import { observer, inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
 import {
@@ -9,10 +9,11 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import SearchPlayer from './SearchPlayer';
 import { StoreKeys } from '../stores/index';
-import { QueryStore } from '../stores/query-store';
 import { MainPlayerStore } from '../stores/main-player-store';
+import { QueryStore } from '../stores/query-store';
+import { Track } from '../typings/SC';
+import SearchPlayer from './SearchPlayer';
 
 export interface NoDataContainerProps {
   children: any;
@@ -101,6 +102,9 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
         true
       );
     };
+    const addTrack = (track: Track) => {
+      mainPlayerStore!.addTrackToQueue(track);
+    };
 
     return (
       <NoDataContainer
@@ -112,12 +116,11 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
       >
         {queryStore!.filteredSearchList.map((track) => (
           <SearchPlayer
-            onAddClick={() => mainPlayerStore!.addTrackToQueue(track)}
+            onAddClick={() => addTrack(track)}
             key={track.id}
             track={track}
             resolveUrl={track.permalink_url}
             clientId={props.clientId}
-            // onReady={() => console.log('track is loaded!')}
           />
         ))}
         <Waypoint onEnter={handleFetchMore}></Waypoint>

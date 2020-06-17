@@ -15,6 +15,10 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
   observer((props) => {
     const { mainPlayerStore } = props;
 
+    const deleteTrack = (trackId: Track['id']) => {
+      mainPlayerStore!.deleteTrackFromQueue(trackId);
+    };
+
     return (
       <>
         <Header color="grey" size="small">
@@ -52,9 +56,7 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
                 </List.Content>
                 <List.Content floated="right">
                   <Button
-                    onClick={() =>
-                      mainPlayerStore!.deleteTrackFromQueue(track.id)
-                    }
+                    onClick={() => deleteTrack(track.id)}
                     basic
                     negative
                     circular
