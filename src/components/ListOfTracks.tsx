@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
 import {
@@ -9,8 +9,10 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import { useStore } from '../store-context';
 import SearchPlayer from './SearchPlayer';
+import { StoreKeys } from '../stores/index';
+import { QueryStore } from '../stores/query-store';
+import { MainPlayerStore } from '../stores/main-player-store';
 
 export interface NoDataContainerProps {
   children: any;
@@ -79,40 +81,47 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
 
 export interface ListOfTracksProps {
   clientId: string;
+  queryStore?: QueryStore;
+  mainPlayerStore?: MainPlayerStore;
 }
 
-export const ListOfTracks: React.FC<ListOfTracksProps> = observer((props) => {
-  const store = useStore();
+export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
+  StoreKeys.QueryStore,
+  StoreKeys.MainPlayer
+)(
+  observer((props) => {
+    const { queryStore, mainPlayerStore } = props;
 
-  const handleFetchMore = () => {
-    store.fetchSearchedTracks(
-      {
-        limit: store.limit,
-        linked_partitioning: 1,
-      },
-      true
+    const handleFetchMore = () => {
+      queryStore!.fetchSearchedTracks(
+        {
+          limit: queryStore!.limit,
+          linked_partitioning: 1,
+        },
+        true
+      );
+    };
+
+    return (
+      <NoDataContainer
+        nEmptyItems={10}
+        isListEmpty={queryStore!.isTracklistEmpty}
+        isDataLoading={queryStore!.isLoading}
+        data={queryStore!.tracklist}
+        nItems={queryStore!.numberOfTracks}
+      >
+        {queryStore!.filteredSearchList.map((track) => (
+          <SearchPlayer
+            onAddClick={() => mainPlayerStore!.addTrackToQueue(track)}
+            key={track.id}
+            track={track}
+            resolveUrl={track.permalink_url}
+            clientId={props.clientId}
+            // onReady={() => console.log('track is loaded!')}
+          />
+        ))}
+        <Waypoint onEnter={handleFetchMore}></Waypoint>
+      </NoDataContainer>
     );
-  };
-
-  return (
-    <NoDataContainer
-      nEmptyItems={10}
-      isListEmpty={store.isQueryTracklistEmpty}
-      isDataLoading={store.isRequestingQueryTracks}
-      data={store.queryTracklist}
-      nItems={store.queryTracklistNTotal}
-    >
-      {store.filteredSearchList.map((track) => (
-        <SearchPlayer
-          onAddClick={() => store.addTrackToQueue(track)}
-          key={track.id}
-          track={track}
-          resolveUrl={track.permalink_url}
-          clientId={props.clientId}
-          // onReady={() => console.log('track is loaded!')}
-        />
-      ))}
-      <Waypoint onEnter={handleFetchMore}></Waypoint>
-    </NoDataContainer>
-  );
-});
+  })
+);

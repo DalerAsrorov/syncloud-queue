@@ -34,10 +34,12 @@ export interface APISearchParams {
   linked_partitioning?: number;
 }
 
+export type NextHref = string | undefined;
+
 export interface SoundCloudSDK {
   initialize: (params: APIParams) => void;
   get: (
     path: string,
     params?: APISearchParams
-  ) => Promise<{ collection: Track[]; next_href?: string | undefined }>;
+  ) => Promise<{ collection: Track[]; next_href: NextHref }>;
 }

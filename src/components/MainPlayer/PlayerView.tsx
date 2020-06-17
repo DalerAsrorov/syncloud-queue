@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react';
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import {
@@ -10,8 +9,8 @@ import {
 } from 'react-soundplayer/components';
 import { Grid, Header, Image } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
-import { CurrentTrack } from '../../createStore';
 import { Track } from '../../typings/SC';
+import { CurrentTrack } from '../../typings/utils';
 import { progressStyleClass } from '../../utils/common-classnames';
 
 export interface MainPlayerProps {

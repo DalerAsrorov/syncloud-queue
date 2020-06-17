@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React, { ChangeEvent } from 'react';
 import {
   Dropdown,
@@ -7,54 +7,59 @@ import {
   Input,
   InputProps,
 } from 'semantic-ui-react';
-import { useStore } from '../store-context';
+import { StoreKeys } from '../stores/index';
+import { QueryStore } from '../stores/query-store';
 import { SearchQueryType, SEARCH_OPTIONS } from '../utils/search-options';
 
-export interface SearchProps extends InputProps {}
+export interface SearchProps extends InputProps {
+  queryStore?: QueryStore;
+}
 
-export const Search: React.FC<SearchProps> = observer((props) => {
-  const store = useStore();
+export const Search: React.FC<SearchProps> = inject(StoreKeys.QueryStore)(
+  observer((props) => {
+    const { queryStore, ...restProps } = props;
 
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    store.setSearchQuery(event.target.value);
-  };
+    const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+      queryStore!.setSearchQuery(event.target.value);
+    };
 
-  const handleQueryTypeChange = (
-    _event: React.SyntheticEvent<HTMLElement>,
-    { value }: DropdownProps
-  ) => {
-    store.setQueryType(value as SearchQueryType);
-  };
+    const handleQueryTypeChange = (
+      _event: React.SyntheticEvent<HTMLElement>,
+      { value }: DropdownProps
+    ) => {
+      queryStore!.setQueryType(value as SearchQueryType);
+    };
 
-  const handleSubmit = () => {
-    store.fetchSearchedTracks({
-      limit: store.limit,
-      linked_partitioning: 1,
-    });
-  };
+    const handleSubmit = () => {
+      queryStore!.fetchSearchedTracks({
+        limit: queryStore!.limit,
+        linked_partitioning: 1,
+      });
+    };
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Input
-        loading={store.isRequestingQueryTracks}
-        action={
-          <Dropdown
-            button
-            id={`dropdown-${store.queryType}`}
-            options={SEARCH_OPTIONS}
-            value={store.queryType}
-            onChange={handleQueryTypeChange}
-          />
-        }
-        onChange={handleInput}
-        iconPosition="left"
-        size="huge"
-        fluid
-        icon="search"
-        placeholder="Search..."
-        value={store.query}
-        {...props}
-      />
-    </Form>
-  );
-});
+    return (
+      <Form onSubmit={handleSubmit}>
+        <Input
+          loading={queryStore!.isLoading}
+          action={
+            <Dropdown
+              button
+              id={`dropdown-${queryStore!.queryType}`}
+              options={SEARCH_OPTIONS}
+              value={queryStore!.queryType}
+              onChange={handleQueryTypeChange}
+            />
+          }
+          onChange={handleInput}
+          iconPosition="left"
+          size="huge"
+          fluid
+          icon="search"
+          placeholder="Search..."
+          value={queryStore!.query}
+          {...restProps}
+        />
+      </Form>
+    );
+  })
+);
