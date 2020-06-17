@@ -1,16 +1,21 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
-import { useStore } from '../../store-context';
+import { StoreKeys } from '../../stores/index';
+import { MainPlayerStore } from '../../stores/main-player-store';
 import { PlayerView } from './PlayerView';
 
-export interface MainPlayerEnhancedViewProps extends MainPlayerIndexProps {}
+export interface MainPlayerEnhancedViewProps extends MainPlayerIndexProps {
+  mainPlayerStore?: MainPlayerStore;
+}
 
-const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
-  (props) => {
-    const store = useStore();
+const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
+  StoreKeys.MainPlayer
+)(
+  observer((props) => {
+    const { mainPlayerStore, ...restProps } = props;
 
-    if (!store.currentTrack?.track) {
+    if (!mainPlayerStore!.currentTrack?.track) {
       return (
         <Segment padded basic>
           No tracks
@@ -18,13 +23,13 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
       );
     }
 
-    const currentTrack = store.currentTrack;
-    const tracks = store.myTracklst;
+    const currentTrack = mainPlayerStore!.currentTrack;
+    const tracks = mainPlayerStore!.tracklist;
 
     return (
       <PlayerView
-        onPrevClick={() => store.prevClick()}
-        onNextClick={() => store.nextClick()}
+        onPrevClick={() => mainPlayerStore!.prevClick()}
+        onNextClick={() => mainPlayerStore!.nextClick()}
         onPlayClick={() => {
           console.log('play button clicked!');
         }}
@@ -32,10 +37,10 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = observer(
         playlist={{ tracks }}
         track={currentTrack.track}
         currentTrack={currentTrack}
-        {...props}
+        {...restProps}
       />
     );
-  }
+  })
 );
 
 export interface MainPlayerIndexProps {
