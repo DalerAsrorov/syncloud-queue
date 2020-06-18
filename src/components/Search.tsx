@@ -30,7 +30,9 @@ export const Search: React.FC<SearchProps> = inject(StoreKeys.QueryStore)(
       queryStore!.setQueryType(value as SearchQueryType);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
       queryStore!.fetchSearchedTracks({
         limit: queryStore!.limit,
         linked_partitioning: 1,
