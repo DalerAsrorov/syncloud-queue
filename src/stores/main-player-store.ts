@@ -10,6 +10,10 @@ export interface IMainPlayerStore {
   isTracklistEmpty: boolean;
 }
 
+export interface EnhancedTrack extends Track {
+  isReady: boolean;
+}
+
 export class MainPlayerStore {
   @observable currentTrackId: IMainPlayerStore['currentTrackId'] = null;
   @observable tracklist: IMainPlayerStore['tracklist'] = [];
@@ -49,7 +53,8 @@ export class MainPlayerStore {
     if (this.currentTrackId === null) {
       this.setCurrentTrack(newTrack.id);
     }
-    this.tracklist.push(newTrack);
+    this.tracklist.push({ ...newTrack, isRead: false });
+    console.log('added');
   }
 
   @action setCurrentTrack(id: Track['id'] | null): void {
@@ -86,5 +91,11 @@ export class MainPlayerStore {
       .indexOf(deleteTrackId);
 
     this.tracklist.splice(removeIndex, 1);
+  }
+
+  @action setCurrentTrackAsReady(trackId: Track['id'], isReady: boolean) {
+    const foundIndex = this.tracklist.map((track) => track.id).indexOf(trackId);
+
+    this.tracklist[foundIndex].isReady = isReady;
   }
 }

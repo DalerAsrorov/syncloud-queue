@@ -1,13 +1,19 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import React, { CSSProperties, useCallback } from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 import { StoreKeys } from '../../stores/index';
 import { MainPlayerStore } from '../../stores/main-player-store';
-import { PlayerView } from './PlayerView';
+import { Track } from '../../typings/SC';
+import PlayerView from './PlayerView';
 
 export interface MainPlayerEnhancedViewProps extends MainPlayerIndexProps {
   mainPlayerStore?: MainPlayerStore;
 }
+
+const cssForHiddenPlaylists: CSSProperties = {
+  visibility: 'hidden',
+  height: '0px',
+};
 
 const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
   StoreKeys.MainPlayer
@@ -15,36 +21,52 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
   observer((props) => {
     const { mainPlayerStore, ...restProps } = props;
 
-    if (!mainPlayerStore!.currentTrack?.track) {
-      return (
-        <Segment padded basic>
-          No tracks
-        </Segment>
-      );
-    }
-
-    const handlePrev = () => {
-      mainPlayerStore!.prevClick();
-    };
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
       mainPlayerStore!.nextClick();
+    }, [mainPlayerStore]);
+    const handlePrev = useCallback(() => {
+      mainPlayerStore!.prevClick();
+    }, [mainPlayerStore]);
+
+    const setCurrentReady = (trackId: Track['id'], isReady: boolean) => {
+      mainPlayerStore!.setCurrentTrackAsReady(trackId, isReady);
     };
+
+    // if (!mainPlayerStore!.currentTrack?.track) {
+    //   return (
+    //     <Segment padded basic>
+    //       No tracks
+    //     </Segment>
+    //   );
+    // }
+
     const currentTrack = mainPlayerStore!.currentTrack;
     const tracks = mainPlayerStore!.tracklist;
 
+    console.log('rerenders');
+
     return (
-      <PlayerView
-        onPrevClick={handlePrev}
-        onNextClick={handleNext}
-        onPlayClick={() => {
-          console.log('play button clicked!');
-        }}
-        resolveUrl={currentTrack.track.permalink_url}
-        playlist={{ tracks }}
-        track={currentTrack.track}
-        currentTrack={currentTrack}
-        {...restProps}
-      />
+      <>
+        {tracks.map((track) => (
+          <div
+            key={track.id}
+            style={
+              track.id === currentTrack?.track.id ? {} : cssForHiddenPlaylists
+            }
+          >
+            <PlayerView
+              isReady={track.isReady}
+              onReady={() => setCurrentReady(track.id, true)}
+              onPrevClick={handlePrev}
+              onNextClick={handleNext}
+              resolveUrl={track.permalink_url}
+              track={track}
+              isCurrentTrack={track.id === currentTrack?.track.id}
+              {...restProps}
+            />
+          </div>
+        ))}
+      </>
     );
   })
 );
