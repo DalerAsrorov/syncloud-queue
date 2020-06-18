@@ -1,5 +1,5 @@
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 import { StoreKeys } from '../../stores/index';
 import { MainPlayerStore } from '../../stores/main-player-store';
@@ -8,6 +8,12 @@ import { PlayerView } from './PlayerView';
 export interface MainPlayerEnhancedViewProps extends MainPlayerIndexProps {
   mainPlayerStore?: MainPlayerStore;
 }
+
+const HIDDEN_STYLE: CSSProperties = {
+  visibility: 'hidden',
+  height: '0px',
+  width: '0px',
+};
 
 const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
   StoreKeys.MainPlayer
@@ -34,27 +40,30 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
 
     return (
       <>
-        {myTracklist.map(
-          (track) =>
-            track.id === currentTrack.track.id && (
-              <PlayerView
-                onPrevClick={handlePrev}
-                onNextClick={handleNext}
-                onPlayClick={() => {
-                  console.log('play button clicked!');
-                }}
-                onReady={() => {
-                  mainPlayerStore!.setTrackReady(track.id, true);
-                }}
-                isReady={track.isReady}
-                resolveUrl={track.permalink_url}
-                playlist={{ tracks: myTracklist }}
-                track={track}
-                currentTrackIndex={currentTrack.index}
-                {...restProps}
-              />
-            )
-        )}
+        {myTracklist.map((track) => (
+          <div
+            key={track.id}
+            style={track.id === currentTrack.track.id ? {} : HIDDEN_STYLE}
+          >
+            <PlayerView
+              key={track.id}
+              onPrevClick={handlePrev}
+              onNextClick={handleNext}
+              onPlayClick={() => {
+                console.log('play button clicked!');
+              }}
+              onReady={() => {
+                mainPlayerStore!.setTrackReady(track.id, true);
+              }}
+              isReady={track.isReady}
+              resolveUrl={track.permalink_url}
+              playlist={{ tracks: myTracklist }}
+              track={track}
+              currentTrackInfo={currentTrack}
+              {...restProps}
+            />
+          </div>
+        ))}
       </>
     );
   })
