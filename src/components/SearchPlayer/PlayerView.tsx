@@ -42,12 +42,6 @@ const playButtonStyleClass = classNames`
   }
 `;
 
-const usernameStyleClass = classNames`
-    font-size: 1.2rem;
-    color: lightslategrey;
-    font-weight: 500;
-`;
-
 export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
   (props: SearchPlayerViewProps) => {
     const { track, currentTime } = props;
@@ -70,16 +64,22 @@ export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
             <Grid padded>
               <Grid.Row>
                 <Grid.Column width={12} style={{ padding: 0 }}>
-                  <Header as="h3" color="grey">
-                    {track.title}
-                  </Header>
-                  <a
-                    className={usernameStyleClass()}
-                    href={track.user.permalink_url}
+                  <Header
+                    color="teal"
+                    size="medium"
+                    as="a"
+                    href={track.permalink_url}
                     target="__blank"
                   >
-                    {track.user.username}
-                  </a>
+                    {track.title}
+                    <Header.Subheader
+                      as="a"
+                      href={track.user.permalink_url}
+                      target="__blank"
+                    >
+                      {track.user.username}
+                    </Header.Subheader>
+                  </Header>
                 </Grid.Column>
                 <Grid.Column
                   width={4}
