@@ -2,9 +2,13 @@ import { action, computed, observable } from 'mobx';
 import { Track } from '../typings/SC';
 import { CurrentTrack } from '../typings/utils';
 
+export interface EnhancedTrack extends Track {
+  isReady: boolean;
+}
+
 export interface IMainPlayerStore {
   currentTrackId: Track['id'] | null;
-  tracklist: Track[];
+  tracklist: EnhancedTrack[];
   // computed
   numberOfTracks: number;
   isTracklistEmpty: boolean;
@@ -49,7 +53,7 @@ export class MainPlayerStore {
     if (this.currentTrackId === null) {
       this.setCurrentTrack(newTrack.id);
     }
-    this.tracklist.push(newTrack);
+    this.tracklist.push({ ...newTrack, isReady: false });
   }
 
   @action setCurrentTrack(id: Track['id'] | null): void {
@@ -86,5 +90,11 @@ export class MainPlayerStore {
       .indexOf(deleteTrackId);
 
     this.tracklist.splice(removeIndex, 1);
+  }
+
+  @action setTrackReady(trackId: Track['id'], isReady: boolean) {
+    const trackIndex = this.tracklist.map((track) => track.id).indexOf(trackId);
+
+    this.tracklist[trackIndex].isReady = isReady;
   }
 }

@@ -30,21 +30,32 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
       mainPlayerStore!.nextClick();
     };
     const currentTrack = mainPlayerStore!.currentTrack;
-    const tracks = mainPlayerStore!.tracklist;
+    const myTracklist = mainPlayerStore!.tracklist;
 
     return (
-      <PlayerView
-        onPrevClick={handlePrev}
-        onNextClick={handleNext}
-        onPlayClick={() => {
-          console.log('play button clicked!');
-        }}
-        resolveUrl={currentTrack.track.permalink_url}
-        playlist={{ tracks }}
-        track={currentTrack.track}
-        currentTrack={currentTrack}
-        {...restProps}
-      />
+      <>
+        {myTracklist.map(
+          (track) =>
+            track.id === currentTrack.track.id && (
+              <PlayerView
+                onPrevClick={handlePrev}
+                onNextClick={handleNext}
+                onPlayClick={() => {
+                  console.log('play button clicked!');
+                }}
+                onReady={() => {
+                  mainPlayerStore!.setTrackReady(track.id, true);
+                }}
+                isReady={track.isReady}
+                resolveUrl={track.permalink_url}
+                playlist={{ tracks: myTracklist }}
+                track={track}
+                currentTrackIndex={currentTrack.index}
+                {...restProps}
+              />
+            )
+        )}
+      </>
     );
   })
 );
