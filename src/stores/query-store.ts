@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 import { SEARCH_QUERY_TRACKS_LIMIT } from '../api/constants';
 import { searchTracksApi } from '../api/soundcloud';
 import { APISearchParams, NextHref, Track } from '../typings/SC';
+import { removeDupsByKey } from '../utils/helpers';
 import { SearchQueryType } from '../utils/search-options';
 import { RootStore } from './root-store';
 
@@ -44,12 +45,14 @@ export class QueryStore {
   }
 
   @computed get filteredSearchList(): Track[] {
-    return this.rootStore.queryStore.tracklist.filter(
-      (track: Track) =>
-        !this.rootStore.mainPlayerStore.tracklist.find(
+    return this.rootStore.queryStore.tracklist.filter((track: Track) => {
+      const hasUn =
+        this.rootStore.myTracklistStore.tracklist.findIndex(
           (myTrack) => myTrack.id === track.id
-        )
-    );
+        ) === -1;
+
+      return hasUn;
+    });
   }
 
   @action setSearchQuery(query: string): void {
@@ -88,8 +91,13 @@ export class QueryStore {
           };
         });
 
+        console.log(removeDupsByKey(nextTracks, 'id'));
+
         this.updateRequestOffset(params);
-        this.setNextTrackListState({ nextHref: next_href, tracks: nextTracks });
+        this.setNextTrackListState({
+          nextHref: next_href,
+          tracks: removeDupsByKey(nextTracks, 'id'),
+        });
         this.setRequestTracksStatus(false);
       });
     }

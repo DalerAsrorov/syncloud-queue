@@ -3,9 +3,13 @@ import React from 'react';
 import { Button, Header, Image, Label, List } from 'semantic-ui-react';
 import { StoreKeys } from '../stores/index';
 import { MainPlayerStore } from '../stores/main-player-store';
+import { IMyTracklistStore } from '../stores/tracklist-store';
 import { Track } from '../typings/SC';
 
 export interface MyTracklistProps {
+  onDeleteTrack: (trackId: Track['id']) => void;
+  numberOfTracks: IMyTracklistStore['numberOfTracks'];
+  tracklist: IMyTracklistStore['tracklist'];
   mainPlayerStore?: MainPlayerStore;
 }
 
@@ -15,14 +19,10 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
   observer((props) => {
     const { mainPlayerStore } = props;
 
-    const deleteTrack = (trackId: Track['id']) => {
-      mainPlayerStore!.deleteTrackFromQueue(trackId);
-    };
-
     return (
       <>
         <Header color="grey" size="small">
-          Queue: {mainPlayerStore!.numberOfTracks} tracks
+          Queue: {props.numberOfTracks} tracks
         </Header>
         <List
           style={{ overflowY: 'auto', minHeight: '60vh', maxHeight: '70vh' }}
@@ -31,7 +31,7 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
           relaxed="very"
           size="large"
         >
-          {mainPlayerStore!.tracklist.map((track: Track) => {
+          {props.tracklist.map((track: Track) => {
             const isCurrentTrack = track.id === mainPlayerStore!.currentTrackId;
 
             return (
@@ -56,7 +56,7 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
                 </List.Content>
                 <List.Content floated="right">
                   <Button
-                    onClick={() => deleteTrack(track.id)}
+                    onClick={() => props.onDeleteTrack(track.id)}
                     basic
                     negative
                     circular

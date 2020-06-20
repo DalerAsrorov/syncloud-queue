@@ -1,34 +1,30 @@
 import React from 'react';
 import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import {
-  NextButton,
-  PlayButton,
-  PrevButton,
-  Progress,
-  Timer,
-} from 'react-soundplayer/components';
-import { Grid, Header, Image } from 'semantic-ui-react';
+import { Progress, Timer } from 'react-soundplayer/components';
+import { Button, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { Track } from '../../typings/SC';
 import { CurrentTrack } from '../../typings/utils';
 import { progressStyleClass } from '../../utils/common-classnames';
+import { observer } from 'mobx-react';
 
 export interface MainPlayerProps {
   onPlayClick: () => void;
   onPrevClick: () => void;
   onNextClick: () => void;
-  currentTrack: CurrentTrack;
+  onStopTrack: () => void;
+  onReady: () => void;
   track: Track;
-  resolveUrl: Track['permalink_url'];
+  resolveUrl: Track['permalink_url'] | string;
+  currentTrackId: CurrentTrack['track']['id'] | null;
   clientId: string;
-  playlist: { tracks: Track[] };
   duration?: number;
   soundCloudAudio?: Track['soundCloudAudio'];
-  streamUrl?: string;
   currentTime?: number;
+  playing?: boolean;
 }
 
-export enum PlayerSectionRation {
+enum PlayerSectionRation {
   Controls = 2,
   Progress = 7,
   TrackInfo = 7,
@@ -49,62 +45,57 @@ const controlButtonStyleClass = classNames`
     height: 70%;
   }
 `;
-
-const controlsColumnStyle: Partial<CSSStyleDeclaration> = {
+const controlsColumnStyle: React.CSSProperties = {
   padding: '0.5rem',
   height: '100%',
 };
-const controlsRowStyle: Partial<CSSStyleDeclaration> = {
+const controlsRowStyle: React.CSSProperties = {
   padding: '0',
   maxHeight: '45px',
 };
-
 export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
-  (props: MainPlayerProps) => {
-    const { soundCloudAudio, track, currentTime, currentTrack } = props;
-    let playerProps: MainPlayerProps = {
-      ...props,
+  observer((props: MainPlayerProps) => {
+    const { soundCloudAudio, playing } = props;
+
+    const play = () => {
+      if (playing) {
+        soundCloudAudio?.pause();
+      } else {
+        soundCloudAudio?.play();
+      }
     };
 
-    if (soundCloudAudio) {
-      // this allows the SoundCloud API to create
-      // a list of tracks for the internal playlist
-      // that belongs to the SoundCloud SDK API.
-      soundCloudAudio._playlist = props.playlist;
-      soundCloudAudio._playlistIndex = currentTrack.index;
-      soundCloudAudio._track = currentTrack.track;
-
-      playerProps = {
-        ...playerProps,
-        soundCloudAudio,
-      };
-    }
-
-    console.log(props);
+    React.useEffect(() => {
+      console.log('should start playing', props.currentTrackId, props.track.id);
+      if (props.currentTrackId === props.track.id) {
+        soundCloudAudio?.play();
+      }
+    }, [soundCloudAudio, props.currentTrackId, props.track.id]);
 
     return (
-      <Grid verticalAlign="middle" style={{ margin: 0 }}>
+      <Grid verticalAlign="middle">
         <Grid.Row>
           <Grid.Column width={PlayerSectionRation.Controls}>
             <Grid columns={3} divided>
               <Grid.Row style={controlsRowStyle}>
                 <Grid.Column style={controlsColumnStyle}>
-                  <PrevButton
-                    className={controlButtonStyleClass()}
-                    {...playerProps}
-                  />
+                  <Button onClick={props.onPrevClick} icon>
+                    <Icon name="step backward" />
+                  </Button>
                 </Grid.Column>
                 <Grid.Column style={controlsColumnStyle}>
-                  <PlayButton
-                    className={controlButtonStyleClass()}
-                    {...playerProps}
-                  />
+                  <Button onClick={() => play()} icon>
+                    <Icon
+                      name={
+                        playing ? 'pause circle outline' : 'play circle outline'
+                      }
+                    />
+                  </Button>
                 </Grid.Column>
                 <Grid.Column style={controlsColumnStyle}>
-                  <NextButton
-                    className={controlButtonStyleClass()}
-                    {...playerProps}
-                  />
+                  <Button onClick={props.onNextClick} icon>
+                    <Icon name="step forward" />
+                  </Button>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -117,17 +108,19 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
                   verticalAlign="middle"
                   style={{ ...controlsColumnStyle, height: 'auto' }}
                 >
-                  <Progress {...playerProps} className={progressStyleClass()} />
+                  <Progress {...props} className={progressStyleClass()} />
                 </Grid.Column>
                 <Grid.Column style={controlsColumnStyle} width="4">
                   <Header style={{ margin: 0 }} size="small" color="pink">
                     <Timer
                       duration={
-                        track && props.duration ? props?.duration / 1000 : 0
+                        props.track && props.duration
+                          ? props?.duration / 1000
+                          : 0
                       }
-                      currentTime={currentTime}
+                      currentTime={props.currentTime}
                       className={controlButtonStyleClass()}
-                      {...playerProps}
+                      {...props}
                     />
                   </Header>
                 </Grid.Column>
@@ -142,16 +135,16 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
                     size="tiny"
                     circular
                     centered
-                    src={currentTrack.track.artwork_url}
+                    src={props.track.artwork_url}
                     style={{ padding: '0.5rem' }}
                   />
                 </Grid.Column>
                 <Grid.Column width="12">
                   <Header as="h3">
                     <Header.Content>
-                      {currentTrack.track.title}
+                      {props.track.title}
                       <Header.Subheader>
-                        {currentTrack.track.user.username}
+                        {props.track.user.username}
                       </Header.Subheader>
                     </Header.Content>
                   </Header>
@@ -162,5 +155,5 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
         </Grid.Row>
       </Grid>
     );
-  }
+  })
 );

@@ -1,55 +1,35 @@
 import { action, computed, observable } from 'mobx';
 import { Track } from '../typings/SC';
 import { CurrentTrack } from '../typings/utils';
+import { RootStore } from './root-store';
 
 export interface IMainPlayerStore {
   currentTrackId: Track['id'] | null;
-  tracklist: Track[];
-  // computed
-  numberOfTracks: number;
-  isTracklistEmpty: boolean;
 }
 
 export class MainPlayerStore {
   @observable currentTrackId: IMainPlayerStore['currentTrackId'] = null;
-  @observable tracklist: IMainPlayerStore['tracklist'] = [];
 
-  public rootStore: any;
+  public rootStore: RootStore;
 
   constructor(rootStore: any) {
     this.rootStore = rootStore;
   }
 
   @computed get currentTrack(): CurrentTrack | undefined {
+    const { tracklist } = this.rootStore.myTracklistStore;
     let index: number = 0;
     let track: Track | null = null;
 
-    for (let i = 0; i < this.tracklist.length; i++) {
-      if (this.tracklist[i].id === this.currentTrackId) {
-        track = this.tracklist[i];
+    for (let i = 0; i < this.rootStore.myTracklistStore.tracklist.length; i++) {
+      if (tracklist[i].id === this.currentTrackId) {
+        track = tracklist[i];
         index = i;
         break;
       }
     }
 
     return track ? { track, index } : undefined;
-  }
-
-  @computed
-  get numberOfTracks(): IMainPlayerStore['numberOfTracks'] {
-    return this.tracklist.length;
-  }
-
-  @computed
-  get isTracklistEmpty(): IMainPlayerStore['isTracklistEmpty'] {
-    return this.tracklist.length === 0;
-  }
-
-  @action addTrackToQueue(newTrack: Track): void {
-    if (this.currentTrackId === null) {
-      this.setCurrentTrack(newTrack.id);
-    }
-    this.tracklist.push(newTrack);
   }
 
   @action setCurrentTrack(id: Track['id'] | null): void {
@@ -61,7 +41,9 @@ export class MainPlayerStore {
 
     // happy path
     if (currTrackIndex !== undefined && currTrackIndex !== 0) {
-      const prevTrack = this.tracklist[currTrackIndex - 1];
+      const prevTrack = this.rootStore.myTracklistStore.tracklist[
+        currTrackIndex - 1
+      ];
 
       this.setCurrentTrack(prevTrack.id);
     }
@@ -72,19 +54,13 @@ export class MainPlayerStore {
 
     if (
       currTrackIndex !== undefined &&
-      currTrackIndex + 1 < this.numberOfTracks
+      currTrackIndex + 1 < this.rootStore.myTracklistStore.numberOfTracks
     ) {
-      const nextTrack = this.tracklist[currTrackIndex + 1];
+      const nextTrack = this.rootStore.myTracklistStore.tracklist[
+        currTrackIndex + 1
+      ];
 
       this.setCurrentTrack(nextTrack.id);
     }
-  }
-
-  @action deleteTrackFromQueue(deleteTrackId: Track['id']): void {
-    const removeIndex = this.tracklist
-      .map((track) => track.id)
-      .indexOf(deleteTrackId);
-
-    this.tracklist.splice(removeIndex, 1);
   }
 }

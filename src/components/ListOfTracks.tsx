@@ -10,10 +10,9 @@ import {
 } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
 import { StoreKeys } from '../stores/index';
-import { MainPlayerStore } from '../stores/main-player-store';
 import { QueryStore } from '../stores/query-store';
-import { Track } from '../typings/SC';
 import SearchPlayer from './SearchPlayer';
+import { Track } from '../typings/SC';
 
 export interface NoDataContainerProps {
   children: any;
@@ -81,17 +80,16 @@ const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
 };
 
 export interface ListOfTracksProps {
+  onAddTrack: (track: Track) => void;
   clientId: string;
   queryStore?: QueryStore;
-  mainPlayerStore?: MainPlayerStore;
 }
 
 export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
-  StoreKeys.QueryStore,
-  StoreKeys.MainPlayer
+  StoreKeys.QueryStore
 )(
   observer((props) => {
-    const { queryStore, mainPlayerStore } = props;
+    const { queryStore } = props;
 
     const handleFetchMore = () => {
       queryStore!.fetchSearchedTracks(
@@ -101,9 +99,6 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
         },
         true
       );
-    };
-    const addTrack = (track: Track) => {
-      mainPlayerStore!.addTrackToQueue(track);
     };
 
     return (
@@ -116,7 +111,7 @@ export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
       >
         {queryStore!.filteredSearchList.map((track) => (
           <SearchPlayer
-            onAddClick={() => addTrack(track)}
+            onAddClick={() => props.onAddTrack(track)}
             key={track.id}
             track={track}
             resolveUrl={track.permalink_url}

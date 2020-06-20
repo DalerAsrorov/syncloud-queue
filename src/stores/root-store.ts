@@ -1,12 +1,15 @@
-import { IMainPlayerStore, MainPlayerStore } from './main-player-store';
-import { IQueryStore, QueryStore } from './query-store';
+import { MainPlayerStore } from './main-player-store';
+import { QueryStore } from './query-store';
+import { MyTracklistStore } from './tracklist-store';
 
 export class RootStore {
-  public mainPlayerStore: IMainPlayerStore;
-  public queryStore: IQueryStore;
+  public mainPlayerStore: MainPlayerStore;
+  public queryStore: QueryStore;
+  public myTracklistStore: MyTracklistStore;
 
   constructor() {
-    this.mainPlayerStore = new MainPlayerStore(this);
     this.queryStore = new QueryStore(this);
+    this.mainPlayerStore = new MainPlayerStore(this);
+    this.myTracklistStore = new MyTracklistStore(this);
   }
 }
