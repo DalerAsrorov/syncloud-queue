@@ -72,13 +72,7 @@ export const PlayerView: React.FC<SearchPlayerViewProps> = withSoundCloudAudio(
                     target="__blank"
                   >
                     {track.title}
-                    <Header.Subheader
-                      as="a"
-                      href={track.user.permalink_url}
-                      target="__blank"
-                    >
-                      {track.user.username}
-                    </Header.Subheader>
+                    <Header.Subheader>{track.user.username}</Header.Subheader>
                   </Header>
                 </Grid.Column>
                 <Grid.Column
