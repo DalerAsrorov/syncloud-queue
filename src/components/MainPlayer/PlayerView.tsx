@@ -57,7 +57,7 @@ const controlsRowStyle: Partial<CSSStyleDeclaration> = {
   maxHeight: '45px',
 };
 
-class PlayerView extends React.Component<MainPlayerProps, MainPlayerState> {
+class PlayerView extends React.PureComponent<MainPlayerProps, MainPlayerState> {
   state = {
     isPaused: false,
   };
@@ -76,18 +76,19 @@ class PlayerView extends React.Component<MainPlayerProps, MainPlayerState> {
 
   play = () => {
     const { playing, soundCloudAudio } = this.props;
+    let { isPaused } = this.state;
 
     if (playing) {
       soundCloudAudio!.pause();
-      this.setState({
-        isPaused: true,
-      });
+      isPaused = true;
     } else {
       soundCloudAudio!.play();
-      this.setState({
-        isPaused: false,
-      });
+      isPaused = false;
     }
+
+    this.setState({
+      isPaused,
+    });
   };
 
   render() {

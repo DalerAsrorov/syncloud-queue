@@ -19,6 +19,10 @@ export interface Track {
   [key: string]: any;
 }
 
+export interface EnhancedTrack extends Track {
+  isReady: boolean;
+}
+
 export interface APIParams {
   client_id: string | undefined;
   redirect_uri?: string;

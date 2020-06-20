@@ -32,16 +32,14 @@ export const MyTrackList: React.FC<MyTracklistProps> = inject(
           size="large"
         >
           {mainPlayerStore!.tracklist.map((track: Track) => {
-            const isCurrentTrack = track.id === mainPlayerStore!.currentTrackId;
+            const isCurrentTrack =
+              track.id === mainPlayerStore!.currentTrack?.track.id;
 
             return (
-              <List.Item
-                key={track.id}
-                active={track.id === mainPlayerStore!.currentTrackId}
-              >
+              <List.Item key={track.id} active={isCurrentTrack}>
                 {isCurrentTrack && (
                   <Label
-                    key={`${mainPlayerStore!.currentTrackId}`}
+                    key={`track-${track.id}`}
                     empty
                     circular
                     color="teal"
