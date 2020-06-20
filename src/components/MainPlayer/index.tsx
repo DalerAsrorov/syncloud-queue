@@ -27,23 +27,15 @@ const MainPlayerEnhanced: React.FC<MainPlayerEnhancedViewProps> = inject(
     const handlePrev = useCallback(() => {
       mainPlayerStore!.prevClick();
     }, [mainPlayerStore]);
-
-    const setCurrentReady = (trackId: Track['id'], isReady: boolean) => {
-      mainPlayerStore!.setCurrentTrackAsReady(trackId, isReady);
-    };
-
-    // if (!mainPlayerStore!.currentTrack?.track) {
-    //   return (
-    //     <Segment padded basic>
-    //       No tracks
-    //     </Segment>
-    //   );
-    // }
+    const setCurrentReady = React.useCallback(
+      (trackId: Track['id'], isReady: boolean) => {
+        mainPlayerStore!.setCurrentTrackAsReady(trackId, isReady);
+      },
+      [mainPlayerStore]
+    );
 
     const currentTrack = mainPlayerStore!.currentTrack;
     const tracks = mainPlayerStore!.tracklist;
-
-    console.log('rerenders');
 
     return (
       <>

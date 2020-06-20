@@ -22,6 +22,10 @@ export interface MainPlayerProps {
   currentTime?: number;
 }
 
+export interface MainPlayerState {
+  isPaused: boolean;
+}
+
 export enum PlayerSectionRation {
   Controls = 2,
   Progress = 7,
@@ -53,17 +57,10 @@ const controlsRowStyle: Partial<CSSStyleDeclaration> = {
   maxHeight: '45px',
 };
 
-class PlayerView extends React.PureComponent<
-  MainPlayerProps,
-  { isPaused: boolean }
-> {
+class PlayerView extends React.Component<MainPlayerProps, MainPlayerState> {
   state = {
     isPaused: false,
   };
-
-  componentDidMount() {
-    this.startPlayingIfReady();
-  }
 
   componentDidUpdate() {
     this.startPlayingIfReady();
