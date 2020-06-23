@@ -1,130 +1,55 @@
-import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Waypoint } from 'react-waypoint';
+import { RootState } from '../reducers/index';
 import {
-  Container,
-  Header,
-  Icon,
-  Placeholder,
-  Segment,
-} from 'semantic-ui-react';
-import { SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import { StoreKeys } from '../stores/index';
-import { MainPlayerStore } from '../stores/main-player-store';
-import { QueryStore } from '../stores/query-store';
+  MappedSearchPlayerDispatch,
+  MappedSearchPlayerProps,
+  searchPlayer,
+} from '../reducers/search-players';
 import { Track } from '../typings/SC';
+import { NoDataContainer } from './NoDataContainer';
 import SearchPlayer from './SearchPlayer';
 
-export interface NoDataContainerProps {
-  children: any;
-  nEmptyItems: number;
-  data: object | Array<any>;
-  isListEmpty: boolean;
-  isDataLoading: boolean;
-  nItems: number;
+export interface ListOfTracksProps
+  extends RootState,
+    MappedSearchPlayerProps,
+    MappedSearchPlayerDispatch {
+  clientId: string;
 }
 
-const ListPlaceHolder = () => (
-  <Segment raised padded="very">
-    <Placeholder>
-      <Placeholder.Header image>
-        <Placeholder.Line />
-        <Placeholder.Line length="long" />
-      </Placeholder.Header>
-      <Placeholder.Paragraph>
-        <Placeholder.Line length="medium" />
-        <Placeholder.Line length="short" />
-      </Placeholder.Paragraph>
-    </Placeholder>
-  </Segment>
-);
-
-const NoDataContainer: React.FC<NoDataContainerProps> = (props) => {
-  let headerInfo: {
-    title: string;
-    description: string;
-    icon: SemanticICONS;
-  } = {
-    title: '',
-    description: '',
-    icon: 'list layout',
+export const ListOfTracks: React.FC<ListOfTracksProps> = (props) => {
+  console.log({ props });
+  const handleFetchMore = () => {
+    props.onFetch(
+      {
+        limit: props.searchPlayer.limit,
+        linked_partitioning: 1,
+      },
+      true
+    );
+  };
+  const addTrack = (track: Track) => {
+    props.onAddTrack(track);
   };
 
-  if (props.isDataLoading && props.isListEmpty) {
-    headerInfo.title = 'Loading tracks';
-    headerInfo.description = 'This should take short amount of time';
-    headerInfo.icon = 'search';
-
-    return (
-      <>
-        {[...new Array(props.nEmptyItems)].map((_item, index) => (
-          <ListPlaceHolder key={index} />
-        ))}
-      </>
-    );
-  } else if (props.isListEmpty) {
-    headerInfo.title = 'No tracks to show';
-    headerInfo.description = 'Searched tracks will appear here';
-  } else if (!!props.data) {
-    return <>{props.children}</>;
-  }
-
   return (
-    <Container fluid as={Segment} basic textAlign="center">
-      <Header color="grey" as="h2" icon>
-        <Icon color="teal" name={headerInfo.icon} />
-        {headerInfo.title}
-        <Header.Subheader>{headerInfo.description}</Header.Subheader>
-      </Header>
-    </Container>
+    <NoDataContainer
+      nEmptyItems={10}
+      isListEmpty={props.isEmpty}
+      isDataLoading={props.searchPlayer.isLoading}
+      data={props.searchPlayer.tracks}
+      nItems={props.numberOfTracks}
+    >
+      {props.filteredList.map((track) => (
+        <SearchPlayer
+          onAddClick={() => addTrack(track)}
+          key={track.id}
+          track={track}
+          resolveUrl={track.permalink_url}
+          clientId={props.clientId}
+        />
+      ))}
+      <Waypoint onEnter={handleFetchMore}></Waypoint>
+    </NoDataContainer>
   );
 };
-
-export interface ListOfTracksProps {
-  clientId: string;
-  queryStore?: QueryStore;
-  mainPlayerStore?: MainPlayerStore;
-}
-
-export const ListOfTracks: React.FC<ListOfTracksProps> = inject(
-  StoreKeys.QueryStore,
-  StoreKeys.MainPlayer
-)(
-  observer((props) => {
-    const { queryStore, mainPlayerStore } = props;
-
-    const handleFetchMore = () => {
-      queryStore!.fetchSearchedTracks(
-        {
-          limit: queryStore!.limit,
-          linked_partitioning: 1,
-        },
-        true
-      );
-    };
-    const addTrack = (track: Track) => {
-      mainPlayerStore!.addTrackToQueue(track);
-    };
-
-    return (
-      <NoDataContainer
-        nEmptyItems={10}
-        isListEmpty={queryStore!.isTracklistEmpty}
-        isDataLoading={queryStore!.isLoading}
-        data={queryStore!.tracklist}
-        nItems={queryStore!.numberOfTracks}
-      >
-        {queryStore!.filteredSearchList.map((track) => (
-          <SearchPlayer
-            onAddClick={() => addTrack(track)}
-            key={track.id}
-            track={track}
-            resolveUrl={track.permalink_url}
-            clientId={props.clientId}
-          />
-        ))}
-        <Waypoint onEnter={handleFetchMore}></Waypoint>
-      </NoDataContainer>
-    );
-  })
-);

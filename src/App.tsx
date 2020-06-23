@@ -1,11 +1,11 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
-import { Grid, Ref, Responsive, Sticky } from 'semantic-ui-react';
-import { ListOfTracks } from './components/ListOfTracks';
-import MainPlayer from './components/MainPlayer';
-import { MyTrackList } from './components/MyTracklist';
+import { Grid, Ref, Responsive, Sticky, Segment } from 'semantic-ui-react';
 import { Nav } from './components/Nav';
 import { AppResponsive, AppResponsiveState } from './components/Responsive';
-import { Search } from './components/Search';
+import { ConnectedListOfTracks } from './containers/ListOfTracks';
+import { ConnectedMainPlayer } from './containers/MainPlayer';
+import { ConnectedMyTracklist } from './containers/MyTracklist';
+import { ConnectedSearch } from './containers/Search';
 
 export interface AppProps {
   clientId: string;
@@ -40,7 +40,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
           props && props.width <= (Responsive.onlyComputer.minWidth as number);
 
         return (
-          <>
+          <Segment basic>
             <Nav />
             <Ref innerRef={containerContextRef}>
               <Grid>
@@ -48,7 +48,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
                   <Grid.Column width="16">
                     <Sticky context={containerContextRef}>
                       <div ref={searchRef}>
-                        <Search />
+                        <ConnectedSearch />
                       </div>
                     </Sticky>
                   </Grid.Column>
@@ -61,7 +61,7 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
                           context={tracklistContextRef}
                           offset={state.searchHeight}
                         >
-                          <MyTrackList />
+                          <ConnectedMyTracklist />
                         </Sticky>
                       </Grid.Column>
                     )}
@@ -69,14 +69,14 @@ export const App: React.FC<AppProps> = ({ clientId }) => {
                       width={shouldShowMobileView ? 'sixteen' : 'eleven'}
                       style={{ marginBottom: '3.5rem' }}
                     >
-                      <ListOfTracks clientId={clientId} />
+                      <ConnectedListOfTracks clientId={clientId} />
                     </Grid.Column>
                   </Grid.Row>
                 </Ref>
               </Grid>
             </Ref>
-            <MainPlayer clientId={clientId} />
-          </>
+            <ConnectedMainPlayer clientId={clientId} />
+          </Segment>
         );
       }}
     </AppResponsive>

@@ -13,13 +13,14 @@
     "@types/react-dom": "^16.9.0",
     "env-cmd": "^10.1.0",
     "gh-pages": "^3.0.0",
-    "mobx": "^5.15.4",
-    "mobx-react": "^6.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "react-soundplayer": "^1.0.5",
     "react-waypoint": "^9.0.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "styled-classnames": "^2.2.1",
@@ -48,5 +49,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-redux": "^7.1.9",
+    "@types/redux": "^3.6.0",
+    "@types/redux-devtools-extension": "^2.13.2",
+    "@types/redux-thunk": "^2.1.0",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-extension": "^2.13.8"
   }
 }

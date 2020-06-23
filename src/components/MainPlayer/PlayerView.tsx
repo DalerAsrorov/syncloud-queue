@@ -10,14 +10,12 @@ import {
 import { Grid, Header, Image } from 'semantic-ui-react';
 import classNames from 'styled-classnames';
 import { Track } from '../../typings/SC';
-import { CurrentTrack } from '../../typings/utils';
 import { progressStyleClass } from '../../utils/common-classnames';
 
 export interface MainPlayerProps {
   onPlayClick: () => void;
   onPrevClick: () => void;
   onNextClick: () => void;
-  currentTrack: CurrentTrack;
   track: Track;
   resolveUrl: Track['permalink_url'];
   clientId: string;
@@ -61,7 +59,7 @@ const controlsRowStyle: Partial<CSSStyleDeclaration> = {
 
 export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
   (props: MainPlayerProps) => {
-    const { soundCloudAudio, track, currentTime, currentTrack } = props;
+    const { soundCloudAudio, track, currentTime } = props;
     let playerProps: MainPlayerProps = {
       ...props,
     };
@@ -71,16 +69,14 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
       // a list of tracks for the internal playlist
       // that belongs to the SoundCloud SDK API.
       soundCloudAudio._playlist = props.playlist;
-      soundCloudAudio._playlistIndex = currentTrack.index;
-      soundCloudAudio._track = currentTrack.track;
+      soundCloudAudio._playlistIndex = track.index;
+      soundCloudAudio._track = track.track;
 
       playerProps = {
         ...playerProps,
         soundCloudAudio,
       };
     }
-
-    console.log(props);
 
     return (
       <Grid verticalAlign="middle" style={{ margin: 0 }}>
@@ -142,17 +138,15 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
                     size="tiny"
                     circular
                     centered
-                    src={currentTrack.track.artwork_url}
+                    src={track.artwork_url}
                     style={{ padding: '0.5rem' }}
                   />
                 </Grid.Column>
                 <Grid.Column width="12">
                   <Header as="h3">
                     <Header.Content>
-                      {currentTrack.track.title}
-                      <Header.Subheader>
-                        {currentTrack.track.user.username}
-                      </Header.Subheader>
+                      {track.title}
+                      <Header.Subheader>{track.user.username}</Header.Subheader>
                     </Header.Content>
                   </Header>
                 </Grid.Column>

@@ -1,37 +1,37 @@
-import { configure } from 'mobx';
-import 'mobx-react-lite/batchingForReactDom';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import 'semantic-ui-css/semantic.min.css';
 import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
+import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
-import { StoreProvider } from './stores';
 import { Env, Environments } from './typings/environments';
 
-import 'semantic-ui-css/semantic.min.css';
+// set up redux store
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
-configure({ enforceActions: 'observed' });
-
+// environment variables
 const APP_CLIENT_ID = process.env.REACT_APP_CLIENT_ID as string;
 const APP_ENVIRONMENT = process.env.REACT_APP_APP_ENV as Environments;
 
+// supply SoundCloud SDK with API client ID
 initSoundCloudApi({
   client_id: APP_CLIENT_ID,
 });
 
-const AppContainer = (props: { env: Env; children: React.ReactElement }) =>
-  APP_ENVIRONMENT === Environments.development ? (
-    <>{props.children}</>
-  ) : (
-    <React.StrictMode>{props.children}</React.StrictMode>
-  );
-
 ReactDOM.render(
-  <AppContainer env={APP_ENVIRONMENT}>
-    <StoreProvider>
+  <React.StrictMode>
+    <Provider store={store}>
       <App clientId={APP_CLIENT_ID} />
-    </StoreProvider>
-  </AppContainer>,
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
