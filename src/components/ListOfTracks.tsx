@@ -4,7 +4,6 @@ import { RootState } from '../reducers/index';
 import {
   MappedSearchPlayerDispatch,
   MappedSearchPlayerProps,
-  searchPlayer,
 } from '../reducers/search-players';
 import { Track } from '../typings/SC';
 import { NoDataContainer } from './NoDataContainer';
