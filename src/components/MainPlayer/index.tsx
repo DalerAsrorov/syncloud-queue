@@ -15,7 +15,9 @@ export interface MainPlayerViewProps
 export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
   const { clientId, currentTrack, currentTrackIndex } = props;
 
-  if (!props.currentTrack?.track) {
+  console.log('~ MainPlayer props:::', { props });
+
+  if (!props.currentTrack) {
     return (
       <Segment padded basic>
         No tracks
@@ -51,7 +53,7 @@ export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
           }}
           onPrevClick={handlePrev}
           onNextClick={handleNext}
-          resolveUrl={currentTrack.track.permalink_url}
+          resolveUrl={currentTrack.permalink_url}
           playlist={{ tracks: props.mainPlayer.tracklist }}
           track={currentTrack}
           {...props}
