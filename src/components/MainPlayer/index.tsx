@@ -14,6 +14,8 @@ export interface MainPlayerViewProps
     MapMainPlayerProps {}
 
 export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
+  const { currentTrackIndex } = props;
+
   if (!props.currentTrack) {
     return (
       <Segment padded basic>
@@ -23,10 +25,10 @@ export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
   }
 
   const handlePrev = () => {
-    props.onPrevTrackClick(props.currentTrackIndex);
+    props.onPrevTrackClick(currentTrackIndex);
   };
   const handleNext = () => {
-    props.onNextTrackClick(props.currentTrackIndex);
+    props.onNextTrackClick(currentTrackIndex);
   };
   const setTrackAsReady = (trackId: EnhancedTrack['id'], isReady: boolean) => {
     props.onSetTrackReady(trackId, isReady);
@@ -46,8 +48,8 @@ export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
       <Container as={Segment} style={{ padding: 0 }} basic>
         {props.mainPlayer.tracklist.map((track: EnhancedTrack) => (
           <PlayerView
-            key={track.id}
             clientId={props.clientId!}
+            key={track.id}
             isReady={track.isReady}
             onReady={() => setTrackAsReady(track.id, true)}
             isCurrentTrack={track.id === props.mainPlayer.currentTrackId}
