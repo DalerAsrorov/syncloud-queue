@@ -66,10 +66,8 @@ export const fetchSearchedTracks = (
   dispatch: ThunkSearchPlayerDispatch,
   getState
 ) => {
-  const { searchPlayer, search } = getState();
-  const isOutOfTracks = searchPlayer.isLoading && !searchPlayer.nextHref;
-
-  dispatch(requestQueryTracks(true));
+  let { searchPlayer: lastRequest } = getState();
+  const isOutOfTracks = lastRequest.isLoading && !lastRequest.nextHref;
 
   if (!isOutOfTracks) {
     dispatch(requestQueryTracks(true));
@@ -78,9 +76,11 @@ export const fetchSearchedTracks = (
       dispatch(clearCurrentSearchData());
     }
 
+    let { searchPlayer: currRequest, search } = getState();
+
     searchTracksApi({
       ...params,
-      offset: searchPlayer.offset,
+      offset: currRequest.offset,
       [search.queryType]: search.query.trim(),
     }).then((searchPayload) => {
       const { collection, next_href } = searchPayload;
@@ -95,9 +95,9 @@ export const fetchSearchedTracks = (
         };
       });
 
-      dispatch(setNextRequestOffset(params));
-      dispatch(setNextTracklistState(next_href));
       dispatch(receivedQueryTracks(nextTracks));
+      dispatch(setNextTracklistState(next_href));
+      dispatch(setNextRequestOffset(params));
       dispatch(requestQueryTracks(false));
     });
   }
