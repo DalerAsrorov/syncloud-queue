@@ -18,7 +18,6 @@ export interface ListOfTracksProps
 }
 
 export const ListOfTracks: React.FC<ListOfTracksProps> = (props) => {
-  console.log({ props });
   const handleFetchMore = () => {
     props.onFetch(
       {

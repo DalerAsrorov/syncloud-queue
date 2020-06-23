@@ -6,6 +6,7 @@ import {
   MappedMainPlayerDispatch,
 } from '../../reducers/main-player';
 import { PlayerView } from './PlayerView';
+import { EnhancedTrack } from '../../typings/SC';
 
 export interface MainPlayerViewProps
   extends RootState,
@@ -13,10 +14,6 @@ export interface MainPlayerViewProps
     MapMainPlayerProps {}
 
 export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
-  const { clientId, currentTrack, currentTrackIndex } = props;
-
-  console.log('~ MainPlayer props:::', { props });
-
   if (!props.currentTrack) {
     return (
       <Segment padded basic>
@@ -26,13 +23,14 @@ export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
   }
 
   const handlePrev = () => {
-    // TODO: prev clic kand next click should be thunks
-    props.onPrevTrackClick(currentTrackIndex);
+    props.onPrevTrackClick(props.currentTrackIndex);
   };
   const handleNext = () => {
-    props.onNextTrackClick(currentTrackIndex);
+    props.onNextTrackClick(props.currentTrackIndex);
   };
-  const tracks = props;
+  const setTrackAsReady = (trackId: EnhancedTrack['id'], isReady: boolean) => {
+    props.onSetTrackReady(trackId, isReady);
+  };
 
   return (
     <Container
@@ -46,18 +44,21 @@ export const MainPlayer: React.FC<MainPlayerViewProps> = (props) => {
       }}
     >
       <Container as={Segment} style={{ padding: 0 }} basic>
-        <PlayerView
-          clientId={clientId!}
-          onPlayClick={() => {
-            console.log('play button clicked!');
-          }}
-          onPrevClick={handlePrev}
-          onNextClick={handleNext}
-          resolveUrl={currentTrack.permalink_url}
-          playlist={{ tracks: props.mainPlayer.tracklist }}
-          track={currentTrack}
-          {...props}
-        />
+        {props.mainPlayer.tracklist.map((track: EnhancedTrack) => (
+          <PlayerView
+            key={track.id}
+            clientId={props.clientId!}
+            isReady={track.isReady}
+            onReady={() => setTrackAsReady(track.id, true)}
+            isCurrentTrack={track.id === props.mainPlayer.currentTrackId}
+            onPrevClick={handlePrev}
+            onNextClick={handleNext}
+            resolveUrl={track.permalink_url}
+            playlist={{ tracks: props.mainPlayer.tracklist }}
+            track={track}
+            {...props}
+          />
+        ))}
       </Container>
     </Container>
   );

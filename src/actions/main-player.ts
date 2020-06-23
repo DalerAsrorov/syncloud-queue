@@ -5,8 +5,9 @@ import {
   DELETE_TRACK_FROM_QUEUE,
   MainPlayerActionTypes,
   SET_CURRENT_TRACK_ID,
+  SET_TRACK_READY,
 } from '../typings/main-player-state';
-import { Track } from '../typings/SC';
+import { EnhancedTrack, Track } from '../typings/SC';
 
 export type ThunkMainPlayerDispatch = ThunkDispatch<
   RootState,
@@ -14,7 +15,9 @@ export type ThunkMainPlayerDispatch = ThunkDispatch<
   MainPlayerActionTypes
 >;
 
-export const addTrackAction = (track: Track): MainPlayerActionTypes => ({
+export const addTrackAction = (
+  track: EnhancedTrack
+): MainPlayerActionTypes => ({
   type: ADD_TRACK_TO_QUEUE,
   payload: track,
 });
@@ -25,14 +28,9 @@ export const addTrackToQueue = (
   dispatch,
   getState
 ) => {
-  dispatch(addTrackAction(track));
+  dispatch(addTrackAction({ ...track, isReady: false }));
 
   const { mainPlayer } = getState();
-
-  console.log(
-    'actions/main-player.ts --- length:',
-    mainPlayer.tracklist.length
-  );
 
   if (mainPlayer.tracklist.length === 1) {
     dispatch(setCurrentTrackId(track.id));
@@ -40,17 +38,28 @@ export const addTrackToQueue = (
 };
 
 export const deleteTrackFromQueue = (
-  trackId: Track['id']
+  trackId: EnhancedTrack['id']
 ): MainPlayerActionTypes => ({
   type: DELETE_TRACK_FROM_QUEUE,
   payload: trackId,
 });
 
 export const setCurrentTrackId = (
-  trackId: Track['id']
+  trackId: EnhancedTrack['id']
 ): MainPlayerActionTypes => ({
   type: SET_CURRENT_TRACK_ID,
   payload: trackId,
+});
+
+export const setTrackReady = (
+  trackId: EnhancedTrack['id'],
+  isReady: EnhancedTrack['isReady']
+): MainPlayerActionTypes => ({
+  type: SET_TRACK_READY,
+  payload: {
+    trackId,
+    isReady,
+  },
 });
 
 export const nextTrackClick = (

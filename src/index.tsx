@@ -9,7 +9,7 @@ import { initSoundCloudApi } from './api/soundcloud';
 import { App } from './App';
 import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
-import { Env, Environments } from './typings/environments';
+import { Environments } from './typings/environments';
 
 // set up redux store
 const store = createStore(
@@ -29,7 +29,7 @@ initSoundCloudApi({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App clientId={APP_CLIENT_ID} />
+      <App env={APP_ENVIRONMENT} clientId={APP_CLIENT_ID} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -13,8 +13,10 @@ import {
   MainPlayerState,
   MainPlayerStateWithComputedProps,
   SET_CURRENT_TRACK_ID,
+  SET_TRACK_READY,
 } from '../typings/main-player-state';
-import { Track } from '../typings/SC';
+import { Track, EnhancedTrack } from '../typings/SC';
+import { setTrackReady } from '../actions/main-player';
 
 const INITIAL_STATE: MainPlayerState = {
   tracklist: [],
@@ -43,6 +45,15 @@ export const mainPlayer = (
         ...state,
         currentTrackId: action.payload,
       };
+    case SET_TRACK_READY:
+      return {
+        ...state,
+        tracklist: state.tracklist.map((track) =>
+          track.id === action.payload.trackId
+            ? { ...track, isReady: action.payload.isReady }
+            : track
+        ),
+      };
     default:
       return state;
   }
@@ -63,19 +74,20 @@ export const mapMainPlayerStateToProps = (state: any) => ({
   isEmpty: state.mainPlayer.tracklist.length === 0,
   numberOfTracks: state.mainPlayer.tracklist.length,
   currentTrack: state.mainPlayer.tracklist.find(
-    (track: Track) => track.id === state.mainPlayer.currentTrackId
+    (track: EnhancedTrack) => track.id === state.mainPlayer.currentTrackId
   ),
   currentTrackIndex: state.mainPlayer.tracklist.findIndex(
-    (track: Track) => track.id === state.mainPlayer.currentTrackId
+    (track: EnhancedTrack) => track.id === state.mainPlayer.currentTrackId
   ),
 });
 
 export interface MappedMainPlayerDispatch {
   onAddTrack(track: Track): void;
-  onDeleteTrack(trackId: Track['id']): void;
-  onSetCurrentTrackId(trackId: Track['id']): void;
+  onDeleteTrack(trackId: EnhancedTrack['id']): void;
+  onSetCurrentTrackId(trackId: EnhancedTrack['id']): void;
   onPrevTrackClick(currentTrackIndex: number): void;
   onNextTrackClick(currentTrackIndex: number): void;
+  onSetTrackReady(trackId: EnhancedTrack['id'], isReady: boolean): void;
 }
 export const mapMainPlayerDispatchToProps = (
   dispatch: ThunkMainPlayerDispatch
@@ -83,10 +95,10 @@ export const mapMainPlayerDispatchToProps = (
   onAddTrack(track: Track) {
     dispatch(addTrackToQueue(track));
   },
-  onDeleteTrack(trackId: Track['id']) {
+  onDeleteTrack(trackId: EnhancedTrack['id']) {
     dispatch(deleteTrackFromQueue(trackId));
   },
-  onSetCurrentTrackId(trackId: Track['id']) {
+  onSetCurrentTrackId(trackId: EnhancedTrack['id']) {
     dispatch(setCurrentTrackId(trackId));
   },
   onPrevTrackClick(currentTrackIndex: number) {
@@ -94,5 +106,8 @@ export const mapMainPlayerDispatchToProps = (
   },
   onNextTrackClick(currentTrackIndex: number) {
     dispatch(nextTrackClick(currentTrackIndex));
+  },
+  onSetTrackReady(trackId: EnhancedTrack['id'], isReady: boolean) {
+    dispatch(setTrackReady(trackId, isReady));
   },
 });

@@ -17,8 +17,6 @@ export const MyTracklist: React.FC<MyTracklistProps> = (props) => {
     props.onDeleteTrack(trackId);
   };
 
-  console.log({ props });
-
   return (
     <>
       <Header color="grey" size="small">

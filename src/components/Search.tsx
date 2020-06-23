@@ -26,13 +26,6 @@ export const Search: React.FC<SearchProps> = (props) => {
     props.onSetQueryType(value as SearchQueryType);
   };
 
-  console.log(
-    'props.search.query:::',
-    props.search.query,
-    'type:',
-    props.search.queryType
-  );
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

@@ -8,6 +8,8 @@ export interface Track {
     username: string;
   };
   soundCloudAudio: {
+    play: () => void;
+    pause: () => void;
     _playlist: { tracks: Track[] };
     _playlistIndex?: number;
     _track: Track;
@@ -15,6 +17,10 @@ export interface Track {
   permalink_url?: string;
   artwork_url?: string;
   [key: string]: any;
+}
+
+export interface EnhancedTrack extends Track {
+  isReady: boolean;
 }
 
 export interface APIParams {

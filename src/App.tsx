@@ -6,9 +6,11 @@ import { ConnectedListOfTracks } from './containers/ListOfTracks';
 import { ConnectedMainPlayer } from './containers/MainPlayer';
 import { ConnectedMyTracklist } from './containers/MyTracklist';
 import { ConnectedSearch } from './containers/Search';
+import { Environments } from './typings/environments';
 
 export interface AppProps {
   clientId: string;
+  env?: Environments;
 }
 
 export interface AppState {
