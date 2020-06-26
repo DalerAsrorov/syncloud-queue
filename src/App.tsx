@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Grid, Ref, Responsive, Sticky } from 'semantic-ui-react';
 import { ListOfTracks } from './components/ListOfTracks';
-import MainPlayer from './components/MainPlayer';
+import { MainPlayer } from './components/MainPlayer';
 import { MyTrackList } from './components/MyTracklist';
 import { Nav } from './components/Nav';
 import { AppResponsive, AppResponsiveState } from './components/Responsive';

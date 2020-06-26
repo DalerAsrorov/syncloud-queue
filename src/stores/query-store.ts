@@ -56,6 +56,11 @@ export class QueryStore {
     this.query = query;
   }
 
+  @action resetResultsAndOffset(): void {
+    this.offset = 0;
+    this.tracklist = [];
+  }
+
   @action
   fetchSearchedTracks(
     params: APISearchParams,
@@ -67,8 +72,7 @@ export class QueryStore {
       this.setRequestTracksStatus(true);
 
       if (!isFetchMoreRequest) {
-        this.offset = 0;
-        this.tracklist = [];
+        this.resetResultsAndOffset();
       }
 
       searchTracksApi({

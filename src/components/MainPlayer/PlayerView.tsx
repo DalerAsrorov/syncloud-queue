@@ -28,7 +28,7 @@ export interface MainPlayerProps {
   currentTime?: number;
 }
 
-export enum PlayerSectionRation {
+export enum PlayerSectionRatio {
   Controls = 2,
   Progress = 7,
   TrackInfo = 7,
@@ -80,12 +80,10 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
       };
     }
 
-    console.log(props);
-
     return (
       <Grid verticalAlign="middle" style={{ margin: 0 }}>
         <Grid.Row>
-          <Grid.Column width={PlayerSectionRation.Controls}>
+          <Grid.Column width={PlayerSectionRatio.Controls}>
             <Grid columns={3} divided>
               <Grid.Row style={controlsRowStyle}>
                 <Grid.Column style={controlsColumnStyle}>
@@ -109,7 +107,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
               </Grid.Row>
             </Grid>
           </Grid.Column>
-          <Grid.Column width={PlayerSectionRation.Progress}>
+          <Grid.Column width={PlayerSectionRatio.Progress}>
             <Grid verticalAlign="middle">
               <Grid.Row style={controlsRowStyle}>
                 <Grid.Column
@@ -134,7 +132,7 @@ export const PlayerView: React.FC<MainPlayerProps> = withSoundCloudAudio(
               </Grid.Row>
             </Grid>
           </Grid.Column>
-          <Grid.Column width={PlayerSectionRation.TrackInfo}>
+          <Grid.Column width={PlayerSectionRatio.TrackInfo}>
             <Grid verticalAlign="middle">
               <Grid.Row style={{ ...controlsRowStyle, maxHeight: 'auto' }}>
                 <Grid.Column width="4">
