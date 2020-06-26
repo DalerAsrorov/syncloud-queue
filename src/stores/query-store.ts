@@ -80,20 +80,16 @@ export class QueryStore {
         offset: this.offset,
         [this.queryType]: this.query.trim(),
       }).then((searchPayload) => {
-        const { collection, next_href } = searchPayload;
-        const nextTracks = collection.map((currTrack) => {
-          const artwork_url = currTrack.artwork_url
+        const { collection, next_href: nextHref } = searchPayload;
+        const nextTracks = collection.map((currTrack) => ({
+          ...currTrack,
+          artwork_url: currTrack.artwork_url
             ? currTrack.artwork_url
-            : currTrack.user.avatar_url;
-
-          return {
-            ...currTrack,
-            artwork_url,
-          };
-        });
+            : currTrack.user.avatar_url,
+        }));
 
         this.updateRequestOffset(params);
-        this.setNextTrackListState({ nextHref: next_href, tracks: nextTracks });
+        this.setNextTrackListState({ tracks: nextTracks, nextHref });
         this.setRequestTracksStatus(false);
       });
     }
