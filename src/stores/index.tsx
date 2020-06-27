@@ -3,8 +3,6 @@ import { configure } from 'mobx';
 import { RootStore } from './root-store';
 import { Provider } from 'mobx-react';
 
-configure({ enforceActions: 'observed' });
-
 export enum StoreKeys {
   Root = 'rootStore',
   QueryStore = 'queryStore',
